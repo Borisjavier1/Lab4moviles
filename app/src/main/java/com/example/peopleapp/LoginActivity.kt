@@ -7,10 +7,12 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.example.models.Personas
+import com.example.models.Usuarios
 
 class LoginActivity : AppCompatActivity() {
 
     var personas: Personas = Personas.instance
+    var usuarios: Usuarios = Usuarios.instance
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,9 +34,9 @@ class LoginActivity : AppCompatActivity() {
             val user_name = et_user_name.text;
             val password = et_password.text;
             //Toast.makeText(this@LoginExample, user_name, Toast.LENGTH_LONG).show()
-            if(personas.login(user_name.toString(), password.toString())){
+            if(usuarios.login(user_name.toString(), password.toString())){
                 val bundle = Bundle()
-                val Login = personas.loginP(user_name.toString(), password.toString())
+                val Login = usuarios.loginP(user_name.toString(), password.toString())
                 val i = Intent(this, MainActivity::class.java)
 
                 i.putExtra("Login", Login)

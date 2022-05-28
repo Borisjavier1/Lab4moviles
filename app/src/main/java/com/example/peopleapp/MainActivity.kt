@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.example.models.Persona
+import com.example.models.Usuario
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -34,12 +35,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         nav_menu.setNavigationItemSelectedListener(this)
 
         var bundle = intent.extras
-        val personArg =  bundle?.getSerializable("Login") as Persona
+        val personArg =  bundle?.getSerializable("Login") as Usuario
 
         val navigationView = findViewById<NavigationView>(R.id.nav_menu)
         val header = navigationView?.getHeaderView(0)
-        header?.findViewById<TextView>(R.id.nav_header_nombre)?.text = personArg.nombre
-        header?.findViewById<ImageView>(R.id.nav_header_image)?.setImageResource(personArg.foto)
+        header?.findViewById<TextView>(R.id.nav_header_nombre)?.text = personArg.cedula
 
         changeFragment(HomeFragment())
     }

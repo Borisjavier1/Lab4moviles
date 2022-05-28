@@ -7,36 +7,24 @@
     android:background="@color/primaryDarkColor">
 
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:cardCornerRadius="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.151"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.34" >
-
-        <ImageView
-            android:id="@+id/nav_header_image"
+    <TextView
+            android:id="@+id/nav_header_nombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_account" />
-
-    </androidx.cardview.widget.CardView>
-
+            android:text="Nombre"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.144"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.705"/>
     <TextView
-        android:id="@+id/nav_header_nombre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Nombre"
-        android:textColor="@color/primaryTextColor"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/cardView"
-        app:layout_constraintStart_toStartOf="@+id/cardView"
-        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+            android:text="Cédula"
+            android:layout_width="63dp"
+            android:layout_height="31dp" android:id="@+id/cedula"
+            android:textColor="#EDEBEB" android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/nav_header_nombre"
+            app:layout_constraintEnd_toEndOf="@+id/nav_header_nombre" app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintBottom_toTopOf="@+id/nav_header_nombre"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
