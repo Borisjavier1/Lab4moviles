@@ -14,21 +14,23 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.models.Persona
-import com.example.models.Personas
+import com.example.models.Ciclo
+import com.example.models.Ciclos
+import com.example.models.Curso
+import com.example.models.Cursos
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import java.util.*
 import kotlin.collections.ArrayList
 
-class PersonasFragment : FragmentUtils(){
+class CourseFragment : FragmentUtils(){
     private lateinit var appBarConfiguration: AppBarConfiguration
-    var personas: Personas = Personas.instance
+    var cursos: Cursos = Cursos.instance
 
     lateinit var recyclerViewElement: RecyclerView
-    lateinit var adaptador: RecyclerView_Adapter
-    lateinit var persona: Persona
+    lateinit var adaptador: RecyclerView_Adapter3
+    lateinit var curso: Curso
     var position: Int = 0
 
     override fun onCreateView(
@@ -36,7 +38,7 @@ class PersonasFragment : FragmentUtils(){
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view = inflater.inflate(R.layout.fragment_personas, container, false)
+        var view = inflater.inflate(R.layout.fragment_cycle, container, false)
 
         val searchIcon = view.findViewById<ImageView>(R.id.search_mag_icon)
         searchIcon.setColorFilter(Color.BLACK)
@@ -82,7 +84,7 @@ class PersonasFragment : FragmentUtils(){
                 val fromPosition: Int = viewHolder.adapterPosition
                 val toPosition: Int = target.adapterPosition
 
-                Collections.swap(personas.getPersonas(), fromPosition, toPosition)
+                Collections.swap(cursos.getCursos(), fromPosition, toPosition)
 
                 recyclerViewElement.adapter?.notifyItemMoved(fromPosition, toPosition)
 
@@ -95,29 +97,32 @@ class PersonasFragment : FragmentUtils(){
                 if (direction == ItemTouchHelper.LEFT) {//Delete
 
                     var index = getIndex(position)
-                    personas.deletePerson(index)
+                    cursos.deleteCurso(index)
                     recyclerViewElement.adapter?.notifyItemRemoved(position)
 
-                    Snackbar.make(recyclerViewElement, persona.nombre + " eliminado/a", Snackbar.LENGTH_LONG).setAction("Undo") {
-                        personas.getPersonas().add(position, persona)
+                    Snackbar.make(recyclerViewElement, curso.nombre + " eliminado/a", Snackbar.LENGTH_LONG).setAction("Undo") {
+                        cursos.getCursos().add(position, curso)
                         recyclerViewElement.adapter?.notifyItemInserted(position)
                     }.show()
 
-                   // adaptador = RecyclerView_Adapter(personas.getPersonas())
+                    adaptador = RecyclerView_Adapter3(cursos.getCursos())
                     recyclerViewElement.adapter = adaptador
 
                 } else { //Edit
-                    persona = Persona(
-                        personas.getPersonas()[position].user,
-                        personas.getPersonas()[position].password,
-                        personas.getPersonas()[position].nombre,
-                        personas.getPersonas()[position].foto
+                    curso = Curso(
+                        cursos.getCursos()[position].codigo,
+                        cursos.getCursos()[position].nombre,
+                        cursos.getCursos()[position].creditos,
+                        cursos.getCursos()[position].horas,
+                        cursos.getCursos()[position].carreraCodigo,
+                        cursos.getCursos()[position].cicloCodigo
+
                     )
                     var index = getIndex(position)
-                    persona.position = index;
+                    curso.position = index;
 
                     var bundle = Bundle()
-                    bundle.putSerializable("persona", persona)
+                    bundle.putSerializable("curso", curso)
 
                     var editFragment = CreatePersonFragment()
                     editFragment.arguments = bundle
@@ -137,7 +142,7 @@ class PersonasFragment : FragmentUtils(){
                 isCurrentlyActive: Boolean
             ) {
                 RecyclerViewSwipeDecorator.Builder(
-                    this@PersonasFragment.context,
+                    this@CourseFragment.context,
                     c,
                     recyclerView,
                     viewHolder,
@@ -146,11 +151,11 @@ class PersonasFragment : FragmentUtils(){
                     actionState,
                     isCurrentlyActive
                 )
-                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(this@PersonasFragment.context!!, R.color.red))
+                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(this@CourseFragment.context!!, R.color.red))
                     .addSwipeLeftActionIcon(R.drawable.ic_baseline_delete_24)
                     .addSwipeRightBackgroundColor(
                         ContextCompat.getColor(
-                            this@PersonasFragment.context!!,
+                            this@CourseFragment.context!!,
                             R.color.green
                         )
                     )
@@ -171,22 +176,22 @@ class PersonasFragment : FragmentUtils(){
         return view;
     }
     private fun getListOfPersons() {
-        val Npersonas = ArrayList<Persona>()
-        for (p in personas.getPersonas()) {
-            Npersonas.add(p)
+        val Ncursos = ArrayList<Curso>()
+        for (p in cursos.getCursos()) {
+            Ncursos.add(p)
         }
-       // adaptador = RecyclerView_Adapter(Npersonas)
+        adaptador = RecyclerView_Adapter3(Ncursos)
         recyclerViewElement.adapter = adaptador
     }
     private fun getIndex(index: Int): Int{
         var index = index
         var adapterItems = adaptador.itemsList
-        var listaPersonas = personas.getPersonas()
+        var listaCursos = cursos.getCursos()
 
-        //persona = adapterItems?.get(index)!!
+        curso = adapterItems?.get(index)!!
 
-        index = listaPersonas.indexOfFirst {
-            it.user == persona.user
+        index = listaCursos.indexOfFirst {
+            it.nombre == curso.nombre
         }
 
         return index

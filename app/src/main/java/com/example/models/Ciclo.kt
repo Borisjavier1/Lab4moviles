@@ -6,6 +6,7 @@ class Ciclo : Serializable{
     var anio:Int = 0
     var fechaInicio:String =""
     var fechaFin:String =""
+    var position: Int? = null
 
     internal constructor(codigo: String, numero: Int, anio: Int, fechaInicio: String, fechaFin: String) {
         this.codigo = codigo

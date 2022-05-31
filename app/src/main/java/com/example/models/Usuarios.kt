@@ -3,10 +3,9 @@ package com.example.models
 class Usuarios {
     private var usuarios: ArrayList<Usuario> = ArrayList<Usuario>()
     init{
-        addUsuario(Usuario("123","123",1))
-        addUsuario(Usuario("555","555",2))
-        addUsuario(Usuario("000","000",3))
-
+        addUsuario(Usuario("123","123",1)) //Est
+        addUsuario(Usuario("555","555",2)) //Prof
+        addUsuario(Usuario("000","000",3)) //Admin
     }
 
     private object HOLDER {

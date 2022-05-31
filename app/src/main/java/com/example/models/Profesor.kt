@@ -6,7 +6,7 @@ class Profesor : Serializable {
     var nombre:String = ""
     var telefono:String = ""
     var email:String = ""
-
+    var position: Int? = null
 
     constructor(cedula: String, nombre: String, telefono: String, email: String) {
         this.cedula = cedula

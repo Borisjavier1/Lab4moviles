@@ -4,6 +4,7 @@ class Alumnos {
     private var alumnos: ArrayList<Alumno> = ArrayList<Alumno>()
     init{
         addAlumno(Alumno("000", "Pedro","2234-7865","pedro@gmail.com","22-02-2000","123"))
+        addAlumno(Alumno("010", "Yoschua","5432-1123","yoschua@gmail.com","10-05-1999","123"))
 
     }
 

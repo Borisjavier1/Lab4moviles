@@ -9,11 +9,11 @@ class Ciclos {
     }
 
     private object HOLDER {
-        val INSTANCE = Alumnos()
+        val INSTANCE = Ciclos()
     }
 
     companion object {
-        val instance: Alumnos by lazy {
+        val instance: Ciclos by lazy {
             HOLDER.INSTANCE
         }
     }

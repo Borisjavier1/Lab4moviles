@@ -6,6 +6,7 @@ class Grupo : Serializable {
     var numero:Int = 0
     var horario:String = ""
     var cedulaProfesor:String = ""
+    var position: Int? = null
 
     constructor(codigo: String, cursoCodigo: String, numero: Int, horario: String, cedulaProfesor: String) {
         this.codigo = codigo

@@ -5,8 +5,8 @@ class Carreras private constructor() {
     private var carreras: ArrayList<Carrera> = ArrayList<Carrera>()
 
     init{
-        addCarrera(Carrera("123","informatica","ing sistemas"))
-
+        addCarrera(Carrera("123","Informática","Ing Sistemas"))
+        addCarrera(Carrera("123","Veterinaria","Medicina Veterinaria"))
     }
 
     private object HOLDER {

@@ -14,21 +14,21 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.models.Persona
-import com.example.models.Personas
+import com.example.models.Carrera
+import com.example.models.Carreras
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import java.util.*
 import kotlin.collections.ArrayList
 
-class PersonasFragment : FragmentUtils(){
+class CareerFragment : FragmentUtils(){
     private lateinit var appBarConfiguration: AppBarConfiguration
-    var personas: Personas = Personas.instance
+    var carreras: Carreras = Carreras.instance
 
     lateinit var recyclerViewElement: RecyclerView
     lateinit var adaptador: RecyclerView_Adapter
-    lateinit var persona: Persona
+    lateinit var carrera: Carrera
     var position: Int = 0
 
     override fun onCreateView(
@@ -36,7 +36,7 @@ class PersonasFragment : FragmentUtils(){
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view = inflater.inflate(R.layout.fragment_personas, container, false)
+        var view = inflater.inflate(R.layout.fragment_career, container, false)
 
         val searchIcon = view.findViewById<ImageView>(R.id.search_mag_icon)
         searchIcon.setColorFilter(Color.BLACK)
@@ -82,7 +82,7 @@ class PersonasFragment : FragmentUtils(){
                 val fromPosition: Int = viewHolder.adapterPosition
                 val toPosition: Int = target.adapterPosition
 
-                Collections.swap(personas.getPersonas(), fromPosition, toPosition)
+                Collections.swap(carreras.getCarreras(), fromPosition, toPosition)
 
                 recyclerViewElement.adapter?.notifyItemMoved(fromPosition, toPosition)
 
@@ -95,29 +95,29 @@ class PersonasFragment : FragmentUtils(){
                 if (direction == ItemTouchHelper.LEFT) {//Delete
 
                     var index = getIndex(position)
-                    personas.deletePerson(index)
+                    carreras.deleteCarrera(index)
                     recyclerViewElement.adapter?.notifyItemRemoved(position)
 
-                    Snackbar.make(recyclerViewElement, persona.nombre + " eliminado/a", Snackbar.LENGTH_LONG).setAction("Undo") {
-                        personas.getPersonas().add(position, persona)
+                    Snackbar.make(recyclerViewElement, carrera.nombre + " eliminado/a", Snackbar.LENGTH_LONG).setAction("Undo") {
+                        carreras.getCarreras().add(position, carrera)
                         recyclerViewElement.adapter?.notifyItemInserted(position)
                     }.show()
 
-                   // adaptador = RecyclerView_Adapter(personas.getPersonas())
+                    adaptador = RecyclerView_Adapter(carreras.getCarreras())
                     recyclerViewElement.adapter = adaptador
 
                 } else { //Edit
-                    persona = Persona(
-                        personas.getPersonas()[position].user,
-                        personas.getPersonas()[position].password,
-                        personas.getPersonas()[position].nombre,
-                        personas.getPersonas()[position].foto
+                    carrera = Carrera(
+                        carreras.getCarreras()[position].codigo,
+                        carreras.getCarreras()[position].nombre,
+                        carreras.getCarreras()[position].titulo
+
                     )
                     var index = getIndex(position)
-                    persona.position = index;
+                    carrera.position = index;
 
                     var bundle = Bundle()
-                    bundle.putSerializable("persona", persona)
+                    bundle.putSerializable("carrera", carrera)
 
                     var editFragment = CreatePersonFragment()
                     editFragment.arguments = bundle
@@ -137,7 +137,7 @@ class PersonasFragment : FragmentUtils(){
                 isCurrentlyActive: Boolean
             ) {
                 RecyclerViewSwipeDecorator.Builder(
-                    this@PersonasFragment.context,
+                    this@CareerFragment.context,
                     c,
                     recyclerView,
                     viewHolder,
@@ -146,11 +146,11 @@ class PersonasFragment : FragmentUtils(){
                     actionState,
                     isCurrentlyActive
                 )
-                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(this@PersonasFragment.context!!, R.color.red))
+                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(this@CareerFragment.context!!, R.color.red))
                     .addSwipeLeftActionIcon(R.drawable.ic_baseline_delete_24)
                     .addSwipeRightBackgroundColor(
                         ContextCompat.getColor(
-                            this@PersonasFragment.context!!,
+                            this@CareerFragment.context!!,
                             R.color.green
                         )
                     )
@@ -171,22 +171,22 @@ class PersonasFragment : FragmentUtils(){
         return view;
     }
     private fun getListOfPersons() {
-        val Npersonas = ArrayList<Persona>()
-        for (p in personas.getPersonas()) {
-            Npersonas.add(p)
+        val Ncarreras = ArrayList<Carrera>()
+        for (p in carreras.getCarreras()) {
+            Ncarreras.add(p)
         }
-       // adaptador = RecyclerView_Adapter(Npersonas)
+        adaptador = RecyclerView_Adapter(Ncarreras)
         recyclerViewElement.adapter = adaptador
     }
     private fun getIndex(index: Int): Int{
         var index = index
         var adapterItems = adaptador.itemsList
-        var listaPersonas = personas.getPersonas()
+        var listaCarreras = carreras.getCarreras()
 
-        //persona = adapterItems?.get(index)!!
+        carrera = adapterItems?.get(index)!!
 
-        index = listaPersonas.indexOfFirst {
-            it.user == persona.user
+        index = listaCarreras.indexOfFirst {
+            it.nombre == carrera.nombre
         }
 
         return index

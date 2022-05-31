@@ -1,19 +1,14 @@
 package com.example.peopleapp
 
-import android.content.Context
 import android.content.Intent
-import android.media.Image
 import android.os.Bundle
-import android.util.AttributeSet
+import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
-import com.example.models.Persona
 import com.example.models.Usuario
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -42,7 +37,31 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         header?.findViewById<TextView>(R.id.nav_header_nombre)?.text = personArg.cedula
 
         changeFragment(HomeFragment())
+
+
+        if(personArg.rol!=3){
+            val navAk7: NavigationView = findViewById(R.id.nav_menu) as NavigationView
+            val nav_per: Menu = navAk7.getMenu()
+            nav_per.findItem(R.id.nav_item_career).setVisible(false)
+            nav_per.findItem(R.id.nav_item_courses).setVisible(false)
+            nav_per.findItem(R.id.nav_item_groups).setVisible(false)
+            nav_per.findItem(R.id.nav_item_cycle).setVisible(false)
+            nav_per.findItem(R.id.nav_item_professors).setVisible(false)
+            nav_per.findItem(R.id.nav_item_students).setVisible(false)
+
+
+        }/*else{
+            val navAk7: NavigationView = findViewById(R.id.nav_view) as NavigationView
+            val nav_per: Menu = navAk7.getMenu()
+            nav_per.findItem(R.id.nav_jobApp).setVisible(false)
+        }
+        *
+        *
+        * */
     }
+
+
+
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         drawerLayout.closeDrawer(GravityCompat.START)
@@ -51,13 +70,29 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 setToolbarTitle("Home")
                 changeFragment(HomeFragment())
             }
-            R.id.nav_item_about -> {
-                setToolbarTitle("About")
-                changeFragment(AboutFragment())
+            R.id.nav_item_career -> {
+                setToolbarTitle("Carreras")
+                changeFragment(CareerFragment())
             }
-            R.id.nav_item_pesonas -> {
-                setToolbarTitle("Personas")
-                changeFragment(PersonasFragment())
+            R.id.nav_item_courses -> {
+                setToolbarTitle("Cursos")
+                changeFragment(CourseFragment())
+            }
+            R.id.nav_item_groups -> {
+                setToolbarTitle("Grupos")
+                changeFragment(GroupFragment())
+            }
+            R.id.nav_item_cycle -> {
+                setToolbarTitle("Ciclos")
+                changeFragment(CycleFragment())
+            }
+            R.id.nav_item_professors -> {
+                setToolbarTitle("Profesores")
+                changeFragment(ProfessorFragment())
+            }
+            R.id.nav_item_students -> {
+                setToolbarTitle("Estudiantes")
+                changeFragment(StudentFragment())
             }
             R.id.nav_item_logout ->{
                 val intent = Intent(this, LoginActivity::class.java)

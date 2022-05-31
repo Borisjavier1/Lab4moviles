@@ -8,6 +8,7 @@ class Curso : Serializable{
     var horas: Int = 0
     var carreraCodigo:String = ""
     var cicloCodigo:String = ""
+    var position: Int? = null
 
     internal constructor(codigo: String, nombre: String, creditos: Int, horas: Int, carreraCodigo: String, cicloCodigo: String) {
         this.codigo = codigo

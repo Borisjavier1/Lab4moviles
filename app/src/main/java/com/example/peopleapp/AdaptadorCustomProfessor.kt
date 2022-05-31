@@ -1,23 +1,20 @@
 package com.example.peopleapp
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.models.Persona
+import com.example.models.Carrera
+import com.example.models.Grupo
+import com.example.models.Profesor
 
-class RecyclerView_Adapter(private var items: ArrayList<Persona>): RecyclerView.Adapter<RecyclerView.ViewHolder>(), Filterable {
+class RecyclerView_Adapter5(private var items: ArrayList<Profesor>): RecyclerView.Adapter<RecyclerView.ViewHolder>(), Filterable {
 
-    var itemsList: ArrayList<Persona>? = null
+    var itemsList: ArrayList<Profesor>? = null
 
     lateinit var mcontext: Context
 
@@ -44,7 +41,7 @@ class RecyclerView_Adapter(private var items: ArrayList<Persona>): RecyclerView.
         val item = itemsList?.get(position)
 
         holder.itemView.findViewById<TextView>(R.id.tvNombre)?.text = item?.nombre
-        holder.itemView.findViewById<ImageView>(R.id.ivFoto).setImageResource(item?.foto!!)
+        //holder.itemView.findViewById<ImageView>(R.id.ivFoto).setImageResource(item?.foto!!)
 
     }
 
@@ -56,7 +53,7 @@ class RecyclerView_Adapter(private var items: ArrayList<Persona>): RecyclerView.
                 if (charSearch.isEmpty()) {
                     itemsList = items
                 } else {
-                    val resultList = ArrayList<Persona>()
+                    val resultList = ArrayList<Profesor>()
                     for (row in items) {
                         if (row.nombre.toLowerCase().contains(charSearch.toLowerCase())) {
                             resultList.add(row)
@@ -71,7 +68,7 @@ class RecyclerView_Adapter(private var items: ArrayList<Persona>): RecyclerView.
 
             @Suppress("UNCHECKED_CAST")
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                itemsList = results?.values as ArrayList<Persona>
+                itemsList = results?.values as ArrayList<Profesor>
                 notifyDataSetChanged()
             }
 

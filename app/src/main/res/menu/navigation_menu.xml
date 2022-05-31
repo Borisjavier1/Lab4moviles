@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/nav_item_home"
-        android:title="Home"/>
+            android:id="@+id/nav_item_home"
+            android:title="Inicio" android:icon="@drawable/home"/>
     <item
-        android:id="@+id/nav_item_about"
-        android:title="About" />
+            android:id="@+id/nav_item_career"
+            android:title="Carreras" android:icon="@drawable/carr"/>
     <item
-        android:id="@+id/nav_item_pesonas"
-        android:title="Personas" />
+            android:id="@+id/nav_item_courses"
+            android:title="Cursos" android:icon="@drawable/courses"/>
+    <item android:id="@+id/nav_item_groups" android:title="Grupos" android:icon="@drawable/oferta"/>
+    <item android:title="Ciclos" android:icon="@drawable/calendar" android:id="@+id/nav_item_cycle"/>
+    <item android:title="Profesores" android:id="@+id/nav_item_professors" android:icon="@drawable/professor"/>
+    <item android:title="Estudiantes" android:id="@+id/nav_item_students" android:icon="@drawable/student"/>
     <item
-        android:id="@+id/nav_item_logout"
-        android:title="Logout" />
+            android:id="@+id/nav_item_logout"
+            android:title="Cerrar sesión" android:icon="@drawable/logout"/>
 </menu>
