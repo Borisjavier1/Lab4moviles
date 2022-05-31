@@ -5,7 +5,7 @@ class Usuarios {
     init{
         addUsuario(Usuario("123","123",1)) //Est
         addUsuario(Usuario("555","555",2)) //Prof
-        addUsuario(Usuario("000","000",3)) //Admin
+        addUsuario(Usuario("000","000",3)) //Adminin
     }
 
     private object HOLDER {
