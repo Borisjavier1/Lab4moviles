@@ -119,10 +119,10 @@ class CareerFragment : FragmentUtils(){
                     var bundle = Bundle()
                     bundle.putSerializable("carrera", carrera)
 
-                    var editFragment = CreatePersonFragment()
+                    var editFragment = CreateCareerFragment()
                     editFragment.arguments = bundle
 
-                    setToolbarTitle("Editar Persona")
+                    setToolbarTitle("Editar Carrera")
                     changeFragment(fragmentUtils = editFragment)
                 }
             }
@@ -166,7 +166,7 @@ class CareerFragment : FragmentUtils(){
 
         val add: FloatingActionButton = view.findViewById(R.id.add)
         add.setOnClickListener { view ->
-            changeFragment(CreatePersonFragment())
+            changeFragment(CreateCareerFragment())
         }
         return view;
     }
