@@ -121,10 +121,10 @@ class CycleFragment : FragmentUtils(){
                     var bundle = Bundle()
                     bundle.putSerializable("ciclo", ciclo)
 
-                    var editFragment = CreatePersonFragment()
+                    var editFragment = CreateCycleFragment()
                     editFragment.arguments = bundle
 
-                    setToolbarTitle("Editar Persona")
+                    setToolbarTitle("Editar Ciclo")
                     changeFragment(fragmentUtils = editFragment)
                 }
             }
@@ -168,7 +168,7 @@ class CycleFragment : FragmentUtils(){
 
         val add: FloatingActionButton = view.findViewById(R.id.add)
         add.setOnClickListener { view ->
-            changeFragment(CreatePersonFragment())
+            changeFragment(CreateCycleFragment())
         }
         return view;
     }

@@ -118,10 +118,10 @@ class ProfessorFragment : FragmentUtils(){
                     var bundle = Bundle()
                     bundle.putSerializable("profesor", profesor)
 
-                    var editFragment = CreatePersonFragment()
+                    var editFragment = CreateTeacherFragment()
                     editFragment.arguments = bundle
 
-                    setToolbarTitle("Editar Persona")
+                    setToolbarTitle("Editar Profesor")
                     changeFragment(fragmentUtils = editFragment)
                 }
             }
@@ -165,7 +165,7 @@ class ProfessorFragment : FragmentUtils(){
 
         val add: FloatingActionButton = view.findViewById(R.id.add)
         add.setOnClickListener { view ->
-            changeFragment(CreatePersonFragment())
+            changeFragment(CreateTeacherFragment())
         }
         return view;
     }

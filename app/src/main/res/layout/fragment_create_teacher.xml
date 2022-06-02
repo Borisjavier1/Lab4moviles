@@ -4,15 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateCareerFragment">
+    tools:context=".CreateTeacherFragment">
 
+    <EditText
+            android:id="@+id/exitText_email"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="108dp"
+            android:ems="10"
+            android:hint="Email"
+            android:minHeight="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView7"/>
+    <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            app:layout_constraintStart_toStartOf="@+id/exitText_email"
+            app:layout_constraintTop_toBottomOf="@+id/exitText_tele" android:layout_marginTop="20dp"
+    />
     <TextView
             android:id="@+id/textView_accionPersona"
             style="@style/Widget.AppCompat.TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="72dp"
-            android:text="Agregar Carrera"
+            android:text="Agregar Profesor"
             android:textSize="34sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -25,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
-            android:text="Código"
+            android:text="Cédula"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/editText_Ced"
             app:layout_constraintTop_toBottomOf="@+id/textView_accionPersona"/>
@@ -45,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
-            android:text="Título"
+            android:text="Télefono"
             app:layout_constraintStart_toStartOf="@+id/exitText_tele"
             app:layout_constraintTop_toBottomOf="@+id/editText_Name"/>
 
@@ -55,7 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:ems="10"
-            android:hint="Código"
+            android:hint="Cédula"
             android:inputType="textPersonName"
             android:minHeight="48dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -82,7 +102,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:ems="10"
-            android:hint="Título"
+            android:hint="Télefono"
             android:minHeight="48dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
@@ -93,17 +113,16 @@
             android:id="@+id/btn_guardarPersona"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="52dp"
-            android:text="Guardar Carrera"
+            android:layout_marginTop="132dp"
+            android:text="Guardar Profesor"
             app:layout_constraintEnd_toEndOf="@+id/exitText_tele"
             app:layout_constraintTop_toBottomOf="@+id/exitText_tele"/>
-
     <Button
             android:id="@+id/btn_volver"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="52dp"
+            android:layout_marginTop="132dp"
             android:text="Volver"
             app:layout_constraintStart_toStartOf="@+id/exitText_tele"
-            app:layout_constraintTop_toBottomOf="@+id/exitText_tele" />
+            app:layout_constraintTop_toBottomOf="@+id/exitText_tele" android:layout_marginStart="8dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

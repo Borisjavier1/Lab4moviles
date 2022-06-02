@@ -31,8 +31,8 @@ class CreatePersonFragment : FragmentUtils() {
             persona = sentPerson as Persona
             view.findViewById<TextView>(R.id.textView_accionPersona).setText("Editar Persona")
             view.findViewById<EditText>(R.id.editText_Name).setText(persona.user)
-            view.findViewById<EditText>(R.id.editText_Code).setText(persona.nombre)
-            view.findViewById<EditText>(R.id.exitText_Credits).setText(persona.password)
+            view.findViewById<EditText>(R.id.editText_Ced).setText(persona.nombre)
+            view.findViewById<EditText>(R.id.exitText_tele).setText(persona.password)
 
         }
 
@@ -49,9 +49,9 @@ class CreatePersonFragment : FragmentUtils() {
 
     private fun createPerson(){
         var message:String? = null
-        var editTextName = view?.findViewById<EditText>(R.id.editText_Code)
+        var editTextName = view?.findViewById<EditText>(R.id.editText_Ced)
         var editTextUser = view?.findViewById<EditText>(R.id.editText_Name)
-        var editTextPassword = view?.findViewById<EditText>(R.id.exitText_Credits)
+        var editTextPassword = view?.findViewById<EditText>(R.id.exitText_tele)
 
         var name = editTextName?.text.toString()
         var user = editTextUser?.text.toString()

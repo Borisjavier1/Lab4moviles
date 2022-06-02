@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import com.example.models.Carrera
-import com.example.models.Carreras
 import com.example.models.Curso
 import com.example.models.Cursos
 import com.google.android.material.snackbar.Snackbar
@@ -33,12 +31,12 @@ class CreateCourseFragment : FragmentUtils() {
             tipoAgregado = 1//Modificar
             curso = sentPerson as Curso
             view.findViewById<TextView>(R.id.textView_accionPersona).setText("Editar Curso")
-            view.findViewById<EditText>(R.id.editText_Code3).setText(curso.codigo)
+            view.findViewById<EditText>(R.id.editText_Code5).setText(curso.codigo)
             view.findViewById<EditText>(R.id.editText_Name).setText(curso.nombre)
-            view.findViewById<EditText>(R.id.exitText_Credits).setText(curso.creditos.toString())
-            view.findViewById<EditText>(R.id.editText_Hours).setText(curso.horas.toString())
-            view.findViewById<EditText>(R.id.editText_Career).setText(curso.carreraCodigo)
-            view.findViewById<EditText>(R.id.exitText_Cycle).setText(curso.cicloCodigo)
+            view.findViewById<EditText>(R.id.exitText_tele).setText(curso.creditos.toString())
+            view.findViewById<EditText>(R.id.editText_fecha_i).setText(curso.horas.toString())
+            view.findViewById<EditText>(R.id.editText_fecha_f).setText(curso.carreraCodigo)
+            view.findViewById<EditText>(R.id.exitText_Career).setText(curso.cicloCodigo)
 
 
 
@@ -58,12 +56,12 @@ class CreateCourseFragment : FragmentUtils() {
 
     private fun createPerson(){
         var message:String? = null
-        var editTextCode = view?.findViewById<EditText>(R.id.editText_Code)
+        var editTextCode = view?.findViewById<EditText>(R.id.editText_Ced)
         var editTextName = view?.findViewById<EditText>(R.id.editText_Name)
-        var editTextCredits = view?.findViewById<EditText>(R.id.exitText_Credits)
-        var editTextHours = view?.findViewById<EditText>(R.id.editText_Hours)
-        var editTextCareer = view?.findViewById<EditText>(R.id.editText_Career)
-        var editTextCycle = view?.findViewById<EditText>(R.id.exitText_Cycle)
+        var editTextCredits = view?.findViewById<EditText>(R.id.exitText_tele)
+        var editTextHours = view?.findViewById<EditText>(R.id.editText_fecha_i)
+        var editTextCareer = view?.findViewById<EditText>(R.id.editText_fecha_f)
+        var editTextCycle = view?.findViewById<EditText>(R.id.exitText_Career)
 
         var code = editTextCode?.text.toString()
         var name = editTextName?.text.toString()
