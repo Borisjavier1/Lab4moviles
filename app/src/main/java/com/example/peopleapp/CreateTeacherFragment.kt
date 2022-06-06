@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import com.example.models.Ciclo
-import com.example.models.Ciclos
 import com.example.models.Profesor
 import com.example.models.Profesores
 import com.google.android.material.snackbar.Snackbar
@@ -33,10 +31,11 @@ class CreateTeacherFragment : FragmentUtils() {
             tipoAgregado = 1//Modificar
             profesor = sentPerson as Profesor
             view.findViewById<TextView>(R.id.textView_accionPersona).setText("Editar Profesor")
-            view.findViewById<EditText>(R.id.editText_Ced).setText(profesor.cedula)
-            view.findViewById<EditText>(R.id.editText_Name).setText(profesor.nombre)
-            view.findViewById<EditText>(R.id.exitText_tele).setText(profesor.telefono)
-            view.findViewById<EditText>(R.id.exitText_email).setText(profesor.email)
+            view.findViewById<EditText>(R.id.editText_Cod).setText(profesor.cedula)
+            view.findViewById<EditText>(R.id.editText_Curso).setText(profesor.nombre)
+            view.findViewById<EditText>(R.id.exitText_Number).setText(profesor.telefono)
+            view.findViewById<EditText>(R.id.exitText_horario).setText(profesor.email)
+            view.findViewById<EditText>(R.id.exitText_profesor).setText(profesor.guia.toString())
 
 
 
@@ -57,21 +56,23 @@ class CreateTeacherFragment : FragmentUtils() {
 
     private fun createPerson(){
         var message:String? = null
-        var editTextCedula = view?.findViewById<EditText>(R.id.editText_Ced)
-        var editTextName = view?.findViewById<EditText>(R.id.editText_Name)
-        var editTextTele = view?.findViewById<EditText>(R.id.exitText_tele)
-        var editTextEmail = view?.findViewById<EditText>(R.id.exitText_email)
+        var editTextCedula = view?.findViewById<EditText>(R.id.editText_Cod)
+        var editTextName = view?.findViewById<EditText>(R.id.editText_Curso)
+        var editTextTele = view?.findViewById<EditText>(R.id.exitText_Number)
+        var editTextEmail = view?.findViewById<EditText>(R.id.exitText_horario)
+        var editTextGuia = view?.findViewById<EditText>(R.id.exitText_profesor)
 
 
         var cedula = editTextCedula?.text.toString()
         var nombre = editTextName?.text.toString()
         var tele = editTextTele?.text.toString()
         var email = editTextEmail?.text.toString()
+        var guia = editTextGuia?.text.toString()
 
         var image = R.drawable.foto01
 
         if(tipoAgregado == 0){
-            profesor = Profesor(cedula, nombre, tele, email)
+            profesor = Profesor(cedula, nombre, tele, email, guia.toInt())
             profesores.addProfesor(profesor)
             message = "Profesor Agregado"
         }
@@ -80,6 +81,7 @@ class CreateTeacherFragment : FragmentUtils() {
             profesor.nombre = nombre
             profesor.telefono = tele
             profesor.email =email
+            profesor.guia = guia.toInt()
 
 
             var index = profesor.position as Int
@@ -96,7 +98,7 @@ class CreateTeacherFragment : FragmentUtils() {
             editTextName?.setText("")
             editTextTele?.setText("")
             editTextEmail?.setText("")
-
+           editTextGuia?.setText("")
 
 
         }

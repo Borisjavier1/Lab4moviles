@@ -32,8 +32,8 @@ class CreateCycleFragment : FragmentUtils() {
             ciclo = sentPerson as Ciclo
             view.findViewById<TextView>(R.id.textView_accionPersona).setText("Editar Ciclo")
             view.findViewById<EditText>(R.id.editText_Code5).setText(ciclo.codigo)
-            view.findViewById<EditText>(R.id.editText_Name).setText(ciclo.numero.toString())
-            view.findViewById<EditText>(R.id.exitText_tele).setText(ciclo.anio.toString())
+            view.findViewById<EditText>(R.id.editText_Curso).setText(ciclo.numero.toString())
+            view.findViewById<EditText>(R.id.exitText_Number).setText(ciclo.anio.toString())
             view.findViewById<EditText>(R.id.editText_fecha_i).setText(ciclo.fechaInicio)
             view.findViewById<EditText>(R.id.editText_fecha_f).setText(ciclo.fechaFin)
 
@@ -57,8 +57,8 @@ class CreateCycleFragment : FragmentUtils() {
     private fun createPerson(){
         var message:String? = null
         var editTextCode = view?.findViewById<EditText>(R.id.editText_Code5)
-        var editTextNumber = view?.findViewById<EditText>(R.id.editText_Name)
-        var editTextYear = view?.findViewById<EditText>(R.id.exitText_tele)
+        var editTextNumber = view?.findViewById<EditText>(R.id.editText_Curso)
+        var editTextYear = view?.findViewById<EditText>(R.id.exitText_Number)
         var editTextFechaI = view?.findViewById<EditText>(R.id.editText_fecha_i)
         var editTextFechaF = view?.findViewById<EditText>(R.id.editText_fecha_f)
 

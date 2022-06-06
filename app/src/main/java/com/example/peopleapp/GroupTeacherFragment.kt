@@ -1,5 +1,7 @@
 package com.example.peopleapp
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Canvas
 import android.graphics.Color
 import android.os.Bundle
@@ -21,21 +23,29 @@ import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ProfessorFragment : FragmentUtils(){
+class GroupTeacherFragment : FragmentUtils(){
     private lateinit var appBarConfiguration: AppBarConfiguration
-    var profesores: Profesores = Profesores.instance
+
+    var grupos: Grupos = Grupos.instance
 
     lateinit var recyclerViewElement: RecyclerView
-    lateinit var adaptador: RecyclerView_Adapter5
-    lateinit var profesor: Profesor
+    lateinit var adaptador: RecyclerView_Adapter4
+    lateinit var grupo: Grupo
     var position: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        val sp: SharedPreferences
+        var myContext = activity!!
+        sp = myContext.getSharedPreferences("Session Data", Context.MODE_PRIVATE)
+        var ced = sp.getString("cedula", "")
+
+
         // Inflate the layout for this fragment
-        var view = inflater.inflate(R.layout.fragment_cycle, container, false)
+        var view = inflater.inflate(R.layout.fragment_group_teacher, container, false)
 
         val searchIcon = view.findViewById<ImageView>(R.id.search_mag_icon)
         searchIcon.setColorFilter(Color.BLACK)
@@ -81,7 +91,7 @@ class ProfessorFragment : FragmentUtils(){
                 val fromPosition: Int = viewHolder.adapterPosition
                 val toPosition: Int = target.adapterPosition
 
-                Collections.swap(profesores.getProfesor(), fromPosition, toPosition)
+                Collections.swap(grupos.getGruposProfesor(ced), fromPosition, toPosition)
 
                 recyclerViewElement.adapter?.notifyItemMoved(fromPosition, toPosition)
 
@@ -94,35 +104,35 @@ class ProfessorFragment : FragmentUtils(){
                 if (direction == ItemTouchHelper.LEFT) {//Delete
 
                     var index = getIndex(position)
-                    profesores.deleteProfesor(index)
+                    grupos.deleteGrupo(index)
                     recyclerViewElement.adapter?.notifyItemRemoved(position)
 
-                    Snackbar.make(recyclerViewElement, profesor.nombre + " eliminado/a", Snackbar.LENGTH_LONG).setAction("Undo") {
-                        profesores.getProfesor().add(position, profesor)
+                    Snackbar.make(recyclerViewElement, grupo.codigo + " eliminado/a", Snackbar.LENGTH_LONG).setAction("Undo") {
+                        grupos.getGrupos().add(position, grupo)
                         recyclerViewElement.adapter?.notifyItemInserted(position)
                     }.show()
 
-                    adaptador = RecyclerView_Adapter5(profesores.getProfesor())
+                    adaptador = RecyclerView_Adapter4(grupos.getGrupos())
                     recyclerViewElement.adapter = adaptador
 
                 } else { //Edit
-                    profesor = Profesor(
-                        profesores.getProfesor()[position].cedula,
-                        profesores.getProfesor()[position].nombre,
-                        profesores.getProfesor()[position].telefono,
-                        profesores.getProfesor()[position].email,
-                        profesores.getProfesor()[position].guia
+                    grupo = Grupo(
+                        grupos.getGrupos()[position].codigo,
+                        grupos.getGrupos()[position].cursoCodigo,
+                        grupos.getGrupos()[position].numero,
+                        grupos.getGrupos()[position].horario,
+                        grupos.getGrupos()[position].cedulaProfesor
                     )
                     var index = getIndex(position)
-                    profesor.position = index;
+                    grupo.position = index;
 
                     var bundle = Bundle()
-                    bundle.putSerializable("profesor", profesor)
+                    bundle.putSerializable("grupo", grupo)
 
-                    var editFragment = CreateTeacherFragment()
+                    var editFragment = GroupTeacherFragment()
                     editFragment.arguments = bundle
 
-                    setToolbarTitle("Editar Profesor")
+                    setToolbarTitle("Editar Persona")
                     changeFragment(fragmentUtils = editFragment)
                 }
             }
@@ -137,7 +147,7 @@ class ProfessorFragment : FragmentUtils(){
                 isCurrentlyActive: Boolean
             ) {
                 RecyclerViewSwipeDecorator.Builder(
-                    this@ProfessorFragment.context,
+                    this@GroupTeacherFragment.context,
                     c,
                     recyclerView,
                     viewHolder,
@@ -146,11 +156,11 @@ class ProfessorFragment : FragmentUtils(){
                     actionState,
                     isCurrentlyActive
                 )
-                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(this@ProfessorFragment.context!!, R.color.red))
+                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(this@GroupTeacherFragment.context!!, R.color.red))
                     .addSwipeLeftActionIcon(R.drawable.ic_baseline_delete_24)
                     .addSwipeRightBackgroundColor(
                         ContextCompat.getColor(
-                            this@ProfessorFragment.context!!,
+                            this@GroupTeacherFragment.context!!,
                             R.color.green
                         )
                     )
@@ -166,27 +176,35 @@ class ProfessorFragment : FragmentUtils(){
 
         val add: FloatingActionButton = view.findViewById(R.id.add)
         add.setOnClickListener { view ->
-            changeFragment(CreateTeacherFragment())
+            changeFragment(GroupTeacherFragment())
         }
         return view;
     }
     private fun getListOfPersons() {
-        val Nprofesores = ArrayList<Profesor>()
-        for (p in profesores.getProfesor()) {
-            Nprofesores.add(p)
+        val sp: SharedPreferences
+        var myContext = activity!!
+        sp = myContext.getSharedPreferences("Session Data", Context.MODE_PRIVATE)
+        var ced = sp.getString("cedula", "")
+        val Ngrupos = ArrayList<Grupo>()
+        for (p in grupos.getGruposProfesor(ced)) {
+            Ngrupos.add(p)
         }
-        adaptador = RecyclerView_Adapter5(Nprofesores)
+        adaptador = RecyclerView_Adapter4(Ngrupos)
         recyclerViewElement.adapter = adaptador
     }
     private fun getIndex(index: Int): Int{
+        val sp: SharedPreferences
+        var myContext = activity!!
+        sp = myContext.getSharedPreferences("Session Data", Context.MODE_PRIVATE)
+        var ced = sp.getString("cedula", "")
         var index = index
         var adapterItems = adaptador.itemsList
-        var listaGrupos = profesores.getProfesor()
+        var listaGrupos = grupos.getGruposProfesor(ced)
 
-        profesor = adapterItems?.get(index)!!
+        grupo = adapterItems?.get(index)!!
 
         index = listaGrupos.indexOfFirst {
-            it.nombre == profesor.nombre
+            it.codigo == grupo.codigo
         }
 
         return index

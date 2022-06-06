@@ -5,6 +5,7 @@ class Grupos {
     init{
         addGrupo(Grupo("666","123",10,"martes 3 pm","555"))
         addGrupo(Grupo("777","123",11,"martes 7 pm","555"))
+        addGrupo(Grupo("888","123",12,"martes 10 pm","222"))
 
     }
 
@@ -33,6 +34,16 @@ class Grupos {
 
     fun getGrupos(): ArrayList<Grupo>{
         return this.grupos!!
+    }
+
+    fun getGruposProfesor(ced: String?):ArrayList<Grupo> {
+         var grupos2: ArrayList<Grupo> = ArrayList<Grupo>()
+         for( item in this.grupos){
+             if(item.cedulaProfesor == ced){
+                 grupos2.add(item)
+             }
+         }
+        return grupos2
     }
 
 

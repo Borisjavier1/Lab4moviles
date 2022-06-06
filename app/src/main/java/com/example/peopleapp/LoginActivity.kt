@@ -1,13 +1,17 @@
 package com.example.peopleapp
 
+import android.accounts.AccountManager.KEY_PASSWORD
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.models.Personas
 import com.example.models.Usuarios
+import kotlinx.android.synthetic.main.navigation_header.*
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -38,6 +42,15 @@ class LoginActivity : AppCompatActivity() {
                 val bundle = Bundle()
                 val Login = usuarios.loginP(user_name.toString(), password.toString())
                 val i = Intent(this, MainActivity::class.java)
+
+                val pref = applicationContext.getSharedPreferences("Session Data", MODE_PRIVATE)
+                val editor: SharedPreferences.Editor = pref.edit()
+
+                if (Login != null) {
+                    editor.putString("cedula", Login.cedula)
+                    editor.putInt("rol", Login.rol)
+                    editor.commit()
+                }
 
                 i.putExtra("Login", Login)
                 startActivity(i)

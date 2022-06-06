@@ -3,8 +3,8 @@ package com.example.models
 class Profesores {
     private var profesores: ArrayList<Profesor> = ArrayList<Profesor>()
     init{
-        addProfesor(Profesor("555","Susana","8909-9876","susana@gmail.com"))
-        addProfesor(Profesor("222","Maria","8765-8798","maria@gmail.com"))
+        addProfesor(Profesor("555","Susana","8909-9876","susana@gmail.com", 1))
+        addProfesor(Profesor("222","Maria","8765-8798","maria@gmail.com",0))
 
     }
 

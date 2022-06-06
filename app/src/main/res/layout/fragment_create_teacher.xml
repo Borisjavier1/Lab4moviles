@@ -6,123 +6,137 @@
     android:layout_height="match_parent"
     tools:context=".CreateTeacherFragment">
 
-    <EditText
-            android:id="@+id/exitText_email"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="108dp"
-            android:ems="10"
-            android:hint="Email"
-            android:minHeight="48dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView7"/>
-    <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Email"
-            app:layout_constraintStart_toStartOf="@+id/exitText_email"
-            app:layout_constraintTop_toBottomOf="@+id/exitText_tele" android:layout_marginTop="20dp"
-    />
     <TextView
             android:id="@+id/textView_accionPersona"
             style="@style/Widget.AppCompat.TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="72dp"
+            android:layout_marginTop="16dp"
             android:text="Agregar Profesor"
             android:textSize="34sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
-
-    <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:text="Cédula"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/editText_Ced"
-            app:layout_constraintTop_toBottomOf="@+id/textView_accionPersona"/>
-
-    <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
-            android:text="Nombre"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/editText_Name"
-            app:layout_constraintTop_toBottomOf="@+id/editText_Ced"/>
-
     <TextView
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="20dp"
             android:text="Télefono"
-            app:layout_constraintStart_toStartOf="@+id/exitText_tele"
-            app:layout_constraintTop_toBottomOf="@+id/editText_Name"/>
-
+            app:layout_constraintStart_toStartOf="@+id/exitText_Number"
+            app:layout_constraintTop_toBottomOf="@+id/editText_Curso" android:layout_marginStart="8dp"/>
     <EditText
-            android:id="@+id/editText_Ced"
+            android:id="@+id/editText_Curso"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:hint="Nombre"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView6"/>
+    <EditText
+            android:id="@+id/editText_Cod"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:ems="10"
             android:hint="Cédula"
             android:inputType="textPersonName"
             android:minHeight="48dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5"/>
-
+            app:layout_constraintTop_toBottomOf="@+id/textView5" app:layout_constraintHorizontal_bias="0.495"/>
     <EditText
-            android:id="@+id/editText_Name"
+            android:id="@+id/exitText_profesor"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="216dp"
             android:ems="10"
-            android:hint="Nombre"
-            android:inputType="textPersonName"
+            android:hint="Guía"
             android:minHeight="48dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.504"
+            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6"/>
-
+            app:layout_constraintTop_toBottomOf="@+id/textView7"/>
     <EditText
-            android:id="@+id/exitText_tele"
+            android:id="@+id/exitText_Number"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:ems="10"
             android:hint="Télefono"
             android:minHeight="48dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintHorizontal_bias="0.486"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView7"/>
-
     <Button
             android:id="@+id/btn_guardarPersona"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="132dp"
+            android:layout_marginTop="216dp"
             android:text="Guardar Profesor"
-            app:layout_constraintEnd_toEndOf="@+id/exitText_tele"
-            app:layout_constraintTop_toBottomOf="@+id/exitText_tele"/>
+            app:layout_constraintEnd_toEndOf="@+id/exitText_Number"
+            app:layout_constraintTop_toBottomOf="@+id/exitText_Number" android:layout_marginEnd="4dp"/>
     <Button
             android:id="@+id/btn_volver"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="132dp"
+            android:layout_marginTop="216dp"
             android:text="Volver"
-            app:layout_constraintStart_toStartOf="@+id/exitText_tele"
-            app:layout_constraintTop_toBottomOf="@+id/exitText_tele" android:layout_marginStart="8dp"/>
+            app:layout_constraintStart_toStartOf="@+id/exitText_Number"
+            app:layout_constraintTop_toBottomOf="@+id/exitText_Number" android:layout_marginStart="12dp"/>
+    <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Nombre"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/editText_Curso"
+            app:layout_constraintTop_toBottomOf="@+id/editText_Cod" android:layout_marginStart="8dp"/>
+    <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Guía"
+            app:layout_constraintTop_toBottomOf="@+id/exitText_horario"
+            android:layout_marginTop="16dp" app:layout_constraintStart_toStartOf="@+id/exitText_horario"
+            android:layout_marginStart="8dp"/>
+    <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            app:layout_constraintStart_toStartOf="@+id/exitText_horario"
+            app:layout_constraintTop_toBottomOf="@+id/exitText_Number" android:layout_marginTop="12dp"
+            android:layout_marginStart="8dp"/>
+    <EditText
+            android:id="@+id/exitText_horario"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="116dp"
+            android:ems="10"
+            android:hint="Email"
+            android:minHeight="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.486"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView7"/>
+    <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Cédula"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/editText_Cod"
+            app:layout_constraintTop_toBottomOf="@+id/textView_accionPersona" android:layout_marginStart="8dp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

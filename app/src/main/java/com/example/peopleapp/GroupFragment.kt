@@ -119,7 +119,7 @@ class GroupFragment : FragmentUtils(){
                     var bundle = Bundle()
                     bundle.putSerializable("grupo", grupo)
 
-                    var editFragment = CreatePersonFragment()
+                    var editFragment = CreateGroupFragment()
                     editFragment.arguments = bundle
 
                     setToolbarTitle("Editar Persona")
@@ -166,7 +166,7 @@ class GroupFragment : FragmentUtils(){
 
         val add: FloatingActionButton = view.findViewById(R.id.add)
         add.setOnClickListener { view ->
-            changeFragment(CreatePersonFragment())
+            changeFragment(CreateGroupFragment())
         }
         return view;
     }

@@ -27,7 +27,7 @@
         android:layout_marginTop="60dp"
         android:text="Nombre"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/editText_Ced"
+        app:layout_constraintStart_toStartOf="@+id/editText_Cod"
         app:layout_constraintTop_toBottomOf="@+id/textView_accionPersona" />
 
     <TextView
@@ -37,8 +37,8 @@
         android:layout_marginTop="36dp"
         android:text="Usuario"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/editText_Name"
-        app:layout_constraintTop_toBottomOf="@+id/editText_Ced" />
+        app:layout_constraintStart_toStartOf="@+id/editText_Curso"
+        app:layout_constraintTop_toBottomOf="@+id/editText_Cod" />
 
     <TextView
         android:id="@+id/textView7"
@@ -46,11 +46,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:text="Contraseña"
-        app:layout_constraintStart_toStartOf="@+id/exitText_tele"
-        app:layout_constraintTop_toBottomOf="@+id/editText_Name" />
+        app:layout_constraintStart_toStartOf="@+id/exitText_Number"
+        app:layout_constraintTop_toBottomOf="@+id/editText_Curso" />
 
     <EditText
-        android:id="@+id/editText_Ced"
+        android:id="@+id/editText_Cod"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -63,7 +63,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <EditText
-        android:id="@+id/editText_Name"
+        android:id="@+id/editText_Curso"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -77,7 +77,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <EditText
-        android:id="@+id/exitText_tele"
+        android:id="@+id/exitText_Number"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -96,8 +96,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
         android:text="Guardar Persona"
-        app:layout_constraintEnd_toEndOf="@+id/exitText_tele"
-        app:layout_constraintTop_toBottomOf="@+id/exitText_tele" />
+        app:layout_constraintEnd_toEndOf="@+id/exitText_Number"
+        app:layout_constraintTop_toBottomOf="@+id/exitText_Number" />
 
     <Button
         android:id="@+id/btn_volver"
@@ -105,6 +105,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
         android:text="Volver"
-        app:layout_constraintStart_toStartOf="@+id/exitText_tele"
-        app:layout_constraintTop_toBottomOf="@+id/exitText_tele" />
+        app:layout_constraintStart_toStartOf="@+id/exitText_Number"
+        app:layout_constraintTop_toBottomOf="@+id/exitText_Number" />
 </androidx.constraintlayout.widget.ConstraintLayout>

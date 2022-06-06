@@ -80,7 +80,7 @@
             app:layout_constraintHorizontal_bias="0.387" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.178"/>
     <EditText
-            android:id="@+id/editText_Name"
+            android:id="@+id/editText_Curso"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -113,7 +113,7 @@
             android:textColorHint="#151515" android:textColor="#222020" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.389"/>
     <EditText
-            android:id="@+id/exitText_tele"
+            android:id="@+id/exitText_Number"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:ems="10"
