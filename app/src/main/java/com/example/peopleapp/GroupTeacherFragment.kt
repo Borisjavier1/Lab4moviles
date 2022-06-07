@@ -101,21 +101,29 @@ class GroupTeacherFragment : FragmentUtils(){
 
                 position = viewHolder.adapterPosition
 
-                if (direction == ItemTouchHelper.LEFT) {//Delete
+                if (direction == ItemTouchHelper.RIGHT) {//Delete
 
+                    grupo = Grupo(
+                        grupos.getGrupos()[position].codigo,
+                        grupos.getGrupos()[position].cursoCodigo,
+                        grupos.getGrupos()[position].numero,
+                        grupos.getGrupos()[position].horario,
+                        grupos.getGrupos()[position].cedulaProfesor
+                    )
                     var index = getIndex(position)
-                    grupos.deleteGrupo(index)
-                    recyclerViewElement.adapter?.notifyItemRemoved(position)
+                    grupo.position = index;
 
-                    Snackbar.make(recyclerViewElement, grupo.codigo + " eliminado/a", Snackbar.LENGTH_LONG).setAction("Undo") {
-                        grupos.getGrupos().add(position, grupo)
-                        recyclerViewElement.adapter?.notifyItemInserted(position)
-                    }.show()
+                    var bundle = Bundle()
+                    bundle.putString("grupo", grupo.codigo)
 
-                    adaptador = RecyclerView_Adapter4(grupos.getGrupos())
-                    recyclerViewElement.adapter = adaptador
+                    var editFragment = MatriculaFragment()
+                    editFragment.arguments = bundle
 
-                } else { //Edit
+                    setToolbarTitle("Editar Matricula")
+                    changeFragment(fragmentUtils = editFragment)
+
+                }
+                else{
                     grupo = Grupo(
                         grupos.getGrupos()[position].codigo,
                         grupos.getGrupos()[position].cursoCodigo,
@@ -156,8 +164,8 @@ class GroupTeacherFragment : FragmentUtils(){
                     actionState,
                     isCurrentlyActive
                 )
-                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(this@GroupTeacherFragment.context!!, R.color.red))
-                    .addSwipeLeftActionIcon(R.drawable.ic_baseline_delete_24)
+                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(this@GroupTeacherFragment.context!!,R.color.green))
+                    .addSwipeLeftActionIcon(R.drawable.ic_baseline_edit_24)
                     .addSwipeRightBackgroundColor(
                         ContextCompat.getColor(
                             this@GroupTeacherFragment.context!!,
@@ -174,10 +182,10 @@ class GroupTeacherFragment : FragmentUtils(){
         val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
         itemTouchHelper.attachToRecyclerView(recyclerViewElement)
 
-        val add: FloatingActionButton = view.findViewById(R.id.add)
+        /*val add: FloatingActionButton = view.findViewById(R.id.add)
         add.setOnClickListener { view ->
             changeFragment(GroupTeacherFragment())
-        }
+        }*/
         return view;
     }
     private fun getListOfPersons() {

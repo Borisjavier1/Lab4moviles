@@ -39,7 +39,7 @@ class RecyclerView_Adapter2(private var items: ArrayList<Ciclo>): RecyclerView.A
 
         val item = itemsList?.get(position)
 
-        holder.itemView.findViewById<TextView>(R.id.tvNombre)?.text = item?.codigo
+        holder.itemView.findViewById<TextView>(R.id.tvNombre)?.text = "Código de ciclo: "+item?.codigo
         //holder.itemView.findViewById<ImageView>(R.id.ivFoto).setImageResource(item?.foto!!)
 
     }

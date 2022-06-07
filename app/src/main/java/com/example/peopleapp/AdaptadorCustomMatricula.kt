@@ -39,7 +39,7 @@ class RecyclerView_Adapter7(private var items: ArrayList<Matricula>): RecyclerVi
 
         val item = itemsList?.get(position)
 
-        holder.itemView.findViewById<TextView>(R.id.tvNombre)?.text = item?.cedEstudiante
+        holder.itemView.findViewById<TextView>(R.id.tvNombre)?.text = "Cédula de estudiante: "+item?.cedEstudiante
         //holder.itemView.findViewById<ImageView>(R.id.ivFoto).setImageResource(item?.foto!!)
 
     }

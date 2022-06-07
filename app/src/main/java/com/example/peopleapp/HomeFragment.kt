@@ -26,6 +26,8 @@ class HomeFragment : Fragment()  {
         var rol = sp.getInt("rol", 0)
 
         if(rol==2){
+
+            getActivity()?.setTitle("Grupos a cargo");
             changeFragment(GroupTeacherFragment())
         }
 

@@ -40,7 +40,7 @@ class RecyclerView_Adapter6(private var items: ArrayList<Alumno>): RecyclerView.
 
         val item = itemsList?.get(position)
 
-        holder.itemView.findViewById<TextView>(R.id.tvNombre)?.text = item?.nombre
+        holder.itemView.findViewById<TextView>(R.id.tvNombre)?.text = "Nombre de estudiante: "+item?.nombre
         //holder.itemView.findViewById<ImageView>(R.id.ivFoto).setImageResource(item?.foto!!)
 
     }

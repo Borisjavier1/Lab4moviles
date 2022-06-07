@@ -1,6 +1,8 @@
 package com.example.peopleapp
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -67,7 +69,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawerLayout.closeDrawer(GravityCompat.START)
         when(item.itemId){
             R.id.nav_item_home -> {
-                setToolbarTitle("Home")
+                val sp: SharedPreferences
+                var myContext = this
+                sp = myContext.getSharedPreferences("Session Data", Context.MODE_PRIVATE)
+                var rol = sp.getInt("rol", 0)
+                if(rol==2) {
+                    setToolbarTitle("Grupos a cargo")
+                }
                 changeFragment(HomeFragment())
             }
             R.id.nav_item_career -> {

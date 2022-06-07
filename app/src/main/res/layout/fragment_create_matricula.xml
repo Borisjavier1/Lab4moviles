@@ -9,6 +9,7 @@
     <EditText
             android:id="@+id/exitText_Estado"
             android:layout_width="300dp"
+            android:enabled="false"
             android:layout_height="wrap_content"
             android:layout_marginTop="96dp"
             android:ems="10"
@@ -70,6 +71,7 @@
     <EditText
             android:id="@+id/editText_est"
             android:layout_width="300dp"
+            android:enabled="false"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:ems="10"
@@ -92,6 +94,7 @@
     <EditText
             android:id="@+id/editText_Group"
             android:layout_width="300dp"
+            android:enabled="false"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:ems="10"
@@ -101,7 +104,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5" app:layout_constraintHorizontal_bias="0.405"
-            android:editable="false"/>
+    />
     <Button
             android:id="@+id/btn_guardarPersona"
             android:layout_width="wrap_content"

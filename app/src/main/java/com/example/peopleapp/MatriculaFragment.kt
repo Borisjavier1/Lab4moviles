@@ -169,10 +169,10 @@ class MatriculaFragment : FragmentUtils(){
         val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
         itemTouchHelper.attachToRecyclerView(recyclerViewElement)
 
-        val add: FloatingActionButton = view.findViewById(R.id.add)
+        /*val add: FloatingActionButton = view.findViewById(R.id.add)
         add.setOnClickListener { view ->
             changeFragment(CreateCycleFragment())
-        }
+        }*/
         return view;
     }
     private fun getListOfPersons() {
