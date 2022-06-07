@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import com.example.models.Curso
-import com.example.models.Cursos
 import com.example.models.Grupo
 import com.example.models.Grupos
 import com.google.android.material.snackbar.Snackbar
@@ -33,9 +31,9 @@ class CreateGroupFragment : FragmentUtils() {
             tipoAgregado = 1//Modificar
             grupo = sentPerson as Grupo
             view.findViewById<TextView>(R.id.textView_accionPersona).setText("Editar Grupo")
-            view.findViewById<EditText>(R.id.editText_Cod).setText(grupo.codigo)
-            view.findViewById<EditText>(R.id.editText_Curso).setText(grupo.cursoCodigo)
-            view.findViewById<EditText>(R.id.exitText_Number).setText(grupo.numero.toString())
+            view.findViewById<EditText>(R.id.editText_Group).setText(grupo.codigo)
+            view.findViewById<EditText>(R.id.editText_est).setText(grupo.cursoCodigo)
+            view.findViewById<EditText>(R.id.exitText_Nota).setText(grupo.numero.toString())
             view.findViewById<EditText>(R.id.exitText_horario).setText(grupo.horario)
             view.findViewById<EditText>(R.id.exitText_profesor).setText(grupo.cedulaProfesor)
 
@@ -54,9 +52,9 @@ class CreateGroupFragment : FragmentUtils() {
 
     private fun createPerson(){
         var message:String? = null
-        var editTextCode = view?.findViewById<EditText>(R.id.editText_Cod)
-        var editTextCourse = view?.findViewById<EditText>(R.id.editText_Curso)
-        var editTextNumber = view?.findViewById<EditText>(R.id.exitText_Number)
+        var editTextCode = view?.findViewById<EditText>(R.id.editText_Group)
+        var editTextCourse = view?.findViewById<EditText>(R.id.editText_est)
+        var editTextNumber = view?.findViewById<EditText>(R.id.exitText_Nota)
         var editTextHorario = view?.findViewById<EditText>(R.id.exitText_horario)
         var editTextProfesor = view?.findViewById<EditText>(R.id.exitText_profesor)
 

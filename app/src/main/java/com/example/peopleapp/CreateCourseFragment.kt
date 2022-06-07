@@ -32,8 +32,8 @@ class CreateCourseFragment : FragmentUtils() {
             curso = sentPerson as Curso
             view.findViewById<TextView>(R.id.textView_accionPersona).setText("Editar Curso")
             view.findViewById<EditText>(R.id.editText_Code5).setText(curso.codigo)
-            view.findViewById<EditText>(R.id.editText_Curso).setText(curso.nombre)
-            view.findViewById<EditText>(R.id.exitText_Number).setText(curso.creditos.toString())
+            view.findViewById<EditText>(R.id.editText_est).setText(curso.nombre)
+            view.findViewById<EditText>(R.id.exitText_Nota).setText(curso.creditos.toString())
             view.findViewById<EditText>(R.id.editText_fecha_i).setText(curso.horas.toString())
             view.findViewById<EditText>(R.id.editText_fecha_f).setText(curso.carreraCodigo)
             view.findViewById<EditText>(R.id.exitText_Career).setText(curso.cicloCodigo)
@@ -56,9 +56,9 @@ class CreateCourseFragment : FragmentUtils() {
 
     private fun createPerson(){
         var message:String? = null
-        var editTextCode = view?.findViewById<EditText>(R.id.editText_Cod)
-        var editTextName = view?.findViewById<EditText>(R.id.editText_Curso)
-        var editTextCredits = view?.findViewById<EditText>(R.id.exitText_Number)
+        var editTextCode = view?.findViewById<EditText>(R.id.editText_Group)
+        var editTextName = view?.findViewById<EditText>(R.id.editText_est)
+        var editTextCredits = view?.findViewById<EditText>(R.id.exitText_Nota)
         var editTextHours = view?.findViewById<EditText>(R.id.editText_fecha_i)
         var editTextCareer = view?.findViewById<EditText>(R.id.editText_fecha_f)
         var editTextCycle = view?.findViewById<EditText>(R.id.exitText_Career)

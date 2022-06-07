@@ -32,8 +32,8 @@ class CreateAlumnoFragment : FragmentUtils() {
             alumno = sentPerson as Alumno
             view.findViewById<TextView>(R.id.textView_accionPersona).setText("Editar Alumno")
             view.findViewById<EditText>(R.id.editText_Code5).setText(alumno.cedula)
-            view.findViewById<EditText>(R.id.editText_Curso).setText(alumno.nombre)
-            view.findViewById<EditText>(R.id.exitText_Number).setText(alumno.telefono)
+            view.findViewById<EditText>(R.id.editText_est).setText(alumno.nombre)
+            view.findViewById<EditText>(R.id.exitText_Nota).setText(alumno.telefono)
             view.findViewById<EditText>(R.id.editText_fecha_i).setText(alumno.email)
             view.findViewById<EditText>(R.id.editText_fecha_f).setText(alumno.fecha)
             view.findViewById<EditText>(R.id.exitText_Career).setText(alumno.CarreraCodigo)
@@ -54,8 +54,8 @@ class CreateAlumnoFragment : FragmentUtils() {
     private fun createPerson(){
         var message:String? = null
         var editTextCed = view?.findViewById<EditText>(R.id.editText_Code5)
-        var editTextName = view?.findViewById<EditText>(R.id.editText_Curso)
-        var editTextTele = view?.findViewById<EditText>(R.id.exitText_Number)
+        var editTextName = view?.findViewById<EditText>(R.id.editText_est)
+        var editTextTele = view?.findViewById<EditText>(R.id.exitText_Nota)
         var editTextEmail = view?.findViewById<EditText>(R.id.editText_fecha_i)
         var editTextDate = view?.findViewById<EditText>(R.id.editText_fecha_f)
         var editTextCareer = view?.findViewById<EditText>(R.id.exitText_Career)

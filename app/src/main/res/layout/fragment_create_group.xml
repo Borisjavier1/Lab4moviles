@@ -19,7 +19,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
     <EditText
-            android:id="@+id/editText_Cod"
+            android:id="@+id/editText_Group"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -36,8 +36,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:text="Número"
-            app:layout_constraintStart_toStartOf="@+id/exitText_Number"
-            app:layout_constraintTop_toBottomOf="@+id/editText_Curso"/>
+            app:layout_constraintStart_toStartOf="@+id/exitText_Nota"
+            app:layout_constraintTop_toBottomOf="@+id/editText_est"/>
     <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
@@ -46,7 +46,7 @@
             app:layout_constraintTop_toBottomOf="@+id/exitText_horario"
             android:layout_marginTop="20dp" app:layout_constraintStart_toStartOf="@+id/exitText_horario"/>
     <EditText
-            android:id="@+id/exitText_Number"
+            android:id="@+id/exitText_Nota"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -58,7 +58,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView7"/>
     <EditText
-            android:id="@+id/editText_Curso"
+            android:id="@+id/editText_est"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
             android:text="Horario"
             app:layout_constraintStart_toStartOf="@+id/exitText_horario"
-            app:layout_constraintTop_toBottomOf="@+id/exitText_Number" android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/exitText_Nota" android:layout_marginTop="16dp"
     />
     <EditText
             android:id="@+id/exitText_horario"
@@ -109,8 +109,8 @@
             android:layout_marginTop="32dp"
             android:text="Código de curso"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/editText_Curso"
-            app:layout_constraintTop_toBottomOf="@+id/editText_Cod"/>
+            app:layout_constraintStart_toStartOf="@+id/editText_est"
+            app:layout_constraintTop_toBottomOf="@+id/editText_Group"/>
     <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
@@ -118,7 +118,7 @@
             android:layout_marginTop="16dp"
             android:text="Código"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/editText_Cod"
+            app:layout_constraintStart_toStartOf="@+id/editText_Group"
             app:layout_constraintTop_toBottomOf="@+id/textView_accionPersona"/>
 
     <Button
@@ -127,14 +127,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="200dp"
             android:text="Guardar Grupo"
-            app:layout_constraintEnd_toEndOf="@+id/exitText_Number"
-            app:layout_constraintTop_toBottomOf="@+id/exitText_Number" android:layout_marginEnd="8dp"/>
+            app:layout_constraintEnd_toEndOf="@+id/exitText_Nota"
+            app:layout_constraintTop_toBottomOf="@+id/exitText_Nota" android:layout_marginEnd="8dp"/>
     <Button
             android:id="@+id/btn_volver"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="200dp"
             android:text="Volver"
-            app:layout_constraintStart_toStartOf="@+id/exitText_Number"
-            app:layout_constraintTop_toBottomOf="@+id/exitText_Number" android:layout_marginStart="8dp"/>
+            app:layout_constraintStart_toStartOf="@+id/exitText_Nota"
+            app:layout_constraintTop_toBottomOf="@+id/exitText_Nota" android:layout_marginStart="8dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

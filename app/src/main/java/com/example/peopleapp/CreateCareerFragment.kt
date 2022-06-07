@@ -31,9 +31,9 @@ class CreateCareerFragment : FragmentUtils() {
             tipoAgregado = 1//Modificar
             carrera = sentPerson as Carrera
             view.findViewById<TextView>(R.id.textView_accionPersona).setText("Editar Carrera")
-            view.findViewById<EditText>(R.id.editText_Cod).setText(carrera.codigo)
-            view.findViewById<EditText>(R.id.editText_Curso).setText(carrera.nombre)
-            view.findViewById<EditText>(R.id.exitText_Number).setText(carrera.titulo)
+            view.findViewById<EditText>(R.id.editText_Group).setText(carrera.codigo)
+            view.findViewById<EditText>(R.id.editText_est).setText(carrera.nombre)
+            view.findViewById<EditText>(R.id.exitText_Nota).setText(carrera.titulo)
 
         }
 
@@ -50,9 +50,9 @@ class CreateCareerFragment : FragmentUtils() {
 
     private fun createPerson(){
         var message:String? = null
-        var editTextCode = view?.findViewById<EditText>(R.id.editText_Cod)
-        var editTextName = view?.findViewById<EditText>(R.id.editText_Curso)
-        var editTextTittle = view?.findViewById<EditText>(R.id.exitText_Number)
+        var editTextCode = view?.findViewById<EditText>(R.id.editText_Group)
+        var editTextName = view?.findViewById<EditText>(R.id.editText_est)
+        var editTextTittle = view?.findViewById<EditText>(R.id.exitText_Nota)
 
         var code = editTextCode?.text.toString()
         var name = editTextName?.text.toString()

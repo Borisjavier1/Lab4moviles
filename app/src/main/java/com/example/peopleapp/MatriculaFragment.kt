@@ -1,7 +1,5 @@
 package com.example.peopleapp
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.graphics.Canvas
 import android.graphics.Color
 import android.os.Bundle
@@ -16,36 +14,33 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.models.*
+import com.example.models.Ciclo
+import com.example.models.Ciclos
+import com.example.models.Matricula
+import com.example.models.Matriculas
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import java.util.*
 import kotlin.collections.ArrayList
 
-class GroupTeacherFragment : FragmentUtils(){
+class MatriculaFragment : FragmentUtils(){
     private lateinit var appBarConfiguration: AppBarConfiguration
-
-    var grupos: Grupos = Grupos.instance
+    var matriculas: Matriculas = Matriculas.instance
 
     lateinit var recyclerViewElement: RecyclerView
-    lateinit var adaptador: RecyclerView_Adapter4
-    lateinit var grupo: Grupo
+    lateinit var adaptador: RecyclerView_Adapter7
+    lateinit var matricula: Matricula
     var position: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        val sp: SharedPreferences
-        var myContext = activity!!
-        sp = myContext.getSharedPreferences("Session Data", Context.MODE_PRIVATE)
-        var ced = sp.getString("cedula", "")
-
+        var grupo  = arguments?.getString("grupo")
 
         // Inflate the layout for this fragment
-        var view = inflater.inflate(R.layout.fragment_group_teacher, container, false)
+        var view = inflater.inflate(R.layout.fragment_matricula, container, false)
 
         val searchIcon = view.findViewById<ImageView>(R.id.search_mag_icon)
         searchIcon.setColorFilter(Color.BLACK)
@@ -91,7 +86,7 @@ class GroupTeacherFragment : FragmentUtils(){
                 val fromPosition: Int = viewHolder.adapterPosition
                 val toPosition: Int = target.adapterPosition
 
-                Collections.swap(grupos.getGruposProfesor(ced), fromPosition, toPosition)
+                Collections.swap(matriculas.getMatriculasGroup(grupo), fromPosition, toPosition)
 
                 recyclerViewElement.adapter?.notifyItemMoved(fromPosition, toPosition)
 
@@ -104,32 +99,32 @@ class GroupTeacherFragment : FragmentUtils(){
                 if (direction == ItemTouchHelper.LEFT) {//Delete
 
                     var index = getIndex(position)
-                    grupos.deleteGrupo(index)
+                    matriculas.deleteMatricula(index)
                     recyclerViewElement.adapter?.notifyItemRemoved(position)
 
-                    Snackbar.make(recyclerViewElement, grupo.codigo + " eliminado/a", Snackbar.LENGTH_LONG).setAction("Undo") {
-                        grupos.getGrupos().add(position, grupo)
+                    Snackbar.make(recyclerViewElement, matricula.cedEstudiante + " eliminado/a", Snackbar.LENGTH_LONG).setAction("Undo") {
+                        matriculas.getMatriculasGroup(grupo).add(position, matricula)
                         recyclerViewElement.adapter?.notifyItemInserted(position)
                     }.show()
 
-                    adaptador = RecyclerView_Adapter4(grupos.getGrupos())
+                    adaptador = RecyclerView_Adapter7(matriculas.getMatriculas())
                     recyclerViewElement.adapter = adaptador
 
                 } else { //Edit
-                    grupo = Grupo(
-                        grupos.getGrupos()[position].codigo,
-                        grupos.getGrupos()[position].cursoCodigo,
-                        grupos.getGrupos()[position].numero,
-                        grupos.getGrupos()[position].horario,
-                        grupos.getGrupos()[position].cedulaProfesor
+                    matricula = Matricula(
+                        matriculas.getMatriculasGroup(grupo)[position].codGrupo,
+                        matriculas.getMatriculasGroup(grupo)[position].cedEstudiante,
+                        matriculas.getMatriculasGroup(grupo)[position].nota,
+                        matriculas.getMatriculasGroup(grupo)[position].estado
+
                     )
                     var index = getIndex(position)
-                    grupo.position = index;
+                    matricula.position = index;
 
                     var bundle = Bundle()
-                    bundle.putString("grupo", grupo.codigo)
+                    bundle.putSerializable("matricula", matricula)
 
-                    var editFragment = MatriculaFragment()
+                    var editFragment = CreateMatriculaFragment()
                     editFragment.arguments = bundle
 
                     setToolbarTitle("Editar Matricula")
@@ -147,7 +142,7 @@ class GroupTeacherFragment : FragmentUtils(){
                 isCurrentlyActive: Boolean
             ) {
                 RecyclerViewSwipeDecorator.Builder(
-                    this@GroupTeacherFragment.context,
+                    this@MatriculaFragment.context,
                     c,
                     recyclerView,
                     viewHolder,
@@ -156,11 +151,11 @@ class GroupTeacherFragment : FragmentUtils(){
                     actionState,
                     isCurrentlyActive
                 )
-                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(this@GroupTeacherFragment.context!!, R.color.red))
+                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(this@MatriculaFragment.context!!, R.color.red))
                     .addSwipeLeftActionIcon(R.drawable.ic_baseline_delete_24)
                     .addSwipeRightBackgroundColor(
                         ContextCompat.getColor(
-                            this@GroupTeacherFragment.context!!,
+                            this@MatriculaFragment.context!!,
                             R.color.green
                         )
                     )
@@ -176,35 +171,30 @@ class GroupTeacherFragment : FragmentUtils(){
 
         val add: FloatingActionButton = view.findViewById(R.id.add)
         add.setOnClickListener { view ->
-            changeFragment(GroupTeacherFragment())
+            changeFragment(CreateCycleFragment())
         }
         return view;
     }
     private fun getListOfPersons() {
-        val sp: SharedPreferences
-        var myContext = activity!!
-        sp = myContext.getSharedPreferences("Session Data", Context.MODE_PRIVATE)
-        var ced = sp.getString("cedula", "")
-        val Ngrupos = ArrayList<Grupo>()
-        for (p in grupos.getGruposProfesor(ced)) {
-            Ngrupos.add(p)
+        var grupo  = arguments?.getString("grupo")
+        val Nciclos = ArrayList<Matricula>()
+        for (p in matriculas.getMatriculasGroup(grupo)) {
+            Nciclos.add(p)
         }
-        adaptador = RecyclerView_Adapter4(Ngrupos)
+        adaptador = RecyclerView_Adapter7(Nciclos)
         recyclerViewElement.adapter = adaptador
     }
     private fun getIndex(index: Int): Int{
-        val sp: SharedPreferences
-        var myContext = activity!!
-        sp = myContext.getSharedPreferences("Session Data", Context.MODE_PRIVATE)
-        var ced = sp.getString("cedula", "")
+        var grupo  = arguments?.getString("grupo")
+
         var index = index
         var adapterItems = adaptador.itemsList
-        var listaGrupos = grupos.getGruposProfesor(ced)
+        var listaCiclos = matriculas.getMatriculasGroup(grupo)
 
-        grupo = adapterItems?.get(index)!!
+        matricula = adapterItems?.get(index)!!
 
-        index = listaGrupos.indexOfFirst {
-            it.codigo == grupo.codigo
+        index = listaCiclos.indexOfFirst {
+            it.cedEstudiante == matricula.cedEstudiante
         }
 
         return index
