@@ -6,8 +6,9 @@ class Matriculas private constructor() {
     private var matriculas: ArrayList<Matricula> = ArrayList<Matricula>()
 
     init{
-        addMatricula(Matricula("666","000",0,"Reprobado"))
-        addMatricula(Matricula("777","ppp",0,"Reprobado"))
+        addMatricula(Matricula("666","123",0,"Reprobado"))
+        addMatricula(Matricula("777","123",0,"Reprobado"))
+        addMatricula(Matricula("777","900",0,"Reprobado"))
 
     }
 
@@ -35,6 +36,16 @@ class Matriculas private constructor() {
         var grupos2: ArrayList<Matricula> = ArrayList<Matricula>()
         for( item in this.matriculas){
             if(item.codGrupo == grupo){
+                grupos2.add(item)
+            }
+        }
+        return grupos2
+    }
+
+    fun getMatriculasStudent(estudiante: String?): ArrayList<Matricula>{
+        var grupos2: ArrayList<Matricula> = ArrayList<Matricula>()
+        for( item in this.matriculas){
+            if(item.cedEstudiante == estudiante){
                 grupos2.add(item)
             }
         }

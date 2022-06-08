@@ -76,6 +76,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 if(rol==2) {
                     setToolbarTitle("Grupos a cargo")
                 }
+                if(rol==1) {
+                    setToolbarTitle("Historial académico")
+                }
                 changeFragment(HomeFragment())
             }
             R.id.nav_item_career -> {

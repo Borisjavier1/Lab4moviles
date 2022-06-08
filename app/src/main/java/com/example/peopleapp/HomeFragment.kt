@@ -30,6 +30,10 @@ class HomeFragment : Fragment()  {
             getActivity()?.setTitle("Grupos a cargo");
             changeFragment(GroupTeacherFragment())
         }
+        if(rol==1){
+            getActivity()?.setTitle("Historial académico");
+            changeFragment(MatriculaEstudianteFragment())
+        }
 
         return inflater.inflate(R.layout.fragment_home, container, false)
 
