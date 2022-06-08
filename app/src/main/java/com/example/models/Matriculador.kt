@@ -1,10 +1,9 @@
 package com.example.models
 import java.io.Serializable
-class Administrador : Serializable{
+class Matriculador : Serializable{
 
     var cedula:String = ""
     var nombre:String = ""
-    var position: Int? = null
 
 
     internal constructor(cedula: String, nombre: String) {
