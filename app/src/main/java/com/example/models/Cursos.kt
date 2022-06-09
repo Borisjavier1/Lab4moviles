@@ -34,6 +34,17 @@ class Cursos {
         return this.cursos!!
     }
 
+    fun getCursosCicloCarrera(carrera: String?, ciclo: String?):ArrayList<Curso> {
+        var grupos2: ArrayList<Curso> = ArrayList<Curso>()
+        for( item in this.cursos ){
+            if(item.carreraCodigo == carrera && item.cicloCodigo == ciclo){
+                grupos2.add(item)
+            }
+        }
+        return grupos2
+    }
+
+
 
     fun deleteCurso(position: Int){
         cursos!!.removeAt(position)

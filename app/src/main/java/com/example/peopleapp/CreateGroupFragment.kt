@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import com.example.models.Grupo
 import com.example.models.Grupos
 import com.google.android.material.snackbar.Snackbar
@@ -25,6 +26,8 @@ class CreateGroupFragment : FragmentUtils() {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_create_group, container, false)
 
+        var curso  = arguments?.getString("curso")
+        view.findViewById<EditText>(R.id.editText_est).setText(curso)
         var sentPerson  = arguments?.getSerializable("grupo")
 
         if(sentPerson != null){
@@ -100,8 +103,8 @@ class CreateGroupFragment : FragmentUtils() {
         }
     }
     private fun volver(){
-        setToolbarTitle("Grupos")
-        changeFragment(GroupFragment())
+        setToolbarTitle("Oferta acádemica")
+        changeFragment(OfertaFragment())
     }
 }
 

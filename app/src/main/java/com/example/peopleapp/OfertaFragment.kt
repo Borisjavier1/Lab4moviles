@@ -26,7 +26,7 @@ class OfertaFragment : Fragment()  {
             //Toast.makeText(activity,editTextCarrera.text,Toast.LENGTH_SHORT).show();
             val datosAEnviar = Bundle()
             datosAEnviar.putString("carrera",editTextCarrera.text.toString())
-            datosAEnviar.putString("ciclo",editTextCarrera.text.toString())
+            datosAEnviar.putString("ciclo",editTextCiclo.text.toString())
             val fragmento: Fragment = CourseOfertaFragment()
             fragmento.setArguments(datosAEnviar);
             changeFragment(fragmento)

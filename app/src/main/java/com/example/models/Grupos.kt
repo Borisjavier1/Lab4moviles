@@ -45,7 +45,15 @@ class Grupos {
          }
         return grupos2
     }
-
+    fun getGruposCurso(ced: String?):ArrayList<Grupo> {
+        var grupos2: ArrayList<Grupo> = ArrayList<Grupo>()
+        for( item in this.grupos){
+            if(item.cursoCodigo == ced){
+                grupos2.add(item)
+            }
+        }
+        return grupos2
+    }
 
     fun deleteGrupo(position: Int){
         grupos!!.removeAt(position)

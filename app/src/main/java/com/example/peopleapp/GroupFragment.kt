@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,7 +20,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import java.util.*
-import kotlin.collections.ArrayList
 
 class GroupFragment : FragmentUtils(){
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -34,6 +34,11 @@ class GroupFragment : FragmentUtils(){
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val datosRecuperados = arguments
+        val curso = datosRecuperados?.getSerializable("curso") as Curso
+
+        //Toast.makeText(activity,curso.carreraCodigo,Toast.LENGTH_SHORT).show();
+
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_cycle, container, false)
 
@@ -81,7 +86,7 @@ class GroupFragment : FragmentUtils(){
                 val fromPosition: Int = viewHolder.adapterPosition
                 val toPosition: Int = target.adapterPosition
 
-                Collections.swap(grupos.getGrupos(), fromPosition, toPosition)
+                Collections.swap(grupos.getGruposCurso(curso.carreraCodigo), fromPosition, toPosition)
 
                 recyclerViewElement.adapter?.notifyItemMoved(fromPosition, toPosition)
 
@@ -166,22 +171,30 @@ class GroupFragment : FragmentUtils(){
 
         val add: FloatingActionButton = view.findViewById(R.id.add)
         add.setOnClickListener { view ->
-            changeFragment(CreateGroupFragment())
+            var bundle = Bundle()
+            bundle.putString("curso", curso.codigo)
+            var editFragment = CreateGroupFragment()
+            editFragment.arguments = bundle
+            changeFragment(editFragment)
         }
         return view;
     }
     private fun getListOfPersons() {
+        val datosRecuperados = arguments
+        val curso = datosRecuperados?.getSerializable("curso") as Curso
         val Ngrupos = ArrayList<Grupo>()
-        for (p in grupos.getGrupos()) {
+        for (p in grupos.getGruposCurso(curso.carreraCodigo)) {
             Ngrupos.add(p)
         }
         adaptador = RecyclerView_Adapter4(Ngrupos)
         recyclerViewElement.adapter = adaptador
     }
     private fun getIndex(index: Int): Int{
+        val datosRecuperados = arguments
+        val curso = datosRecuperados?.getSerializable("curso") as Curso
         var index = index
         var adapterItems = adaptador.itemsList
-        var listaGrupos = grupos.getGrupos()
+        var listaGrupos = grupos.getGruposCurso(curso.carreraCodigo)
 
         grupo = adapterItems?.get(index)!!
 

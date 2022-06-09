@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -17,7 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.models.Curso
 import com.example.models.Cursos
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import java.util.*
@@ -32,15 +32,19 @@ class CourseOfertaFragment : FragmentUtils(){
     lateinit var curso: Curso
     var position: Int = 0
 
+
+
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val datosRecuperados = arguments
-        if (datosRecuperados != null) {
-
-        };
+        val carrera = datosRecuperados?.getString("carrera")
+        val ciclo = datosRecuperados?.getString("ciclo")
+        //Toast.makeText(activity,carrera+ciclo,Toast.LENGTH_SHORT).show();
 
         var view = inflater.inflate(R.layout.fragment_course_oferta, container, false)
 
@@ -74,6 +78,9 @@ class CourseOfertaFragment : FragmentUtils(){
 
         getListOfPersons()
 
+        view.findViewById<Button>(R.id.back).setOnClickListener {
+            changeFragment(OfertaFragment())
+        }
         val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
             ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.START or ItemTouchHelper.END,
             ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
@@ -88,7 +95,7 @@ class CourseOfertaFragment : FragmentUtils(){
                 val fromPosition: Int = viewHolder.adapterPosition
                 val toPosition: Int = target.adapterPosition
 
-                Collections.swap(cursos.getCursos(), fromPosition, toPosition)
+                Collections.swap(cursos.getCursosCicloCarrera(carrera,ciclo), fromPosition, toPosition)
 
                 recyclerViewElement.adapter?.notifyItemMoved(fromPosition, toPosition)
 
@@ -100,17 +107,26 @@ class CourseOfertaFragment : FragmentUtils(){
 
                 if (direction == ItemTouchHelper.LEFT) {//Delete
 
+                    curso = Curso(
+                        cursos.getCursos()[position].codigo,
+                        cursos.getCursos()[position].nombre,
+                        cursos.getCursos()[position].creditos,
+                        cursos.getCursos()[position].horas,
+                        cursos.getCursos()[position].carreraCodigo,
+                        cursos.getCursos()[position].cicloCodigo
+
+                    )
                     var index = getIndex(position)
-                    cursos.deleteCurso(index)
-                    recyclerViewElement.adapter?.notifyItemRemoved(position)
+                    curso.position = index;
 
-                    Snackbar.make(recyclerViewElement, curso.nombre + " eliminado/a", Snackbar.LENGTH_LONG).setAction("Undo") {
-                        cursos.getCursos().add(position, curso)
-                        recyclerViewElement.adapter?.notifyItemInserted(position)
-                    }.show()
+                    var bundle = Bundle()
+                    bundle.putSerializable("curso", curso)
 
-                    adaptador = RecyclerView_Adapter3(cursos.getCursos())
-                    recyclerViewElement.adapter = adaptador
+                    var editFragment = GroupFragment()
+                    editFragment.arguments = bundle
+
+                    setToolbarTitle("Ver grupos")
+                    changeFragment(fragmentUtils = editFragment)
 
                 } else { //Edit
                     curso = Curso(
@@ -128,10 +144,10 @@ class CourseOfertaFragment : FragmentUtils(){
                     var bundle = Bundle()
                     bundle.putSerializable("curso", curso)
 
-                    var editFragment = CreateCourseFragment()
+                    var editFragment = GroupFragment()
                     editFragment.arguments = bundle
 
-                    setToolbarTitle("Editar Curso")
+                    setToolbarTitle("Ver grupos")
                     changeFragment(fragmentUtils = editFragment)
                 }
             }
@@ -155,8 +171,8 @@ class CourseOfertaFragment : FragmentUtils(){
                     actionState,
                     isCurrentlyActive
                 )
-                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(this@CourseOfertaFragment.context!!, R.color.red))
-                    .addSwipeLeftActionIcon(R.drawable.ic_baseline_delete_24)
+                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(this@CourseOfertaFragment.context!!, R.color.green))
+                    .addSwipeLeftActionIcon(R.drawable.ic_baseline_edit_24)
                     .addSwipeRightBackgroundColor(
                         ContextCompat.getColor(
                             this@CourseOfertaFragment.context!!,
@@ -177,17 +193,23 @@ class CourseOfertaFragment : FragmentUtils(){
         return view;
     }
     private fun getListOfPersons() {
+        val datosRecuperados = arguments
+        val carrera = datosRecuperados?.getString("carrera")
+        val ciclo = datosRecuperados?.getString("ciclo")
         val Ncursos = ArrayList<Curso>()
-        for (p in cursos.getCursos()) {
+        for (p in cursos.getCursosCicloCarrera(carrera,ciclo)) {
             Ncursos.add(p)
         }
         adaptador = RecyclerView_Adapter3(Ncursos)
         recyclerViewElement.adapter = adaptador
     }
     private fun getIndex(index: Int): Int{
+        val datosRecuperados = arguments
+        val carrera = datosRecuperados?.getString("carrera")
+        val ciclo = datosRecuperados?.getString("ciclo")
         var index = index
         var adapterItems = adaptador.itemsList
-        var listaCursos = cursos.getCursos()
+        var listaCursos = cursos.getCursosCicloCarrera(carrera,ciclo)
 
         curso = adapterItems?.get(index)!!
 
