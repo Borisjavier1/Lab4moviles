@@ -3,8 +3,8 @@ package com.example.models
 class Ciclos {
     private var ciclos: ArrayList<Ciclo> = ArrayList<Ciclo>()
     init{
-        addCiclo(Ciclo("123",1,2020,"10-02-2020","10-06-2020"))
-        addCiclo(Ciclo("456",2,2021,"10-02-2021","10-06-2021"))
+        addCiclo(Ciclo("123",1,2020,"10-02-2020","10-06-2020",1))
+        addCiclo(Ciclo("456",2,2021,"10-02-2021","10-06-2021",0))
 
     }
 
@@ -47,5 +47,6 @@ class Ciclos {
         aux.anio = p.anio
         aux.fechaInicio = p.fechaInicio
         aux.fechaFin = p.fechaFin
+        aux.actual = p.actual
     }
 }

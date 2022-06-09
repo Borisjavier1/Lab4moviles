@@ -8,27 +8,28 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.models.Ciclo
-import com.example.models.Ciclos
+import com.example.models.Curso
+import com.example.models.Cursos
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import java.util.*
-import kotlin.collections.ArrayList
 
-class CycleFragment : FragmentUtils(){
+
+class CourseOfertaFragment : FragmentUtils(){
     private lateinit var appBarConfiguration: AppBarConfiguration
-    var ciclos: Ciclos = Ciclos.instance
+    var cursos: Cursos = Cursos.instance
 
     lateinit var recyclerViewElement: RecyclerView
-    lateinit var adaptador: RecyclerView_Adapter2
-    lateinit var ciclo: Ciclo
+    lateinit var adaptador: RecyclerView_Adapter3
+    lateinit var curso: Curso
     var position: Int = 0
 
     override fun onCreateView(
@@ -36,7 +37,12 @@ class CycleFragment : FragmentUtils(){
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view = inflater.inflate(R.layout.fragment_cycle, container, false)
+        val datosRecuperados = arguments
+        if (datosRecuperados != null) {
+
+        };
+
+        var view = inflater.inflate(R.layout.fragment_course_oferta, container, false)
 
         val searchIcon = view.findViewById<ImageView>(R.id.search_mag_icon)
         searchIcon.setColorFilter(Color.BLACK)
@@ -82,7 +88,7 @@ class CycleFragment : FragmentUtils(){
                 val fromPosition: Int = viewHolder.adapterPosition
                 val toPosition: Int = target.adapterPosition
 
-                Collections.swap(ciclos.getCiclos(), fromPosition, toPosition)
+                Collections.swap(cursos.getCursos(), fromPosition, toPosition)
 
                 recyclerViewElement.adapter?.notifyItemMoved(fromPosition, toPosition)
 
@@ -95,37 +101,37 @@ class CycleFragment : FragmentUtils(){
                 if (direction == ItemTouchHelper.LEFT) {//Delete
 
                     var index = getIndex(position)
-                    ciclos.deleteCiclo(index)
+                    cursos.deleteCurso(index)
                     recyclerViewElement.adapter?.notifyItemRemoved(position)
 
-                    Snackbar.make(recyclerViewElement, ciclo.codigo + " eliminado/a", Snackbar.LENGTH_LONG).setAction("Undo") {
-                        ciclos.getCiclos().add(position, ciclo)
+                    Snackbar.make(recyclerViewElement, curso.nombre + " eliminado/a", Snackbar.LENGTH_LONG).setAction("Undo") {
+                        cursos.getCursos().add(position, curso)
                         recyclerViewElement.adapter?.notifyItemInserted(position)
                     }.show()
 
-                    adaptador = RecyclerView_Adapter2(ciclos.getCiclos())
+                    adaptador = RecyclerView_Adapter3(cursos.getCursos())
                     recyclerViewElement.adapter = adaptador
 
                 } else { //Edit
-                    ciclo = Ciclo(
-                        ciclos.getCiclos()[position].codigo,
-                        ciclos.getCiclos()[position].numero,
-                        ciclos.getCiclos()[position].anio,
-                        ciclos.getCiclos()[position].fechaInicio,
-                        ciclos.getCiclos()[position].fechaFin,
-                        ciclos.getCiclos()[position].actual
+                    curso = Curso(
+                        cursos.getCursos()[position].codigo,
+                        cursos.getCursos()[position].nombre,
+                        cursos.getCursos()[position].creditos,
+                        cursos.getCursos()[position].horas,
+                        cursos.getCursos()[position].carreraCodigo,
+                        cursos.getCursos()[position].cicloCodigo
 
                     )
                     var index = getIndex(position)
-                    ciclo.position = index;
+                    curso.position = index;
 
                     var bundle = Bundle()
-                    bundle.putSerializable("ciclo", ciclo)
+                    bundle.putSerializable("curso", curso)
 
-                    var editFragment = CreateCycleFragment()
+                    var editFragment = CreateCourseFragment()
                     editFragment.arguments = bundle
 
-                    setToolbarTitle("Editar Ciclo")
+                    setToolbarTitle("Editar Curso")
                     changeFragment(fragmentUtils = editFragment)
                 }
             }
@@ -140,7 +146,7 @@ class CycleFragment : FragmentUtils(){
                 isCurrentlyActive: Boolean
             ) {
                 RecyclerViewSwipeDecorator.Builder(
-                    this@CycleFragment.context,
+                    this@CourseOfertaFragment.context,
                     c,
                     recyclerView,
                     viewHolder,
@@ -149,11 +155,11 @@ class CycleFragment : FragmentUtils(){
                     actionState,
                     isCurrentlyActive
                 )
-                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(this@CycleFragment.context!!, R.color.red))
+                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(this@CourseOfertaFragment.context!!, R.color.red))
                     .addSwipeLeftActionIcon(R.drawable.ic_baseline_delete_24)
                     .addSwipeRightBackgroundColor(
                         ContextCompat.getColor(
-                            this@CycleFragment.context!!,
+                            this@CourseOfertaFragment.context!!,
                             R.color.green
                         )
                     )
@@ -167,29 +173,26 @@ class CycleFragment : FragmentUtils(){
         val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
         itemTouchHelper.attachToRecyclerView(recyclerViewElement)
 
-        val add: FloatingActionButton = view.findViewById(R.id.add)
-        add.setOnClickListener { view ->
-            changeFragment(CreateCycleFragment())
-        }
+
         return view;
     }
     private fun getListOfPersons() {
-        val Nciclos = ArrayList<Ciclo>()
-        for (p in ciclos.getCiclos()) {
-            Nciclos.add(p)
+        val Ncursos = ArrayList<Curso>()
+        for (p in cursos.getCursos()) {
+            Ncursos.add(p)
         }
-        adaptador = RecyclerView_Adapter2(Nciclos)
+        adaptador = RecyclerView_Adapter3(Ncursos)
         recyclerViewElement.adapter = adaptador
     }
     private fun getIndex(index: Int): Int{
         var index = index
         var adapterItems = adaptador.itemsList
-        var listaCiclos = ciclos.getCiclos()
+        var listaCursos = cursos.getCursos()
 
-        ciclo = adapterItems?.get(index)!!
+        curso = adapterItems?.get(index)!!
 
-        index = listaCiclos.indexOfFirst {
-            it.codigo == ciclo.codigo
+        index = listaCursos.indexOfFirst {
+            it.nombre == curso.nombre
         }
 
         return index

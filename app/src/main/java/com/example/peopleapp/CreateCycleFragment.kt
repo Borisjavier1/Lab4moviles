@@ -71,7 +71,7 @@ class CreateCycleFragment : FragmentUtils() {
         var image = R.drawable.foto01
 
         if(tipoAgregado == 0){
-            ciclo = Ciclo(code, number.toInt(), year.toInt(), dateB, dateF)
+            ciclo = Ciclo(code, number.toInt(), year.toInt(), dateB, dateF,0)
             ciclos.addCiclo(ciclo)
             message = "Ciclo Agregado"
         }

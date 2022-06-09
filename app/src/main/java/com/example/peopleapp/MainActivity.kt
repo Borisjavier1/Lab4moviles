@@ -90,8 +90,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 changeFragment(CourseFragment())
             }
             R.id.nav_item_groups -> {
-                setToolbarTitle("Grupos")
-                changeFragment(GroupFragment())
+                setToolbarTitle("Oferta acádemica")
+                changeFragment(OfertaFragment())
             }
             R.id.nav_item_cycle -> {
                 setToolbarTitle("Ciclos")
