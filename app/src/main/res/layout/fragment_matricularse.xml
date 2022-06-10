@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OfertaFragment">
+    tools:context=".MatricularseFragment">
 
     <FrameLayout
             android:layout_width="match_parent"
@@ -25,7 +25,7 @@
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintHorizontal_bias="0.502" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.291" android:hint="Carrera"/>
+            app:layout_constraintVertical_bias="0.291" android:hint="Estudiante"/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,9 +45,9 @@
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.273"
             app:layout_constraintVertical_bias="0.41"/>
     <TextView
-            android:text="Oferta Acádemica"
-            android:layout_width="174dp"
-            android:layout_height="86dp" android:id="@+id/textView4"
+            android:text="Matrícula"
+            android:layout_width="162dp"
+            android:layout_height="68dp" android:id="@+id/textView4"
             android:textSize="34sp" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@+id/frameLayout" app:layout_constraintVertical_bias="0.024"
@@ -60,7 +60,7 @@
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintVertical_bias="0.66"/>
     <TextView
-            android:text="Código"
+            android:text="Cédula"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/textView13"
             app:layout_constraintTop_toTopOf="parent"

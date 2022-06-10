@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import com.example.models.Carrera
 import com.example.models.Matricula
 import com.example.models.Matriculas
 import com.google.android.material.snackbar.Snackbar
@@ -37,6 +36,7 @@ class VerMatriculaFragment : FragmentUtils() {
             view.findViewById<EditText>(R.id.editText_est).setText(matricula.cedEstudiante)
             view.findViewById<EditText>(R.id.exitText_Estado).setText(matricula.estado)
             view.findViewById<EditText>(R.id.exitText_Nota).setText(matricula.nota.toString())
+            view.findViewById<EditText>(R.id.exitText_Estado3).setText(matricula.codCiclo)
 
         }
 
@@ -57,16 +57,18 @@ class VerMatriculaFragment : FragmentUtils() {
         var editTextCed = view?.findViewById<EditText>(R.id.editText_est)
         var editTextNota = view?.findViewById<EditText>(R.id.exitText_Nota)
         var editTextEstado = view?.findViewById<EditText>(R.id.exitText_Estado)
+        var editTextCiclo = view?.findViewById<EditText>(R.id.exitText_Estado3)
 
         var group = editTextGroup?.text.toString()
         var cedula = editTextCed?.text.toString()
         var nota = editTextNota?.text.toString()
         var estado = editTextEstado?.text.toString()
+        var ciclo = editTextCiclo?.text.toString()
 
         var image = R.drawable.foto01
 
         if(tipoAgregado == 0){
-            matricula = Matricula(group, cedula, nota.toInt(), estado)
+            matricula = Matricula(group, cedula, nota.toInt(), estado, ciclo)
             matriculas.addMatricula(matricula)
             message = "Matricula Agregada"
         }
@@ -80,7 +82,7 @@ class VerMatriculaFragment : FragmentUtils() {
             else{
                 matricula.estado = "Aprobado"
             }
-
+            matricula.codCiclo = ciclo
             var index = matricula.position as Int
             matriculas.editMatricula(matricula, index)
             message = "Matricula Modificada"
@@ -95,6 +97,7 @@ class VerMatriculaFragment : FragmentUtils() {
             editTextCed?.setText("")
             editTextNota?.setText("")
             editTextEstado?.setText("")
+            editTextCiclo?.setText("")
 
         }
         else{

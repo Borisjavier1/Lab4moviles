@@ -14,12 +14,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.models.Ciclo
-import com.example.models.Ciclos
 import com.example.models.Matricula
 import com.example.models.Matriculas
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import java.util.*
 import kotlin.collections.ArrayList
@@ -97,25 +93,33 @@ class MatriculaFragment : FragmentUtils(){
                 position = viewHolder.adapterPosition
 
                 if (direction == ItemTouchHelper.LEFT) {//Delete
+                    matricula = Matricula(
+                        matriculas.getMatriculasGroup(grupo)[position].codGrupo,
+                        matriculas.getMatriculasGroup(grupo)[position].cedEstudiante,
+                        matriculas.getMatriculasGroup(grupo)[position].nota,
+                        matriculas.getMatriculasGroup(grupo)[position].estado,
+                        matriculas.getMatriculasGroup(grupo)[position].codCiclo
 
+                    )
                     var index = getIndex(position)
-                    matriculas.deleteMatricula(index)
-                    recyclerViewElement.adapter?.notifyItemRemoved(position)
+                    matricula.position = index;
 
-                    Snackbar.make(recyclerViewElement, matricula.cedEstudiante + " eliminado/a", Snackbar.LENGTH_LONG).setAction("Undo") {
-                        matriculas.getMatriculasGroup(grupo).add(position, matricula)
-                        recyclerViewElement.adapter?.notifyItemInserted(position)
-                    }.show()
+                    var bundle = Bundle()
+                    bundle.putSerializable("matricula", matricula)
 
-                    adaptador = RecyclerView_Adapter7(matriculas.getMatriculas())
-                    recyclerViewElement.adapter = adaptador
+                    var editFragment = CreateMatriculaFragment()
+                    editFragment.arguments = bundle
+
+                    setToolbarTitle("Editar Matricula")
+                    changeFragment(fragmentUtils = editFragment)
 
                 } else { //Edit
                     matricula = Matricula(
                         matriculas.getMatriculasGroup(grupo)[position].codGrupo,
                         matriculas.getMatriculasGroup(grupo)[position].cedEstudiante,
                         matriculas.getMatriculasGroup(grupo)[position].nota,
-                        matriculas.getMatriculasGroup(grupo)[position].estado
+                        matriculas.getMatriculasGroup(grupo)[position].estado,
+                        matriculas.getMatriculasGroup(grupo)[position].codCiclo
 
                     )
                     var index = getIndex(position)
@@ -151,8 +155,8 @@ class MatriculaFragment : FragmentUtils(){
                     actionState,
                     isCurrentlyActive
                 )
-                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(this@MatriculaFragment.context!!, R.color.red))
-                    .addSwipeLeftActionIcon(R.drawable.ic_baseline_delete_24)
+                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(this@MatriculaFragment.context!!, R.color.green))
+                    .addSwipeLeftActionIcon(R.drawable.ic_baseline_edit_24)
                     .addSwipeRightBackgroundColor(
                         ContextCompat.getColor(
                             this@MatriculaFragment.context!!,

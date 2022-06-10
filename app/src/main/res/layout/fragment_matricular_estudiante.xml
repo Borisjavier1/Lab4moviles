@@ -4,8 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OfertaFragment">
+    tools:context=".MatricularEstudianteFragment">
 
+    <Button
+            android:text="Volver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/atras"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.828"/>
+    <TextView
+            android:text="Matrícular estudiante"
+            android:layout_width="255dp"
+            android:layout_height="89dp" android:id="@+id/matricular"
+            android:textSize="24sp" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/frameLayout" app:layout_constraintVertical_bias="0.219"
+            app:layout_constraintHorizontal_bias="0.55"/>
     <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -21,21 +36,11 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/editTextCarrera"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintHorizontal_bias="0.502" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.291" android:hint="Carrera"/>
-    <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
             android:id="@+id/editTextCurso"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.497" app:layout_constraintVertical_bias="0.465"
-            android:hint="Ciclo"/>
+            app:layout_constraintHorizontal_bias="0.497" app:layout_constraintVertical_bias="0.45"
+            android:hint="Código de grupo"/>
     <TextView
             android:text="Código"
             android:layout_width="wrap_content"
@@ -43,28 +48,20 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.273"
-            app:layout_constraintVertical_bias="0.41"/>
-    <TextView
-            android:text="Oferta Acádemica"
-            android:layout_width="174dp"
-            android:layout_height="86dp" android:id="@+id/textView4"
-            android:textSize="34sp" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="@+id/frameLayout" app:layout_constraintVertical_bias="0.024"
-            app:layout_constraintHorizontal_bias="0.497"/>
+            app:layout_constraintVertical_bias="0.396"/>
     <Button
-            android:text="Examinar"
+            android:text="Matricular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/buttonMatricular"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.66"/>
+            app:layout_constraintVertical_bias="0.667"/>
     <TextView
-            android:text="Código"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/textView13"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.275"
-            app:layout_constraintVertical_bias="0.238"/>
+            android:text="Matrícular estudiante"
+            android:layout_width="243dp"
+            android:layout_height="51dp" android:id="@+id/textView4"
+            android:textSize="24sp" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/frameLayout" app:layout_constraintVertical_bias="0.064"
+            app:layout_constraintHorizontal_bias="0.547"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

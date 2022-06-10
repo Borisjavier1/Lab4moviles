@@ -19,10 +19,10 @@ class OfertaFragment : Fragment()  {
         var view = inflater.inflate(R.layout.fragment_oferta, container, false)
 
         var editTextCarrera = view.findViewById<EditText>(R.id.editTextCarrera)
-        var editTextCiclo = view.findViewById<EditText>(R.id.editTextCiclo)
-        var botton = view.findViewById<Button>(R.id.buttonExaminar)
+        var editTextCiclo = view.findViewById<EditText>(R.id.editTextCurso)
+        var botton = view.findViewById<Button>(R.id.buttonMatricular)
 
-        view.findViewById<Button>(R.id.buttonExaminar).setOnClickListener{
+        view.findViewById<Button>(R.id.buttonMatricular).setOnClickListener{
             //Toast.makeText(activity,editTextCarrera.text,Toast.LENGTH_SHORT).show();
             val datosAEnviar = Bundle()
             datosAEnviar.putString("carrera",editTextCarrera.text.toString())

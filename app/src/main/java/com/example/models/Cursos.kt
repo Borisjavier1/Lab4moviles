@@ -3,7 +3,7 @@ package com.example.models
 class Cursos {
     private var cursos: ArrayList<Curso> = ArrayList<Curso>()
     init{
-        addCurso(Curso("123","Paradigmas",4,8,"123","456"))
+        addCurso(Curso("123","Paradigmas",4,8,"123","123"))
 
     }
 

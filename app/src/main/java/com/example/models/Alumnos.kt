@@ -5,6 +5,7 @@ class Alumnos {
     init{
         addAlumno(Alumno("123", "Pedro","2234-7865","pedro@gmail.com","22-02-2000","123"))
         addAlumno(Alumno("900", "Yoschua","5432-1123","yoschua@gmail.com","10-05-1999","123"))
+        addAlumno(Alumno("888", "Carlos","5432-1523","czrla@gmail.com","10-09-1999","123"))
 
     }
 

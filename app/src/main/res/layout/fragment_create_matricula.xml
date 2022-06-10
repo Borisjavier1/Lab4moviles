@@ -7,6 +7,26 @@
     tools:context=".CreateMatriculaFragment">
 
     <EditText
+            android:id="@+id/exitText_Estado2"
+            android:layout_width="300dp"
+            android:enabled="false"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="176dp"
+            android:ems="10"
+            android:hint="Código de ciclo"
+            android:minHeight="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.405"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView7" android:editable="false"/>
+    <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Código de ciclo"
+            app:layout_constraintTop_toBottomOf="@+id/exitText_Nota"
+            app:layout_constraintStart_toStartOf="@+id/exitText_Estado" android:layout_marginTop="104dp"/>
+    <EditText
             android:id="@+id/exitText_Estado"
             android:layout_width="300dp"
             android:enabled="false"
@@ -109,17 +129,17 @@
             android:id="@+id/btn_guardarPersona"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="112dp"
+            android:layout_marginTop="184dp"
             android:text="Guardar Nota"
             app:layout_constraintEnd_toEndOf="@+id/exitText_Nota"
-            app:layout_constraintTop_toBottomOf="@+id/exitText_Nota" android:layout_marginEnd="8dp"/>
+            app:layout_constraintTop_toBottomOf="@+id/exitText_Nota" android:layout_marginEnd="16dp"/>
     <Button
             android:id="@+id/btn_volver"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="112dp"
+            android:layout_marginTop="184dp"
             android:text="Volver"
             app:layout_constraintStart_toStartOf="@+id/exitText_Nota"
-            app:layout_constraintTop_toBottomOf="@+id/exitText_Nota" android:layout_marginStart="4dp"/>
+            app:layout_constraintTop_toBottomOf="@+id/exitText_Nota" android:layout_marginStart="12dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

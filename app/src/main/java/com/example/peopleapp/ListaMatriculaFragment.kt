@@ -1,7 +1,5 @@
 package com.example.peopleapp
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.graphics.Canvas
 import android.graphics.Color
 import android.os.Bundle
@@ -16,12 +14,17 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.models.*
+import com.example.models.Ciclo
+import com.example.models.Ciclos
+import com.example.models.Matricula
+import com.example.models.Matriculas
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import java.util.*
 import kotlin.collections.ArrayList
 
-class MatriculaEstudianteFragment : FragmentUtils(){
+class ListaMatriculaFragment : FragmentUtils(){
     private lateinit var appBarConfiguration: AppBarConfiguration
     var matriculas: Matriculas = Matriculas.instance
 
@@ -34,14 +37,11 @@ class MatriculaEstudianteFragment : FragmentUtils(){
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        setToolbarTitle("Historial de matriculas")
-        val sp: SharedPreferences
-        var myContext = activity!!
-        sp = myContext.getSharedPreferences("Session Data", Context.MODE_PRIVATE)
-        var ced = sp.getString("cedula", "")
+        var estudiante  = arguments?.getString("estudiante")
+        var ciclo = arguments?.getString("ciclo")
 
         // Inflate the layout for this fragment
-        var view = inflater.inflate(R.layout.fragment_matricula_estudiante, container, false)
+        var view = inflater.inflate(R.layout.fragment_matricula_lista, container, false)
 
         val searchIcon = view.findViewById<ImageView>(R.id.search_mag_icon)
         searchIcon.setColorFilter(Color.BLACK)
@@ -87,7 +87,7 @@ class MatriculaEstudianteFragment : FragmentUtils(){
                 val fromPosition: Int = viewHolder.adapterPosition
                 val toPosition: Int = target.adapterPosition
 
-                Collections.swap(matriculas.getMatriculasStudent(ced), fromPosition, toPosition)
+                Collections.swap(matriculas.getMatriculasStudentCiclo(estudiante,ciclo), fromPosition, toPosition)
 
                 recyclerViewElement.adapter?.notifyItemMoved(fromPosition, toPosition)
 
@@ -98,47 +98,30 @@ class MatriculaEstudianteFragment : FragmentUtils(){
                 position = viewHolder.adapterPosition
 
                 if (direction == ItemTouchHelper.LEFT) {//Delete
-
-                    matricula = Matricula(
-                        matriculas.getMatriculasStudent(ced)[position].codGrupo,
-                        matriculas.getMatriculasStudent(ced)[position].cedEstudiante,
-                        matriculas.getMatriculasStudent(ced)[position].nota,
-                        matriculas.getMatriculasStudent(ced)[position].estado,
-                        matriculas.getMatriculasStudent(ced)[position].codCiclo
-
-                    )
                     var index = getIndex(position)
-                    matricula.position = index;
+                    matriculas.deleteMatricula(index)
+                    recyclerViewElement.adapter?.notifyItemRemoved(position)
 
-                    var bundle = Bundle()
-                    bundle.putSerializable("matricula", matricula)
+                    Snackbar.make(recyclerViewElement, matricula.codGrupo + " eliminado/a", Snackbar.LENGTH_LONG).setAction("Undo") {
+                        matriculas.getMatriculas().add(position, matricula)
+                        recyclerViewElement.adapter?.notifyItemInserted(position)
+                    }.show()
 
-                    var editFragment = VerMatriculaFragment()
-                    editFragment.arguments = bundle
-
-                    setToolbarTitle("Ver Matricula")
-                    changeFragment(fragmentUtils = editFragment)
+                    adaptador = RecyclerView_Adapter7(matriculas.getMatriculasStudentCiclo(estudiante,ciclo))
+                    recyclerViewElement.adapter = adaptador
 
                 } else { //Edit
-                    matricula = Matricula(
-                        matriculas.getMatriculasStudent(ced)[position].codGrupo,
-                        matriculas.getMatriculasStudent(ced)[position].cedEstudiante,
-                        matriculas.getMatriculasStudent(ced)[position].nota,
-                        matriculas.getMatriculasStudent(ced)[position].estado,
-                        matriculas.getMatriculasStudent(ced)[position].codCiclo
-
-                    )
                     var index = getIndex(position)
-                    matricula.position = index;
+                    matriculas.deleteMatricula(index)
+                    recyclerViewElement.adapter?.notifyItemRemoved(position)
 
-                    var bundle = Bundle()
-                    bundle.putSerializable("matricula", matricula)
+                    Snackbar.make(recyclerViewElement, matricula.codGrupo + " eliminado/a", Snackbar.LENGTH_LONG).setAction("Undo") {
+                        matriculas.getMatriculas().add(position, matricula)
+                        recyclerViewElement.adapter?.notifyItemInserted(position)
+                    }.show()
 
-                    var editFragment = VerMatriculaFragment()
-                    editFragment.arguments = bundle
-
-                    setToolbarTitle("Editar Matricula")
-                    changeFragment(fragmentUtils = editFragment)
+                    adaptador = RecyclerView_Adapter7(matriculas.getMatriculasStudentCiclo(estudiante,ciclo))
+                    recyclerViewElement.adapter = adaptador
                 }
             }
 
@@ -152,7 +135,7 @@ class MatriculaEstudianteFragment : FragmentUtils(){
                 isCurrentlyActive: Boolean
             ) {
                 RecyclerViewSwipeDecorator.Builder(
-                    this@MatriculaEstudianteFragment.context,
+                    this@ListaMatriculaFragment.context,
                     c,
                     recyclerView,
                     viewHolder,
@@ -161,15 +144,15 @@ class MatriculaEstudianteFragment : FragmentUtils(){
                     actionState,
                     isCurrentlyActive
                 )
-                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(this@MatriculaEstudianteFragment.context!!, R.color.green))
+                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(this@ListaMatriculaFragment.context!!, R.color.red))
                     .addSwipeLeftActionIcon(R.drawable.ic_baseline_delete_24)
                     .addSwipeRightBackgroundColor(
                         ContextCompat.getColor(
-                            this@MatriculaEstudianteFragment.context!!,
-                            R.color.green
+                            this@ListaMatriculaFragment.context!!,
+                            R.color.red
                         )
                     )
-                    .addSwipeRightActionIcon(R.drawable.ic_baseline_edit_24)
+                    .addSwipeRightActionIcon(R.drawable.ic_baseline_delete_24)
                     .create()
                     .decorate()
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
@@ -179,32 +162,34 @@ class MatriculaEstudianteFragment : FragmentUtils(){
         val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
         itemTouchHelper.attachToRecyclerView(recyclerViewElement)
 
-        /*val add: FloatingActionButton = view.findViewById(R.id.add)
+        val add: FloatingActionButton = view.findViewById(R.id.add)
         add.setOnClickListener { view ->
-            changeFragment(CreateCycleFragment())
-        }*/
+            var bundle = Bundle()
+            bundle.putSerializable("estudiante", estudiante)
+            bundle.putSerializable("ciclo", ciclo)
+            var fragment = MatricularEstudianteFragment()
+            fragment.arguments = bundle
+            changeFragment(fragment)
+        }
         return view;
     }
     private fun getListOfPersons() {
-        val sp: SharedPreferences
-        var myContext = activity!!
-        sp = myContext.getSharedPreferences("Session Data", Context.MODE_PRIVATE)
-        var ced = sp.getString("cedula", "")
+        var estudiante  = arguments?.getString("estudiante")
+        var ciclo = arguments?.getString("ciclo")
         val Nciclos = ArrayList<Matricula>()
-        for (p in matriculas.getMatriculasStudent(ced)) {
+        for (p in matriculas.getMatriculasStudentCiclo(estudiante,ciclo)) {
             Nciclos.add(p)
         }
         adaptador = RecyclerView_Adapter7(Nciclos)
         recyclerViewElement.adapter = adaptador
     }
     private fun getIndex(index: Int): Int{
-        val sp: SharedPreferences
-        var myContext = activity!!
-        sp = myContext.getSharedPreferences("Session Data", Context.MODE_PRIVATE)
-        var ced = sp.getString("cedula", "")
+        var estudiante  = arguments?.getString("estudiante")
+        var ciclo = arguments?.getString("ciclo")
+
         var index = index
         var adapterItems = adaptador.itemsList
-        var listaCiclos = matriculas.getMatriculasStudent(ced)
+        var listaCiclos = matriculas.getMatriculasStudentCiclo(estudiante,ciclo)
 
         matricula = adapterItems?.get(index)!!
 

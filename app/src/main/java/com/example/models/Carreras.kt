@@ -6,7 +6,7 @@ class Carreras private constructor() {
 
     init{
         addCarrera(Carrera("123","Informática","Ing Sistemas"))
-        addCarrera(Carrera("123","Veterinaria","Medicina Veterinaria"))
+        addCarrera(Carrera("222","Veterinaria","Medicina Veterinaria"))
     }
 
     private object HOLDER {
