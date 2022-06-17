@@ -8,13 +8,12 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.models.Carrera
-import com.example.models.Grupo
 import com.example.models.Alumno
+import com.example.models.AlumnoAPIItem
 
-class RecyclerView_Adapter6(private var items: ArrayList<Alumno>): RecyclerView.Adapter<RecyclerView.ViewHolder>(), Filterable {
+class RecyclerView_Adapter6(private var items: ArrayList<AlumnoAPIItem>): RecyclerView.Adapter<RecyclerView.ViewHolder>(), Filterable {
 
-    var itemsList: ArrayList<Alumno>? = null
+    var itemsList: ArrayList<AlumnoAPIItem>? = null
 
     lateinit var mcontext: Context
 
@@ -53,7 +52,7 @@ class RecyclerView_Adapter6(private var items: ArrayList<Alumno>): RecyclerView.
                 if (charSearch.isEmpty()) {
                     itemsList = items
                 } else {
-                    val resultList = ArrayList<Alumno>()
+                    val resultList = ArrayList<AlumnoAPIItem>()
                     for (row in items) {
                         if (row.nombre.toLowerCase().contains(charSearch.toLowerCase())) {
                             resultList.add(row)
@@ -68,7 +67,7 @@ class RecyclerView_Adapter6(private var items: ArrayList<Alumno>): RecyclerView.
 
             @Suppress("UNCHECKED_CAST")
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                itemsList = results?.values as ArrayList<Alumno>
+                itemsList = results?.values as ArrayList<AlumnoAPIItem>
                 notifyDataSetChanged()
             }
 

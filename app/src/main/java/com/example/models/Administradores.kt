@@ -1,9 +1,12 @@
 package com.example.models
 
 import com.example.peopleapp.R
+import okhttp3.OkHttpClient
 
 class Administradores private constructor() {
     private var administradores: ArrayList<Administrador> = ArrayList<Administrador>()
+    var client = OkHttpClient()
+    var url = "http://192.168.0.2:8080/backend_moviles/api/sistema/"
 
     init{
         addAdministrador(Administrador("123","juan"))
@@ -47,4 +50,6 @@ class Administradores private constructor() {
         aux.cedula = p.cedula
         aux.nombre = p.nombre
     }
+
+
 }
