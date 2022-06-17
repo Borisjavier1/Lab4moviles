@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.models.Carrera
+import com.example.models.CarreraAPI
+import com.example.models.CarreraAPIItem
 import com.example.models.Carreras
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -28,7 +30,7 @@ class CareerFragment : FragmentUtils(){
 
     lateinit var recyclerViewElement: RecyclerView
     lateinit var adaptador: RecyclerView_Adapter
-    lateinit var carrera: Carrera
+    lateinit var carrera: CarreraAPIItem
     var position: Int = 0
 
     override fun onCreateView(
@@ -107,8 +109,9 @@ class CareerFragment : FragmentUtils(){
                     recyclerViewElement.adapter = adaptador
 
                 } else { //Edit
-                    carrera = Carrera(
+                    carrera = CarreraAPIItem(
                         carreras.getCarreras()[position].codigo,
+                        carreras.getCarreras()[position].id,
                         carreras.getCarreras()[position].nombre,
                         carreras.getCarreras()[position].titulo
 
@@ -171,7 +174,7 @@ class CareerFragment : FragmentUtils(){
         return view;
     }
     private fun getListOfPersons() {
-        val Ncarreras = ArrayList<Carrera>()
+        val Ncarreras = ArrayList<CarreraAPIItem>()
         for (p in carreras.getCarreras()) {
             Ncarreras.add(p)
         }

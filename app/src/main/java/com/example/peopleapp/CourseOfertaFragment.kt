@@ -76,12 +76,12 @@ class CourseOfertaFragment : FragmentUtils(){
                 }
             })
 
-        getListOfPersons()
+        //getListOfPersons()
 
         view.findViewById<Button>(R.id.back).setOnClickListener {
             changeFragment(OfertaFragment())
         }
-        val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
+        /*val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
             ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.START or ItemTouchHelper.END,
             ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
         ) {
@@ -95,13 +95,13 @@ class CourseOfertaFragment : FragmentUtils(){
                 val fromPosition: Int = viewHolder.adapterPosition
                 val toPosition: Int = target.adapterPosition
 
-                Collections.swap(cursos.getCursosCicloCarrera(carrera,ciclo), fromPosition, toPosition)
+                //Collections.swap(cursos.getCursosCicloCarrera(carrera,ciclo), fromPosition, toPosition)
 
                 recyclerViewElement.adapter?.notifyItemMoved(fromPosition, toPosition)
 
                 return false
             }
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            /*override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
 
                 position = viewHolder.adapterPosition
 
@@ -150,7 +150,7 @@ class CourseOfertaFragment : FragmentUtils(){
                     setToolbarTitle("Ver grupos")
                     changeFragment(fragmentUtils = editFragment)
                 }
-            }
+            }*/
 
             override fun onChildDraw(
                 c: Canvas,
@@ -185,14 +185,14 @@ class CourseOfertaFragment : FragmentUtils(){
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
             }
 
-        }
-        val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
-        itemTouchHelper.attachToRecyclerView(recyclerViewElement)
+        }*/
+        //val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+        //itemTouchHelper.attachToRecyclerView(recyclerViewElement)
 
 
         return view;
     }
-    private fun getListOfPersons() {
+    /*private fun getListOfPersons() {
         val datosRecuperados = arguments
         val carrera = datosRecuperados?.getString("carrera")
         val ciclo = datosRecuperados?.getString("ciclo")
@@ -202,8 +202,8 @@ class CourseOfertaFragment : FragmentUtils(){
         }
         adaptador = RecyclerView_Adapter3(Ncursos)
         recyclerViewElement.adapter = adaptador
-    }
-    private fun getIndex(index: Int): Int{
+    }*/
+    /*private fun getIndex(index: Int): Int{
         val datosRecuperados = arguments
         val carrera = datosRecuperados?.getString("carrera")
         val ciclo = datosRecuperados?.getString("ciclo")
@@ -218,5 +218,5 @@ class CourseOfertaFragment : FragmentUtils(){
         }
 
         return index
-    }
+    }*/
 }

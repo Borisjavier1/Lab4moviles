@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.models.Ciclo
+import com.example.models.CicloAPIItem
 import com.example.models.Ciclos
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -28,7 +29,7 @@ class CycleFragment : FragmentUtils(){
 
     lateinit var recyclerViewElement: RecyclerView
     lateinit var adaptador: RecyclerView_Adapter2
-    lateinit var ciclo: Ciclo
+    lateinit var ciclo: CicloAPIItem
     var position: Int = 0
 
     override fun onCreateView(
@@ -98,7 +99,7 @@ class CycleFragment : FragmentUtils(){
                     ciclos.deleteCiclo(index)
                     recyclerViewElement.adapter?.notifyItemRemoved(position)
 
-                    Snackbar.make(recyclerViewElement, ciclo.codigo + " eliminado/a", Snackbar.LENGTH_LONG).setAction("Undo") {
+                    Snackbar.make(recyclerViewElement, (ciclo.id).toString() + " eliminado/a", Snackbar.LENGTH_LONG).setAction("Undo") {
                         ciclos.getCiclos().add(position, ciclo)
                         recyclerViewElement.adapter?.notifyItemInserted(position)
                     }.show()
@@ -107,13 +108,13 @@ class CycleFragment : FragmentUtils(){
                     recyclerViewElement.adapter = adaptador
 
                 } else { //Edit
-                    ciclo = Ciclo(
-                        ciclos.getCiclos()[position].codigo,
-                        ciclos.getCiclos()[position].numero,
+                    ciclo = CicloAPIItem(
+                        ciclos.getCiclos()[position].actual,
                         ciclos.getCiclos()[position].anio,
-                        ciclos.getCiclos()[position].fechaInicio,
-                        ciclos.getCiclos()[position].fechaFin,
-                        ciclos.getCiclos()[position].actual
+                        ciclos.getCiclos()[position].fecha_fin,
+                        ciclos.getCiclos()[position].fecha_inicio,
+                        ciclos.getCiclos()[position].id,
+                        ciclos.getCiclos()[position].numero
 
                     )
                     var index = getIndex(position)
@@ -174,7 +175,7 @@ class CycleFragment : FragmentUtils(){
         return view;
     }
     private fun getListOfPersons() {
-        val Nciclos = ArrayList<Ciclo>()
+        val Nciclos = ArrayList<CicloAPIItem>()
         for (p in ciclos.getCiclos()) {
             Nciclos.add(p)
         }
@@ -189,7 +190,7 @@ class CycleFragment : FragmentUtils(){
         ciclo = adapterItems?.get(index)!!
 
         index = listaCiclos.indexOfFirst {
-            it.codigo == ciclo.codigo
+            it.id == ciclo.id
         }
 
         return index

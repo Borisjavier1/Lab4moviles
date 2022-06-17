@@ -27,7 +27,7 @@ class ProfessorFragment : FragmentUtils(){
 
     lateinit var recyclerViewElement: RecyclerView
     lateinit var adaptador: RecyclerView_Adapter5
-    lateinit var profesor: Profesor
+    lateinit var profesor: ProfesorAPIItem
     var position: Int = 0
 
     override fun onCreateView(
@@ -106,13 +106,16 @@ class ProfessorFragment : FragmentUtils(){
                     recyclerViewElement.adapter = adaptador
 
                 } else { //Edit
-                    profesor = Profesor(
+                    profesor = ProfesorAPIItem(
                         profesores.getProfesor()[position].cedula,
-                        profesores.getProfesor()[position].nombre,
-                        profesores.getProfesor()[position].telefono,
                         profesores.getProfesor()[position].email,
-                        profesores.getProfesor()[position].guia
+                        profesores.getProfesor()[position].guia,
+                        profesores.getProfesor()[position].id,
+                        profesores.getProfesor()[position].nombre,
+                        profesores.getProfesor()[position].telefono
                     )
+
+
                     var index = getIndex(position)
                     profesor.position = index;
 
@@ -171,7 +174,7 @@ class ProfessorFragment : FragmentUtils(){
         return view;
     }
     private fun getListOfPersons() {
-        val Nprofesores = ArrayList<Profesor>()
+        val Nprofesores = ArrayList<ProfesorAPIItem>()
         for (p in profesores.getProfesor()) {
             Nprofesores.add(p)
         }

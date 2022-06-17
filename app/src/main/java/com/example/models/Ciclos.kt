@@ -1,10 +1,20 @@
 package com.example.models
 
+import com.google.gson.Gson
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import java.io.IOException
+import java.util.concurrent.CountDownLatch
+
 class Ciclos {
+    var client = OkHttpClient()
+    var url = "http://192.168.0.102:8080/backend_moviles/api/sistema/"
     private var ciclos: ArrayList<Ciclo> = ArrayList<Ciclo>()
+    private var ciclosAPI : ArrayList<CicloAPIItem> = ArrayList<CicloAPIItem>()
     init{
-        addCiclo(Ciclo("123",1,2020,"10-02-2020","10-06-2020",1))
-        addCiclo(Ciclo("456",2,2021,"10-02-2021","10-06-2021",0))
+        get()
 
     }
 
@@ -31,8 +41,8 @@ class Ciclos {
         return null;
     }
 
-    fun getCiclos(): ArrayList<Ciclo>{
-        return this.ciclos!!
+    fun getCiclos(): ArrayList<CicloAPIItem>{
+        return this.ciclosAPI
     }
 
 
@@ -48,5 +58,31 @@ class Ciclos {
         aux.fechaInicio = p.fechaInicio
         aux.fechaFin = p.fechaFin
         aux.actual = p.actual
+    }
+
+    fun get() {
+        // val etLocation = findViewById<EditText>(R.id.etLocation)
+        val request = Request.Builder()
+            //.url("http://10.0.2.2:28019/api/usuarios")
+            .url(url+"obtenerCiclo")
+            .build()
+        var countDownLatch: CountDownLatch = CountDownLatch(1)
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                println(e.message.toString())
+                countDownLatch.countDown();
+                //Toast.makeText(applicationContext,e.message.toString(),Toast.LENGTH_SHORT).show()
+            }
+            override fun onResponse(call: Call, responseHttp: okhttp3.Response) {
+                val gson = Gson()
+                var valor = responseHttp.body()?.string()
+                var entidadJson = gson?.fromJson<CicloAPI>(valor, CicloAPI::class.java)
+                ciclosAPI = entidadJson
+                countDownLatch.countDown();
+
+                //Toast.makeText(applicationContext,valor.toString(),Toast.LENGTH_SHORT).show()
+            }
+        })
+        countDownLatch.await();
     }
 }

@@ -9,10 +9,11 @@ import android.widget.Filterable
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.models.Carrera
+import com.example.models.CarreraAPIItem
 
-class RecyclerView_Adapter(private var items: ArrayList<Carrera>): RecyclerView.Adapter<RecyclerView.ViewHolder>(), Filterable {
+class RecyclerView_Adapter(private var items: ArrayList<CarreraAPIItem>): RecyclerView.Adapter<RecyclerView.ViewHolder>(), Filterable {
 
-    var itemsList: ArrayList<Carrera>? = null
+    var itemsList: ArrayList<CarreraAPIItem>? = null
 
     lateinit var mcontext: Context
 
@@ -51,7 +52,7 @@ class RecyclerView_Adapter(private var items: ArrayList<Carrera>): RecyclerView.
                 if (charSearch.isEmpty()) {
                     itemsList = items
                 } else {
-                    val resultList = ArrayList<Carrera>()
+                    val resultList = ArrayList<CarreraAPIItem>()
                     for (row in items) {
                         if (row.nombre.toLowerCase().contains(charSearch.toLowerCase())) {
                             resultList.add(row)
@@ -66,7 +67,7 @@ class RecyclerView_Adapter(private var items: ArrayList<Carrera>): RecyclerView.
 
             @Suppress("UNCHECKED_CAST")
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                itemsList = results?.values as ArrayList<Carrera>
+                itemsList = results?.values as ArrayList<CarreraAPIItem>
                 notifyDataSetChanged()
             }
 

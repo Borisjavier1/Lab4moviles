@@ -14,10 +14,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.models.Ciclo
-import com.example.models.Ciclos
-import com.example.models.Curso
-import com.example.models.Cursos
+import com.example.models.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
@@ -30,7 +27,7 @@ class CourseFragment : FragmentUtils(){
 
     lateinit var recyclerViewElement: RecyclerView
     lateinit var adaptador: RecyclerView_Adapter3
-    lateinit var curso: Curso
+    lateinit var curso: CursoAPIItem
     var position: Int = 0
 
     override fun onCreateView(
@@ -109,13 +106,18 @@ class CourseFragment : FragmentUtils(){
                     recyclerViewElement.adapter = adaptador
 
                 } else { //Edit
-                    curso = Curso(
+                    curso = CursoAPIItem(
+
+                        cursos.getCursos()[position].anio_ciclo,
+                        cursos.getCursos()[position].carrera,
+                        cursos.getCursos()[position].ciclo,
                         cursos.getCursos()[position].codigo,
-                        cursos.getCursos()[position].nombre,
                         cursos.getCursos()[position].creditos,
-                        cursos.getCursos()[position].horas,
-                        cursos.getCursos()[position].carreraCodigo,
-                        cursos.getCursos()[position].cicloCodigo
+                        cursos.getCursos()[position].horas_sem,
+                        cursos.getCursos()[position].id,
+                        cursos.getCursos()[position].nombre,
+                        cursos.getCursos()[position].nombre_carrera,
+                        cursos.getCursos()[position].numero_ciclo
 
                     )
                     var index = getIndex(position)
@@ -176,7 +178,7 @@ class CourseFragment : FragmentUtils(){
         return view;
     }
     private fun getListOfPersons() {
-        val Ncursos = ArrayList<Curso>()
+        val Ncursos = ArrayList<CursoAPIItem>()
         for (p in cursos.getCursos()) {
             Ncursos.add(p)
         }

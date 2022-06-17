@@ -10,10 +10,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.models.Carrera
 import com.example.models.Ciclo
+import com.example.models.CicloAPIItem
 
-class RecyclerView_Adapter2(private var items: ArrayList<Ciclo>): RecyclerView.Adapter<RecyclerView.ViewHolder>(), Filterable {
+class RecyclerView_Adapter2(private var items: ArrayList<CicloAPIItem>): RecyclerView.Adapter<RecyclerView.ViewHolder>(), Filterable {
 
-    var itemsList: ArrayList<Ciclo>? = null
+    var itemsList: ArrayList<CicloAPIItem>? = null
 
     lateinit var mcontext: Context
 
@@ -39,7 +40,7 @@ class RecyclerView_Adapter2(private var items: ArrayList<Ciclo>): RecyclerView.A
 
         val item = itemsList?.get(position)
 
-        holder.itemView.findViewById<TextView>(R.id.tvNombre)?.text = "Código de ciclo: "+item?.codigo
+        holder.itemView.findViewById<TextView>(R.id.tvNombre)?.text = "Número de ciclo: "+item?.numero
         //holder.itemView.findViewById<ImageView>(R.id.ivFoto).setImageResource(item?.foto!!)
 
     }
@@ -52,9 +53,9 @@ class RecyclerView_Adapter2(private var items: ArrayList<Ciclo>): RecyclerView.A
                 if (charSearch.isEmpty()) {
                     itemsList = items
                 } else {
-                    val resultList = ArrayList<Ciclo>()
+                    val resultList = ArrayList<CicloAPIItem>()
                     for (row in items) {
-                        if (row.codigo.toLowerCase().contains(charSearch.toLowerCase())) {
+                        if (row.fecha_inicio.toLowerCase().contains(charSearch.toLowerCase()) or row.fecha_fin.toLowerCase().contains(charSearch.toLowerCase())) {
                             resultList.add(row)
                         }
                     }
@@ -67,7 +68,7 @@ class RecyclerView_Adapter2(private var items: ArrayList<Ciclo>): RecyclerView.A
 
             @Suppress("UNCHECKED_CAST")
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                itemsList = results?.values as ArrayList<Ciclo>
+                itemsList = results?.values as ArrayList<CicloAPIItem>
                 notifyDataSetChanged()
             }
 
