@@ -29,7 +29,7 @@ import kotlin.collections.ArrayList
 class StudentFragment : FragmentUtils(){
     private lateinit var appBarConfiguration: AppBarConfiguration
     var alumnos: Alumnos = Alumnos.instance
-    var url = "http://192.168.0.2:8080/backend_moviles/api/sistema/"
+    //var url = "http://192.168.0.2:8080/backend_moviles/api/sistema/"
     lateinit var recyclerViewElement: RecyclerView
     lateinit var adaptador: RecyclerView_Adapter6
     lateinit var alumno: AlumnoAPIItem
@@ -215,7 +215,7 @@ class StudentFragment : FragmentUtils(){
         jsonObject.put("nombre","karl")
         jsonObject.put("telefono","22-22-22")
 
-        val request = JsonObjectRequest(com.android.volley.Request.Method.DELETE,url+"eliminarAlumno/"+id,jsonObject,
+        val request = JsonObjectRequest(com.android.volley.Request.Method.DELETE,getString(R.string.url)+"eliminarAlumno/"+id,jsonObject,
             { response ->
                 // Process the json
                 try {

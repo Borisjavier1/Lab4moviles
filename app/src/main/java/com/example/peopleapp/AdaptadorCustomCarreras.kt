@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
@@ -24,7 +25,7 @@ class RecyclerView_Adapter(private var items: ArrayList<CarreraAPIItem>): Recycl
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val personListView = LayoutInflater.from(parent.context).inflate(R.layout.templatepersonas, parent, false)
+        val personListView = LayoutInflater.from(parent.context).inflate(R.layout.templatecarreras, parent, false)
         val sch = PersonHolder(personListView)
         mcontext = parent.context
         return sch
@@ -39,7 +40,11 @@ class RecyclerView_Adapter(private var items: ArrayList<CarreraAPIItem>): Recycl
 
         val item = itemsList?.get(position)
 
-        holder.itemView.findViewById<TextView>(R.id.tvNombre)?.text = "Nombre de carrera "+item?.nombre
+        holder.itemView.findViewById<TextView>(R.id.tvNombre)?.text = "Nombre: "+item?.nombre
+        holder.itemView.findViewById<Button>(R.id.vercursos).setOnClickListener{
+            println(item?.nombre)
+        }
+
         //holder.itemView.findViewById<ImageView>(R.id.ivFoto).setImageResource(item?.foto!!)
 
     }

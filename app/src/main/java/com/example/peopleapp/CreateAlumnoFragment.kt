@@ -17,7 +17,7 @@ import com.google.android.material.snackbar.Snackbar
 import org.json.JSONObject
 
 class CreateAlumnoFragment : FragmentUtils() {
-    var url = "http://192.168.0.2:8080/backend_moviles/api/sistema/"
+    //var url = "http://192.168.0.2:8080/backend_moviles/api/sistema/"
     var alumnos: Alumnos = Alumnos.instance
 
     lateinit var alumno: AlumnoAPIItem
@@ -130,7 +130,7 @@ class CreateAlumnoFragment : FragmentUtils() {
         jsonObject.put("telefono",telefono)
 
         val request = JsonObjectRequest(
-            Request.Method.POST,url+"insertarAlumno",jsonObject,
+            Request.Method.POST,getString(R.string.url)+"insertarAlumno",jsonObject,
             { response->
                 // Process the json
                 try {
@@ -149,7 +149,7 @@ class CreateAlumnoFragment : FragmentUtils() {
                     Toast.makeText(activity, "Error: El código de carrera no existe.", Toast.LENGTH_LONG).show()
                 }
                 if(it.message?.contains("true") == true){
-                    Toast.makeText(activity, "Carrera insertada.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(activity, "Alumno insertado.", Toast.LENGTH_LONG).show()
 
                 }
             })
@@ -176,7 +176,7 @@ class CreateAlumnoFragment : FragmentUtils() {
         jsonObject.put("nombre",nombre)
         jsonObject.put("telefono",telefono)
 
-        val request = JsonObjectRequest(Request.Method.PUT,url+"actualizarAlumno/"+id,jsonObject,
+        val request = JsonObjectRequest(Request.Method.PUT,getString(R.string.url)+"actualizarAlumno/"+id,jsonObject,
             { response ->
                 // Process the json
                 try {
