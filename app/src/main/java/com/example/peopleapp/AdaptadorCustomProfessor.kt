@@ -41,7 +41,7 @@ class RecyclerView_Adapter5(private var items: ArrayList<ProfesorAPIItem>): Recy
 
         val item = itemsList?.get(position)
 
-        holder.itemView.findViewById<TextView>(R.id.tvNombre)?.text = "Nombre de profesor: "+item?.nombre
+        holder.itemView.findViewById<TextView>(R.id.tvNombre)?.text = "Nombre: "+item?.nombre
         //holder.itemView.findViewById<ImageView>(R.id.ivFoto).setImageResource(item?.foto!!)
 
     }

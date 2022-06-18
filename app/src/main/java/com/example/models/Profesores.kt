@@ -10,11 +10,10 @@ import java.util.concurrent.CountDownLatch
 
 class Profesores {
     var client = OkHttpClient()
-    var url = "http://192.168.0.102:8080/backend_moviles/api/sistema/"
+    var url = "http://192.168.0.2:8080/backend_moviles/api/sistema/"
     private var profesores: ArrayList<Profesor> = ArrayList<Profesor>()
     private var profesoresAPI : ArrayList<ProfesorAPIItem> = ArrayList<ProfesorAPIItem>()
     init{
-        get()
 
     }
 
@@ -42,6 +41,7 @@ class Profesores {
     }
 
     fun getProfesor(): ArrayList<ProfesorAPIItem>{
+        get()
         return this.profesoresAPI
     }
 
