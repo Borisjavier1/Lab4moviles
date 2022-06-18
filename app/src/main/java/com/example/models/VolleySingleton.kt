@@ -1,16 +1,16 @@
 package com.example.models
 
-import android.content.Context
+import androidx.fragment.app.FragmentActivity
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
 
 
-class VolleySingleton constructor(context: Context) {
+class VolleySingleton(context: FragmentActivity?) {
     companion object {
         @Volatile
         private var INSTANCE: VolleySingleton? = null
-        fun getInstance(context: Context) =
+        fun getInstance(context: FragmentActivity?) =
             INSTANCE ?: synchronized(this) {
                 INSTANCE ?: VolleySingleton(context).also {
                     INSTANCE = it
@@ -20,7 +20,7 @@ class VolleySingleton constructor(context: Context) {
     private val requestQueue: RequestQueue by lazy {
         // applicationContext is key, it keeps you from leaking the
         // Activity or BroadcastReceiver if someone passes one in.
-        Volley.newRequestQueue(context.applicationContext)
+        Volley.newRequestQueue(context!!.applicationContext)
     }
     fun <T> addToRequestQueue(req: Request<T>) {
         requestQueue.add(req)

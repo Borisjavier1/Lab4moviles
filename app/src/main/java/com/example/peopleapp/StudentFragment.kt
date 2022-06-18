@@ -1,5 +1,6 @@
 package com.example.peopleapp
 
+import android.annotation.SuppressLint
 import android.graphics.Canvas
 import android.graphics.Color
 import android.os.Bundle
@@ -14,17 +15,21 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.DefaultRetryPolicy
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonObjectRequest
 import com.example.models.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
+import org.json.JSONObject
 import java.util.*
 import kotlin.collections.ArrayList
 
 class StudentFragment : FragmentUtils(){
     private lateinit var appBarConfiguration: AppBarConfiguration
     var alumnos: Alumnos = Alumnos.instance
-
+    var url = "http://192.168.0.2:8080/backend_moviles/api/sistema/"
     lateinit var recyclerViewElement: RecyclerView
     lateinit var adaptador: RecyclerView_Adapter6
     lateinit var alumno: AlumnoAPIItem
@@ -94,7 +99,8 @@ class StudentFragment : FragmentUtils(){
                 if (direction == ItemTouchHelper.LEFT) {//Delete
 
                     var index = getIndex(position)
-                    alumnos.deleteAlumno(index)
+                    //alumnos.deleteAlumno(index)
+                    delete(index)
                     recyclerViewElement.adapter?.notifyItemRemoved(position)
 
                     Snackbar.make(recyclerViewElement, alumno.nombre + " eliminado/a", Snackbar.LENGTH_LONG).setAction("Undo") {
@@ -104,6 +110,7 @@ class StudentFragment : FragmentUtils(){
 
                     adaptador = RecyclerView_Adapter6(alumnos.getAlumnos())
                     recyclerViewElement.adapter = adaptador
+                    changeFragment(StudentFragment())
 
                 } else { //Edit
                     alumno = AlumnoAPIItem(
@@ -170,6 +177,7 @@ class StudentFragment : FragmentUtils(){
         val add: FloatingActionButton = view.findViewById(R.id.add)
         add.setOnClickListener { view ->
             changeFragment(CreateAlumnoFragment())
+
         }
         return view;
     }
@@ -192,6 +200,53 @@ class StudentFragment : FragmentUtils(){
             it.nombre == alumno.nombre
         }
 
-        return index
+        return alumno.id
+    }
+
+    @SuppressLint("SetTextI18n")
+    fun delete(id: Int) {
+
+        val jsonObject = JSONObject()
+        jsonObject.put("carrera",21)
+        jsonObject.put("cedula",705)
+        jsonObject.put("email","lslsl@gmail.com")
+        jsonObject.put("fecha_nac","22-22-22")
+        jsonObject.put("id",88)
+        jsonObject.put("nombre","karl")
+        jsonObject.put("telefono","22-22-22")
+
+        val request = JsonObjectRequest(com.android.volley.Request.Method.DELETE,url+"eliminarAlumno/"+id,jsonObject,
+            { response ->
+                // Process the json
+                try {
+                    // etCord.setText("Response: $response")
+                    println(response)
+                }catch (e:Exception){
+                    //etClima.setText("Exception: $e")
+                    println(e)
+                }
+
+            }, {
+                // Error in request
+                //  etHumedad.setText("Volley error: $it")
+                println("Error reques: t"+it)
+                println("Error request:"+it)
+                if(it.message?.contains("false") == true){
+                    println("Falló")
+                }
+                if(it.message?.contains("true") == true){
+                    println("Bien")
+                }
+            })
+
+        // Volley request policy, only one time request to avoid duplicate transaction
+        request.retryPolicy = DefaultRetryPolicy(
+            DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+            // 0 means no retry
+            0, // DefaultRetryPolicy.DEFAULT_MAX_RETRIES = 2
+            1f // DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        )
+        // Add the volley post request to the request queue
+        VolleySingleton.getInstance(activity).addToRequestQueue(request)
     }
 }
