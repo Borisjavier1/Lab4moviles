@@ -46,15 +46,16 @@ class Cursos {
         return this.cursoAPI
     }
 
-    /*fun getCursosCicloCarrera(carrera: String?, ciclo: String?):ArrayList<CursoAPIItem> {
+    fun getCursosCicloCarrera(carrera: Int?, ciclo: Int?):ArrayList<CursoAPIItem> {
+        get()
         var grupos2: ArrayList<CursoAPIItem> = ArrayList<CursoAPIItem>()
-        for( item in this.cursos ){
-            if(item.carreraCodigo == carrera && item.cicloCodigo == ciclo){
+        for( item in this.cursoAPI ){
+            if(item.carrera == carrera && item.ciclo == ciclo){
                 grupos2.add(item)
             }
         }
         return grupos2
-    }*/
+    }
 
 
 

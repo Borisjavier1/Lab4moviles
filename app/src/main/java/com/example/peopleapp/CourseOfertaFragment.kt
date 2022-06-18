@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.models.Curso
+import com.example.models.CursoAPIItem
 import com.example.models.Cursos
 import com.google.android.material.snackbar.Snackbar
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
@@ -29,11 +30,8 @@ class CourseOfertaFragment : FragmentUtils(){
 
     lateinit var recyclerViewElement: RecyclerView
     lateinit var adaptador: RecyclerView_Adapter3
-    lateinit var curso: Curso
+    lateinit var curso: CursoAPIItem
     var position: Int = 0
-
-
-
 
 
     override fun onCreateView(
@@ -76,12 +74,12 @@ class CourseOfertaFragment : FragmentUtils(){
                 }
             })
 
-        //getListOfPersons()
+        getListOfPersons()
 
         view.findViewById<Button>(R.id.back).setOnClickListener {
             changeFragment(OfertaFragment())
         }
-        /*val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
+        val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
             ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.START or ItemTouchHelper.END,
             ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
         ) {
@@ -101,19 +99,20 @@ class CourseOfertaFragment : FragmentUtils(){
 
                 return false
             }
-            /*override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
 
                 position = viewHolder.adapterPosition
 
                 if (direction == ItemTouchHelper.LEFT) {//Delete
 
-                    curso = Curso(
+                    curso = CursoAPIItem(
+                        cursos.getCursos()[position].carrera,
+                        cursos.getCursos()[position].ciclo,
                         cursos.getCursos()[position].codigo,
-                        cursos.getCursos()[position].nombre,
                         cursos.getCursos()[position].creditos,
-                        cursos.getCursos()[position].horas,
-                        cursos.getCursos()[position].carreraCodigo,
-                        cursos.getCursos()[position].cicloCodigo
+                        cursos.getCursos()[position].horas_sem,
+                        cursos.getCursos()[position].id,
+                        cursos.getCursos()[position].nombre
 
                     )
                     var index = getIndex(position)
@@ -129,13 +128,14 @@ class CourseOfertaFragment : FragmentUtils(){
                     changeFragment(fragmentUtils = editFragment)
 
                 } else { //Edit
-                    curso = Curso(
+                    curso = CursoAPIItem(
+                        cursos.getCursos()[position].carrera,
+                        cursos.getCursos()[position].ciclo,
                         cursos.getCursos()[position].codigo,
-                        cursos.getCursos()[position].nombre,
                         cursos.getCursos()[position].creditos,
-                        cursos.getCursos()[position].horas,
-                        cursos.getCursos()[position].carreraCodigo,
-                        cursos.getCursos()[position].cicloCodigo
+                        cursos.getCursos()[position].horas_sem,
+                        cursos.getCursos()[position].id,
+                        cursos.getCursos()[position].nombre
 
                     )
                     var index = getIndex(position)
@@ -150,7 +150,7 @@ class CourseOfertaFragment : FragmentUtils(){
                     setToolbarTitle("Ver grupos")
                     changeFragment(fragmentUtils = editFragment)
                 }
-            }*/
+            }
 
             override fun onChildDraw(
                 c: Canvas,
@@ -185,31 +185,31 @@ class CourseOfertaFragment : FragmentUtils(){
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
             }
 
-        }*/
-        //val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
-        //itemTouchHelper.attachToRecyclerView(recyclerViewElement)
+        }
+        val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+        itemTouchHelper.attachToRecyclerView(recyclerViewElement)
 
 
         return view;
     }
-    /*private fun getListOfPersons() {
+    private fun getListOfPersons() {
         val datosRecuperados = arguments
         val carrera = datosRecuperados?.getString("carrera")
         val ciclo = datosRecuperados?.getString("ciclo")
-        val Ncursos = ArrayList<Curso>()
-        for (p in cursos.getCursosCicloCarrera(carrera,ciclo)) {
+        val Ncursos = ArrayList<CursoAPIItem>()
+        for (p in cursos.getCursosCicloCarrera(carrera?.toInt(),ciclo?.toInt())) {
             Ncursos.add(p)
         }
         adaptador = RecyclerView_Adapter3(Ncursos)
         recyclerViewElement.adapter = adaptador
-    }*/
-    /*private fun getIndex(index: Int): Int{
+    }
+    private fun getIndex(index: Int): Int{
         val datosRecuperados = arguments
         val carrera = datosRecuperados?.getString("carrera")
         val ciclo = datosRecuperados?.getString("ciclo")
         var index = index
         var adapterItems = adaptador.itemsList
-        var listaCursos = cursos.getCursosCicloCarrera(carrera,ciclo)
+        var listaCursos = cursos.getCursosCicloCarrera(carrera?.toInt(),ciclo?.toInt())
 
         curso = adapterItems?.get(index)!!
 
@@ -218,5 +218,5 @@ class CourseOfertaFragment : FragmentUtils(){
         }
 
         return index
-    }*/
+    }
 }

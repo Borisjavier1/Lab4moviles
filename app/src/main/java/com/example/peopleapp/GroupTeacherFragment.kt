@@ -17,8 +17,6 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.models.*
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import java.util.*
 import kotlin.collections.ArrayList
@@ -30,7 +28,7 @@ class GroupTeacherFragment : FragmentUtils(){
 
     lateinit var recyclerViewElement: RecyclerView
     lateinit var adaptador: RecyclerView_Adapter4
-    lateinit var grupo: Grupo
+    lateinit var grupo: GrupoAPIItem
     var position: Int = 0
 
     override fun onCreateView(
@@ -103,18 +101,19 @@ class GroupTeacherFragment : FragmentUtils(){
 
                 if (direction == ItemTouchHelper.RIGHT) {//Delete
 
-                    grupo = Grupo(
-                        grupos.getGrupos()[position].codigo,
-                        grupos.getGrupos()[position].cursoCodigo,
+                    grupo = GrupoAPIItem(
+                        grupos.getGrupos()[position].ciclo,
+                        grupos.getGrupos()[position].curso,
                         grupos.getGrupos()[position].numero,
+                        grupos.getGrupos()[position].id,
                         grupos.getGrupos()[position].horario,
-                        grupos.getGrupos()[position].cedulaProfesor
+                        grupos.getGrupos()[position].profesor
                     )
                     var index = getIndex(position)
                     grupo.position = index;
 
                     var bundle = Bundle()
-                    bundle.putString("grupo", grupo.codigo)
+                    bundle.putInt("grupo", grupo.id)
 
                     var editFragment = MatriculaFragment()
                     editFragment.arguments = bundle
@@ -124,18 +123,19 @@ class GroupTeacherFragment : FragmentUtils(){
 
                 }
                 else{
-                    grupo = Grupo(
-                        grupos.getGrupos()[position].codigo,
-                        grupos.getGrupos()[position].cursoCodigo,
+                    grupo = GrupoAPIItem(
+                        grupos.getGrupos()[position].ciclo,
+                        grupos.getGrupos()[position].curso,
                         grupos.getGrupos()[position].numero,
+                        grupos.getGrupos()[position].id,
                         grupos.getGrupos()[position].horario,
-                        grupos.getGrupos()[position].cedulaProfesor
+                        grupos.getGrupos()[position].profesor
                     )
                     var index = getIndex(position)
                     grupo.position = index;
 
                     var bundle = Bundle()
-                    bundle.putString("grupo", grupo.codigo)
+                    bundle.putInt("grupo", grupo.id)
 
                     var editFragment = MatriculaFragment()
                     editFragment.arguments = bundle
@@ -193,7 +193,7 @@ class GroupTeacherFragment : FragmentUtils(){
         var myContext = activity!!
         sp = myContext.getSharedPreferences("Session Data", Context.MODE_PRIVATE)
         var ced = sp.getString("cedula", "")
-        val Ngrupos = ArrayList<Grupo>()
+        val Ngrupos = ArrayList<GrupoAPIItem>()
         for (p in grupos.getGruposProfesor(ced)) {
             Ngrupos.add(p)
         }
@@ -212,7 +212,7 @@ class GroupTeacherFragment : FragmentUtils(){
         grupo = adapterItems?.get(index)!!
 
         index = listaGrupos.indexOfFirst {
-            it.codigo == grupo.codigo
+            it.id == grupo.id
         }
 
         return index

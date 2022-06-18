@@ -1,5 +1,6 @@
 package com.example.peopleapp
 
+import android.annotation.SuppressLint
 import android.graphics.Canvas
 import android.graphics.Color
 import android.os.Bundle
@@ -10,15 +11,18 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.DefaultRetryPolicy
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonObjectRequest
 import com.example.models.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
+import org.json.JSONObject
 import java.util.*
 
 class GroupFragment : FragmentUtils(){
@@ -27,7 +31,7 @@ class GroupFragment : FragmentUtils(){
 
     lateinit var recyclerViewElement: RecyclerView
     lateinit var adaptador: RecyclerView_Adapter4
-    lateinit var grupo: Grupo
+    lateinit var grupo: GrupoAPIItem
     var position: Int = 0
 
     override fun onCreateView(
@@ -35,7 +39,7 @@ class GroupFragment : FragmentUtils(){
         savedInstanceState: Bundle?
     ): View? {
         val datosRecuperados = arguments
-        val curso = datosRecuperados?.getSerializable("curso") as Curso
+        val curso = datosRecuperados?.getSerializable("curso") as CursoAPIItem
 
         //Toast.makeText(activity,curso.carreraCodigo,Toast.LENGTH_SHORT).show();
 
@@ -86,7 +90,7 @@ class GroupFragment : FragmentUtils(){
                 val fromPosition: Int = viewHolder.adapterPosition
                 val toPosition: Int = target.adapterPosition
 
-                Collections.swap(grupos.getGruposCurso(curso.carreraCodigo), fromPosition, toPosition)
+                Collections.swap(grupos.getGruposCurso(curso.id), fromPosition, toPosition)
 
                 recyclerViewElement.adapter?.notifyItemMoved(fromPosition, toPosition)
 
@@ -99,30 +103,34 @@ class GroupFragment : FragmentUtils(){
                 if (direction == ItemTouchHelper.LEFT) {//Delete
 
                     var index = getIndex(position)
-                    grupos.deleteGrupo(index)
+                    //grupos.deleteGrupo(index)
+                    delete(index)
                     recyclerViewElement.adapter?.notifyItemRemoved(position)
 
-                    Snackbar.make(recyclerViewElement, grupo.codigo + " eliminado/a", Snackbar.LENGTH_LONG).setAction("Undo") {
+                    Snackbar.make(recyclerViewElement, grupo.numero.toString() + " eliminado/a", Snackbar.LENGTH_LONG).setAction("Undo") {
                         grupos.getGrupos().add(position, grupo)
                         recyclerViewElement.adapter?.notifyItemInserted(position)
                     }.show()
 
                     adaptador = RecyclerView_Adapter4(grupos.getGrupos())
                     recyclerViewElement.adapter = adaptador
+                    changeFragment(OfertaFragment())
 
                 } else { //Edit
-                    grupo = Grupo(
-                        grupos.getGrupos()[position].codigo,
-                        grupos.getGrupos()[position].cursoCodigo,
+                    grupo = GrupoAPIItem(
+                        grupos.getGrupos()[position].ciclo,
+                        grupos.getGrupos()[position].curso,
                         grupos.getGrupos()[position].numero,
+                        grupos.getGrupos()[position].id,
                         grupos.getGrupos()[position].horario,
-                        grupos.getGrupos()[position].cedulaProfesor
+                        grupos.getGrupos()[position].profesor
                     )
                     var index = getIndex(position)
                     grupo.position = index;
 
                     var bundle = Bundle()
                     bundle.putSerializable("grupo", grupo)
+                    bundle.putSerializable("curso", curso)
 
                     var editFragment = CreateGroupFragment()
                     editFragment.arguments = bundle
@@ -172,7 +180,7 @@ class GroupFragment : FragmentUtils(){
         val add: FloatingActionButton = view.findViewById(R.id.add)
         add.setOnClickListener { view ->
             var bundle = Bundle()
-            bundle.putString("curso", curso.codigo)
+            bundle.putSerializable("curso", curso)
             var editFragment = CreateGroupFragment()
             editFragment.arguments = bundle
             changeFragment(editFragment)
@@ -181,9 +189,9 @@ class GroupFragment : FragmentUtils(){
     }
     private fun getListOfPersons() {
         val datosRecuperados = arguments
-        val curso = datosRecuperados?.getSerializable("curso") as Curso
-        val Ngrupos = ArrayList<Grupo>()
-        for (p in grupos.getGruposCurso(curso.carreraCodigo)) {
+        val curso = datosRecuperados?.getSerializable("curso") as CursoAPIItem
+        val Ngrupos = ArrayList<GrupoAPIItem>()
+        for (p in grupos.getGruposCurso(curso.id)) {
             Ngrupos.add(p)
         }
         adaptador = RecyclerView_Adapter4(Ngrupos)
@@ -191,17 +199,65 @@ class GroupFragment : FragmentUtils(){
     }
     private fun getIndex(index: Int): Int{
         val datosRecuperados = arguments
-        val curso = datosRecuperados?.getSerializable("curso") as Curso
+        val curso = datosRecuperados?.getSerializable("curso") as CursoAPIItem
         var index = index
         var adapterItems = adaptador.itemsList
-        var listaGrupos = grupos.getGruposCurso(curso.carreraCodigo)
+        var listaGrupos = grupos.getGruposCurso(curso.id)
 
         grupo = adapterItems?.get(index)!!
 
         index = listaGrupos.indexOfFirst {
-            it.codigo == grupo.codigo
+            it.id == grupo.id
         }
 
-        return index
+        return grupo.id
+    }
+
+    @SuppressLint("SetTextI18n")
+    fun delete(id: Int) {
+
+        val jsonObject = JSONObject()
+        jsonObject.put("carrera",21)
+        jsonObject.put("cedula",705)
+        jsonObject.put("email","lslsl@gmail.com")
+        jsonObject.put("fecha_nac","22-22-22")
+        jsonObject.put("id",88)
+        jsonObject.put("nombre","karl")
+        jsonObject.put("telefono","22-22-22")
+
+        val request = JsonObjectRequest(
+            Request.Method.DELETE,getString(R.string.url)+"eliminarGrupo/"+id,jsonObject,
+            { response ->
+                // Process the json
+                try {
+                    // etCord.setText("Response: $response")
+                    println(response)
+                }catch (e:Exception){
+                    //etClima.setText("Exception: $e")
+                    println(e)
+                }
+
+            }, {
+                // Error in request
+                //  etHumedad.setText("Volley error: $it")
+                println("Error reques: t"+it)
+                println("Error request:"+it)
+                if(it.message?.contains("false") == true){
+                    println("Falló")
+                }
+                if(it.message?.contains("true") == true){
+                    println("Bien")
+                }
+            })
+
+        // Volley request policy, only one time request to avoid duplicate transaction
+        request.retryPolicy = DefaultRetryPolicy(
+            DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+            // 0 means no retry
+            0, // DefaultRetryPolicy.DEFAULT_MAX_RETRIES = 2
+            1f // DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        )
+        // Add the volley post request to the request queue
+        VolleySingleton.getInstance(activity).addToRequestQueue(request)
     }
 }

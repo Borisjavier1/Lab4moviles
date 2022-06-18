@@ -19,122 +19,102 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
     <EditText
-            android:id="@+id/editText_Group"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:ems="10"
-            android:hint="Código"
-            android:inputType="textPersonName"
-            android:minHeight="48dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" app:layout_constraintHorizontal_bias="0.504"/>
-    <TextView
-            android:id="@+id/textView7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="Número"
-            app:layout_constraintStart_toStartOf="@+id/exitText_Nota"
-            app:layout_constraintTop_toBottomOf="@+id/editText_est"/>
-    <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cédula de profesor"
-            app:layout_constraintTop_toBottomOf="@+id/exitText_horario"
-            android:layout_marginTop="20dp" app:layout_constraintStart_toStartOf="@+id/exitText_horario"/>
-    <EditText
-            android:id="@+id/exitText_Nota"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:ems="10"
-            android:hint="Número"
-            android:minHeight="48dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView7"/>
-    <EditText
-            android:id="@+id/editText_est"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:ems="10"
-            android:hint="Código de curso"
-            android:inputType="textPersonName"
-            android:minHeight="48dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.504"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6"/>
-    <EditText
-            android:id="@+id/exitText_profesor"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="212dp"
-            android:ems="10"
-            android:hint="Cédula de profesor"
-            android:minHeight="48dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.504"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView7"/>
-    <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Horario"
-            app:layout_constraintStart_toStartOf="@+id/exitText_horario"
-            app:layout_constraintTop_toBottomOf="@+id/exitText_Nota" android:layout_marginTop="16dp"
-    />
-    <EditText
             android:id="@+id/exitText_horario"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="112dp"
             android:ems="10"
             android:hint="Horario"
             android:minHeight="48dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView7"/>
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.657"/>
+    <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Horario"
+            app:layout_constraintStart_toStartOf="@+id/exitText_horario"
+            app:layout_constraintTop_toBottomOf="@+id/exitText_Nota" android:layout_marginTop="28dp"/>
+    <EditText
+            android:id="@+id/editText_est"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Código de curso"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.486"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.344"/>
     <TextView
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
             android:text="Código de curso"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/editText_est"
-            app:layout_constraintTop_toBottomOf="@+id/editText_Group"/>
+            app:layout_constraintEnd_toEndOf="@+id/editText_est"
+            app:layout_constraintTop_toBottomOf="@+id/textView_accionPersona"
+            app:layout_constraintBottom_toBottomOf="@+id/editText_est" app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintVertical_bias="0.692"/>
     <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Código"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/editText_Group"
-            app:layout_constraintTop_toBottomOf="@+id/textView_accionPersona"/>
+            android:text="Id de profesor"
+            app:layout_constraintStart_toStartOf="@+id/exitText_profesor"
+            app:layout_constraintTop_toBottomOf="@+id/exitText_horario" android:layout_marginTop="32dp"/>
+    <EditText
+            android:id="@+id/exitText_profesor"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Cédula de profesor"
+            android:minHeight="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.816"/>
+    <EditText
+            android:id="@+id/exitText_Nota"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Número"
+            android:minHeight="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.486"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
 
+    <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Número"
+            app:layout_constraintStart_toStartOf="@+id/exitText_Nota"
+            app:layout_constraintTop_toBottomOf="@+id/editText_est" android:layout_marginTop="32dp"/>
     <Button
             android:id="@+id/btn_guardarPersona"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="200dp"
             android:text="Guardar Grupo"
-            app:layout_constraintEnd_toEndOf="@+id/exitText_Nota"
-            app:layout_constraintTop_toBottomOf="@+id/exitText_Nota" android:layout_marginEnd="8dp"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.705"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.945"/>
     <Button
             android:id="@+id/btn_volver"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="200dp"
             android:text="Volver"
-            app:layout_constraintStart_toStartOf="@+id/exitText_Nota"
-            app:layout_constraintTop_toBottomOf="@+id/exitText_Nota" android:layout_marginStart="8dp"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintHorizontal_bias="0.128"
+            app:layout_constraintVertical_bias="0.945"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
