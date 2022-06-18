@@ -170,7 +170,7 @@ class CreateCareerFragment : FragmentUtils() {
                 //  etHumedad.setText("Volley error: $it")
                 println("Error request:"+it)
                 if(it.message?.contains("false") == true){
-                    Toast.makeText(activity, "Error: El código de carrera no existe.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(activity, "Error: No se pudo modificar.", Toast.LENGTH_LONG).show()
                 }
                 if(it.message?.contains("true") == true){
                     Toast.makeText(activity, "Carrera modificada.", Toast.LENGTH_LONG).show()
