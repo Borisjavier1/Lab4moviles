@@ -9,12 +9,12 @@ import android.widget.Filterable
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.models.Administrador
-import com.example.models.Carrera
+import com.example.models.AdministradorAPIItem
 import com.example.models.Matriculador
 
-class RecyclerView_Adapter8(private var items: ArrayList<Administrador>): RecyclerView.Adapter<RecyclerView.ViewHolder>(), Filterable {
+class RecyclerView_Adapter8(private var items: ArrayList<AdministradorAPIItem>): RecyclerView.Adapter<RecyclerView.ViewHolder>(), Filterable {
 
-    var itemsList: ArrayList<Administrador>? = null
+    var itemsList: ArrayList<AdministradorAPIItem>? = null
 
     lateinit var mcontext: Context
 
@@ -53,7 +53,7 @@ class RecyclerView_Adapter8(private var items: ArrayList<Administrador>): Recycl
                 if (charSearch.isEmpty()) {
                     itemsList = items
                 } else {
-                    val resultList = ArrayList<Administrador>()
+                    val resultList = ArrayList<AdministradorAPIItem>()
                     for (row in items) {
                         if (row.nombre.toLowerCase().contains(charSearch.toLowerCase())) {
                             resultList.add(row)
@@ -68,7 +68,7 @@ class RecyclerView_Adapter8(private var items: ArrayList<Administrador>): Recycl
 
             @Suppress("UNCHECKED_CAST")
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                itemsList = results?.values as ArrayList<Administrador>
+                itemsList = results?.values as ArrayList<AdministradorAPIItem>
                 notifyDataSetChanged()
             }
 

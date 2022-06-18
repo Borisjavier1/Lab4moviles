@@ -14,6 +14,7 @@
     <item android:title="Profesores" android:id="@+id/nav_item_professors" android:icon="@drawable/professor"/>
     <item android:title="Estudiantes" android:id="@+id/nav_item_students" android:icon="@drawable/student"/>
     <item android:title="Matrícula" android:id="@+id/nav_item_matricula" android:icon="@drawable/matr"/>
+    <item android:title="Administradores" android:id="@+id/nav_item_admins" android:icon="@drawable/admin"/>
     <item
             android:id="@+id/nav_item_logout"
             android:title="Cerrar sesión" android:icon="@drawable/logout"/>

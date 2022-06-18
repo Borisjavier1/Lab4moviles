@@ -109,6 +109,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 setToolbarTitle("Matrícula")
                 changeFragment(MatricularseFragment())
             }
+            R.id.nav_item_admins -> {
+                setToolbarTitle("Matrícula")
+                changeFragment(AdministradorFragment())
+            }
             R.id.nav_item_logout ->{
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
