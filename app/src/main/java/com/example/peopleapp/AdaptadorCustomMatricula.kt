@@ -8,12 +8,11 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.models.Carrera
-import com.example.models.Matricula
+import com.example.models.MatriculaAPIItem
 
-class RecyclerView_Adapter7(private var items: ArrayList<Matricula>): RecyclerView.Adapter<RecyclerView.ViewHolder>(), Filterable {
+class RecyclerView_Adapter7(private var items: ArrayList<MatriculaAPIItem>): RecyclerView.Adapter<RecyclerView.ViewHolder>(), Filterable {
 
-    var itemsList: ArrayList<Matricula>? = null
+    var itemsList: ArrayList<MatriculaAPIItem>? = null
 
     lateinit var mcontext: Context
 
@@ -39,13 +38,17 @@ class RecyclerView_Adapter7(private var items: ArrayList<Matricula>): RecyclerVi
 
         val item = itemsList?.get(position)
 
-        holder.itemView.findViewById<TextView>(R.id.tvNombre)?.text = "Código de grupo: "+item?.codGrupo + " Cédula est: "+item?.cedEstudiante
+        holder.itemView.findViewById<TextView>(R.id.tvNombre)?.text = "Id de grupo: "+item?.id_grupo + " Id est: "+item?.id_alumno
         //holder.itemView.findViewById<ImageView>(R.id.ivFoto).setImageResource(item?.foto!!)
 
     }
 
-
     override fun getFilter(): Filter {
+        TODO("Not yet implemented")
+    }
+
+
+    /*override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val charSearch = constraint.toString()
@@ -67,12 +70,12 @@ class RecyclerView_Adapter7(private var items: ArrayList<Matricula>): RecyclerVi
 
             @Suppress("UNCHECKED_CAST")
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                itemsList = results?.values as ArrayList<Matricula>
+                itemsList = results?.values as ArrayList<MatriculaAPIItem>
                 notifyDataSetChanged()
             }
 
         }
-    }
+    }*/
 
 
 }

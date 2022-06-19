@@ -28,9 +28,9 @@ class MatricularseFragment : Fragment()  {
            // Toast.makeText(activity,editTextEst.text,Toast.LENGTH_SHORT).show();
             //Toast.makeText(activity,editTextCiclo.text,Toast.LENGTH_SHORT).show();
             val datosAEnviar = Bundle()
-            datosAEnviar.putString("estudiante",editTextEst.text.toString())
-            datosAEnviar.putString("ciclo",editTextCiclo.text.toString())
-            var ciclo = ciclos.getCiclo(editTextCiclo.text.toString())
+            datosAEnviar.putInt("estudiante",editTextEst.text.toString().toInt())
+            datosAEnviar.putInt("ciclo",editTextCiclo.text.toString().toInt())
+            var ciclo = ciclos.getCiclo(editTextCiclo.text.toString().toInt())
             if(ciclo?.actual == 1) {
                 val fragmento: Fragment = ListaMatriculaFragment()
                 fragmento.setArguments(datosAEnviar);

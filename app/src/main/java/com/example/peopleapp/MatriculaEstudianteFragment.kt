@@ -27,7 +27,7 @@ class MatriculaEstudianteFragment : FragmentUtils(){
 
     lateinit var recyclerViewElement: RecyclerView
     lateinit var adaptador: RecyclerView_Adapter7
-    lateinit var matricula: Matricula
+    lateinit var matricula: MatriculaAPIItem
     var position: Int = 0
 
     override fun onCreateView(
@@ -99,12 +99,12 @@ class MatriculaEstudianteFragment : FragmentUtils(){
 
                 if (direction == ItemTouchHelper.LEFT) {//Delete
 
-                    matricula = Matricula(
-                        matriculas.getMatriculasStudent(ced)[position].codGrupo,
-                        matriculas.getMatriculasStudent(ced)[position].cedEstudiante,
-                        matriculas.getMatriculasStudent(ced)[position].nota,
-                        matriculas.getMatriculasStudent(ced)[position].estado,
-                        matriculas.getMatriculasStudent(ced)[position].codCiclo
+                    matricula = MatriculaAPIItem(
+                        matriculas.getMatriculasStudent(ced)[position].id,
+                        matriculas.getMatriculasStudent(ced)[position].id_alumno,
+                        matriculas.getMatriculasStudent(ced)[position].id_curso,
+                        matriculas.getMatriculasStudent(ced)[position].id_grupo,
+                        matriculas.getMatriculasStudent(ced)[position].id_ciclo
 
                     )
                     var index = getIndex(position)
@@ -120,12 +120,12 @@ class MatriculaEstudianteFragment : FragmentUtils(){
                     changeFragment(fragmentUtils = editFragment)
 
                 } else { //Edit
-                    matricula = Matricula(
-                        matriculas.getMatriculasStudent(ced)[position].codGrupo,
-                        matriculas.getMatriculasStudent(ced)[position].cedEstudiante,
-                        matriculas.getMatriculasStudent(ced)[position].nota,
-                        matriculas.getMatriculasStudent(ced)[position].estado,
-                        matriculas.getMatriculasStudent(ced)[position].codCiclo
+                    matricula = MatriculaAPIItem(
+                        matriculas.getMatriculasStudent(ced)[position].id,
+                        matriculas.getMatriculasStudent(ced)[position].id_alumno,
+                        matriculas.getMatriculasStudent(ced)[position].id_curso,
+                        matriculas.getMatriculasStudent(ced)[position].id_grupo,
+                        matriculas.getMatriculasStudent(ced)[position].id_ciclo
 
                     )
                     var index = getIndex(position)
@@ -190,7 +190,7 @@ class MatriculaEstudianteFragment : FragmentUtils(){
         var myContext = activity!!
         sp = myContext.getSharedPreferences("Session Data", Context.MODE_PRIVATE)
         var ced = sp.getString("cedula", "")
-        val Nciclos = ArrayList<Matricula>()
+        val Nciclos = ArrayList<MatriculaAPIItem>()
         for (p in matriculas.getMatriculasStudent(ced)) {
             Nciclos.add(p)
         }
@@ -209,7 +209,7 @@ class MatriculaEstudianteFragment : FragmentUtils(){
         matricula = adapterItems?.get(index)!!
 
         index = listaCiclos.indexOfFirst {
-            it.cedEstudiante == matricula.cedEstudiante
+            it.id == matricula.id
         }
 
         return index

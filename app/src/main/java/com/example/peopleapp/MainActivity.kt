@@ -110,7 +110,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 changeFragment(MatricularseFragment())
             }
             R.id.nav_item_admins -> {
-                setToolbarTitle("Matrícula")
+                setToolbarTitle("Administradores")
                 changeFragment(AdministradorFragment())
             }
             R.id.nav_item_logout ->{

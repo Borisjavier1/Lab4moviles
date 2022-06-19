@@ -14,11 +14,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.models.Ciclo
-import com.example.models.Ciclos
-import com.example.models.Matricula
-import com.example.models.Matriculas
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.example.models.*
 import com.google.android.material.snackbar.Snackbar
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import java.util.*
@@ -30,15 +26,15 @@ class ListaMatriculaFragment2 : FragmentUtils(){
 
     lateinit var recyclerViewElement: RecyclerView
     lateinit var adaptador: RecyclerView_Adapter7
-    lateinit var matricula: Matricula
+    lateinit var matricula: MatriculaAPIItem
     var position: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var estudiante  = arguments?.getString("estudiante")
-        var ciclo = arguments?.getString("ciclo")
+        var estudiante  = arguments?.getInt("estudiante")
+        var ciclo = arguments?.getInt("ciclo")
 
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_matricula_lista2, container, false)
@@ -102,7 +98,7 @@ class ListaMatriculaFragment2 : FragmentUtils(){
                     matriculas.deleteMatricula(index)
                     recyclerViewElement.adapter?.notifyItemRemoved(position)
 
-                    Snackbar.make(recyclerViewElement, matricula.codGrupo + " eliminado/a", Snackbar.LENGTH_LONG).setAction("Undo") {
+                    Snackbar.make(recyclerViewElement, matricula.id.toString() + " eliminado/a", Snackbar.LENGTH_LONG).setAction("Undo") {
                         matriculas.getMatriculas().add(position, matricula)
                         recyclerViewElement.adapter?.notifyItemInserted(position)
                     }.show()
@@ -114,7 +110,7 @@ class ListaMatriculaFragment2 : FragmentUtils(){
                     matriculas.deleteMatricula(index)
                     recyclerViewElement.adapter?.notifyItemRemoved(position)
 
-                    Snackbar.make(recyclerViewElement, matricula.codGrupo + " eliminado/a", Snackbar.LENGTH_LONG).setAction("Undo") {
+                    Snackbar.make(recyclerViewElement, matricula.id.toString() + " eliminado/a", Snackbar.LENGTH_LONG).setAction("Undo") {
                         matriculas.getMatriculas().add(position, matricula)
                         recyclerViewElement.adapter?.notifyItemInserted(position)
                     }.show()
@@ -168,9 +164,9 @@ class ListaMatriculaFragment2 : FragmentUtils(){
         return view;
     }
     private fun getListOfPersons() {
-        var estudiante  = arguments?.getString("estudiante")
-        var ciclo = arguments?.getString("ciclo")
-        val Nciclos = ArrayList<Matricula>()
+        var estudiante  = arguments?.getInt("estudiante")
+        var ciclo = arguments?.getInt("ciclo")
+        val Nciclos = ArrayList<MatriculaAPIItem>()
         for (p in matriculas.getMatriculasStudentCiclo(estudiante,ciclo)) {
             Nciclos.add(p)
         }
@@ -178,8 +174,8 @@ class ListaMatriculaFragment2 : FragmentUtils(){
         recyclerViewElement.adapter = adaptador
     }
     private fun getIndex(index: Int): Int{
-        var estudiante  = arguments?.getString("estudiante")
-        var ciclo = arguments?.getString("ciclo")
+        var estudiante  = arguments?.getInt("estudiante")
+        var ciclo = arguments?.getInt("ciclo")
 
         var index = index
         var adapterItems = adaptador.itemsList
@@ -188,7 +184,7 @@ class ListaMatriculaFragment2 : FragmentUtils(){
         matricula = adapterItems?.get(index)!!
 
         index = listaCiclos.indexOfFirst {
-            it.cedEstudiante == matricula.cedEstudiante
+            it.id == matricula.id
         }
 
         return index

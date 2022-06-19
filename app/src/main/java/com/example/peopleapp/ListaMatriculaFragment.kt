@@ -8,20 +8,25 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.models.Ciclo
-import com.example.models.Ciclos
-import com.example.models.Matricula
-import com.example.models.Matriculas
+import com.example.models.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import java.io.IOException
 import java.util.*
+import java.util.concurrent.CountDownLatch
 import kotlin.collections.ArrayList
 
 class ListaMatriculaFragment : FragmentUtils(){
@@ -30,15 +35,16 @@ class ListaMatriculaFragment : FragmentUtils(){
 
     lateinit var recyclerViewElement: RecyclerView
     lateinit var adaptador: RecyclerView_Adapter7
-    lateinit var matricula: Matricula
+    lateinit var matricula: MatriculaAPIItem
     var position: Int = 0
+    var client = OkHttpClient()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var estudiante  = arguments?.getString("estudiante")
-        var ciclo = arguments?.getString("ciclo")
+        var estudiante  = arguments?.getInt("estudiante")
+        var ciclo = arguments?.getInt("ciclo")
 
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_matricula_lista, container, false)
@@ -99,29 +105,33 @@ class ListaMatriculaFragment : FragmentUtils(){
 
                 if (direction == ItemTouchHelper.LEFT) {//Delete
                     var index = getIndex(position)
-                    matriculas.deleteMatricula(index)
+                    //matriculas.deleteMatricula(index)
+                    get(matricula.id_alumno,matricula.id_grupo)
                     recyclerViewElement.adapter?.notifyItemRemoved(position)
 
-                    Snackbar.make(recyclerViewElement, matricula.codGrupo + " eliminado/a", Snackbar.LENGTH_LONG).setAction("Undo") {
+                    Snackbar.make(recyclerViewElement, matricula.id.toString() + " desmatriculado/a", Snackbar.LENGTH_LONG).setAction("Undo") {
                         matriculas.getMatriculas().add(position, matricula)
                         recyclerViewElement.adapter?.notifyItemInserted(position)
                     }.show()
 
                     adaptador = RecyclerView_Adapter7(matriculas.getMatriculasStudentCiclo(estudiante,ciclo))
                     recyclerViewElement.adapter = adaptador
+                    changeFragment(MatricularseFragment())
 
                 } else { //Edit
                     var index = getIndex(position)
-                    matriculas.deleteMatricula(index)
+                    //matriculas.deleteMatricula(index)
+                    get(matricula.id_alumno,matricula.id_grupo)
                     recyclerViewElement.adapter?.notifyItemRemoved(position)
 
-                    Snackbar.make(recyclerViewElement, matricula.codGrupo + " eliminado/a", Snackbar.LENGTH_LONG).setAction("Undo") {
+                    Snackbar.make(recyclerViewElement, matricula.id.toString() + " desmatriculado/a", Snackbar.LENGTH_LONG).setAction("Undo") {
                         matriculas.getMatriculas().add(position, matricula)
                         recyclerViewElement.adapter?.notifyItemInserted(position)
                     }.show()
 
                     adaptador = RecyclerView_Adapter7(matriculas.getMatriculasStudentCiclo(estudiante,ciclo))
                     recyclerViewElement.adapter = adaptador
+                    changeFragment(MatricularseFragment())
                 }
             }
 
@@ -174,9 +184,9 @@ class ListaMatriculaFragment : FragmentUtils(){
         return view;
     }
     private fun getListOfPersons() {
-        var estudiante  = arguments?.getString("estudiante")
-        var ciclo = arguments?.getString("ciclo")
-        val Nciclos = ArrayList<Matricula>()
+        var estudiante  = arguments?.getInt("estudiante")
+        var ciclo = arguments?.getInt("ciclo")
+        val Nciclos = ArrayList<MatriculaAPIItem>()
         for (p in matriculas.getMatriculasStudentCiclo(estudiante,ciclo)) {
             Nciclos.add(p)
         }
@@ -184,8 +194,8 @@ class ListaMatriculaFragment : FragmentUtils(){
         recyclerViewElement.adapter = adaptador
     }
     private fun getIndex(index: Int): Int{
-        var estudiante  = arguments?.getString("estudiante")
-        var ciclo = arguments?.getString("ciclo")
+        var estudiante  = arguments?.getInt("estudiante")
+        var ciclo = arguments?.getInt("ciclo")
 
         var index = index
         var adapterItems = adaptador.itemsList
@@ -194,9 +204,33 @@ class ListaMatriculaFragment : FragmentUtils(){
         matricula = adapterItems?.get(index)!!
 
         index = listaCiclos.indexOfFirst {
-            it.cedEstudiante == matricula.cedEstudiante
+            it.id == matricula.id
         }
 
         return index
+    }
+
+    fun get(al:Int,gru:Int) {
+        // val etLocation = findViewById<EditText>(R.id.etLocation)
+        val request = Request.Builder()
+            //.url("http://10.0.2.2:28019/api/usuarios")
+            .url(getString(R.string.url)+"desmatricular/"+al+"/"+gru)
+            .build()
+        var countDownLatch: CountDownLatch = CountDownLatch(1)
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                println(e.message.toString())
+                countDownLatch.countDown();
+                //Toast.makeText(applicationContext,e.message.toString(),Toast.LENGTH_SHORT).show()
+            }
+            override fun onResponse(call: Call, responseHttp: okhttp3.Response) {
+                val gson = Gson()
+                var valor = responseHttp.body()?.string()
+                countDownLatch.countDown();
+                println(valor)
+                //Toast.makeText(activity,valor,Toast.LENGTH_SHORT).show()
+            }
+        })
+        countDownLatch.await();
     }
 }

@@ -31,9 +31,10 @@ class Ciclos {
         ciclos?.add(ciclo)
     }
 
-    fun getCiclo(codigo: String): Ciclo? {
-        for (p: Ciclo in ciclos!!){
-            if(p.codigo.equals(codigo)){
+    fun getCiclo(id: Int): CicloAPIItem? {
+        get()
+        for (p: CicloAPIItem in ciclosAPI){
+            if(p.id.equals(id)){
                 return p;
             }
         }

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.models.Matricula
+import com.example.models.MatriculaAPIItem
 import com.example.models.Matriculas
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import java.util.*
@@ -26,14 +27,14 @@ class MatriculaFragment : FragmentUtils(){
 
     lateinit var recyclerViewElement: RecyclerView
     lateinit var adaptador: RecyclerView_Adapter7
-    lateinit var matricula: Matricula
+    lateinit var matricula: MatriculaAPIItem
     var position: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var grupo  = arguments?.getString("grupo")
+        var grupo  = arguments?.getInt("grupo")
 
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_matricula, container, false)
@@ -93,12 +94,12 @@ class MatriculaFragment : FragmentUtils(){
                 position = viewHolder.adapterPosition
 
                 if (direction == ItemTouchHelper.LEFT) {//Delete
-                    matricula = Matricula(
-                        matriculas.getMatriculasGroup(grupo)[position].codGrupo,
-                        matriculas.getMatriculasGroup(grupo)[position].cedEstudiante,
-                        matriculas.getMatriculasGroup(grupo)[position].nota,
-                        matriculas.getMatriculasGroup(grupo)[position].estado,
-                        matriculas.getMatriculasGroup(grupo)[position].codCiclo
+                    matricula = MatriculaAPIItem(
+                        matriculas.getMatriculasGroup(grupo)[position].id,
+                        matriculas.getMatriculasGroup(grupo)[position].id_alumno,
+                        matriculas.getMatriculasGroup(grupo)[position].id_curso,
+                        matriculas.getMatriculasGroup(grupo)[position].id_grupo,
+                        matriculas.getMatriculasGroup(grupo)[position].id_ciclo
 
                     )
                     var index = getIndex(position)
@@ -114,12 +115,12 @@ class MatriculaFragment : FragmentUtils(){
                     changeFragment(fragmentUtils = editFragment)
 
                 } else { //Edit
-                    matricula = Matricula(
-                        matriculas.getMatriculasGroup(grupo)[position].codGrupo,
-                        matriculas.getMatriculasGroup(grupo)[position].cedEstudiante,
-                        matriculas.getMatriculasGroup(grupo)[position].nota,
-                        matriculas.getMatriculasGroup(grupo)[position].estado,
-                        matriculas.getMatriculasGroup(grupo)[position].codCiclo
+                    matricula = MatriculaAPIItem(
+                        matriculas.getMatriculasGroup(grupo)[position].id,
+                        matriculas.getMatriculasGroup(grupo)[position].id_alumno,
+                        matriculas.getMatriculasGroup(grupo)[position].id_curso,
+                        matriculas.getMatriculasGroup(grupo)[position].id_grupo,
+                        matriculas.getMatriculasGroup(grupo)[position].id_ciclo
 
                     )
                     var index = getIndex(position)
@@ -180,8 +181,8 @@ class MatriculaFragment : FragmentUtils(){
         return view;
     }
     private fun getListOfPersons() {
-        var grupo  = arguments?.getString("grupo")
-        val Nciclos = ArrayList<Matricula>()
+        var grupo  = arguments?.getInt("grupo")
+        val Nciclos = ArrayList<MatriculaAPIItem>()
         for (p in matriculas.getMatriculasGroup(grupo)) {
             Nciclos.add(p)
         }
@@ -189,7 +190,7 @@ class MatriculaFragment : FragmentUtils(){
         recyclerViewElement.adapter = adaptador
     }
     private fun getIndex(index: Int): Int{
-        var grupo  = arguments?.getString("grupo")
+        var grupo  = arguments?.getInt("grupo")
 
         var index = index
         var adapterItems = adaptador.itemsList
@@ -198,7 +199,7 @@ class MatriculaFragment : FragmentUtils(){
         matricula = adapterItems?.get(index)!!
 
         index = listaCiclos.indexOfFirst {
-            it.cedEstudiante == matricula.cedEstudiante
+            it.id == matricula.id
         }
 
         return index
