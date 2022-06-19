@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">People App</string>
+    <string name="app_name">UTI</string>
     <string name="open">open</string>
     <string name="close">close</string>
     <string name="url">http://192.168.0.2:8080/backend_moviles/api/sistema/</string>
