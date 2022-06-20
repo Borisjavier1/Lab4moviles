@@ -11,9 +11,9 @@
             android:layout_width="300dp"
             android:enabled="false"
             android:layout_height="wrap_content"
-            android:layout_marginTop="176dp"
+            android:layout_marginTop="108dp"
             android:ems="10"
-            android:hint="Código de ciclo"
+            android:hint="Nombre"
             android:minHeight="48dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.405"
@@ -23,29 +23,9 @@
             android:id="@+id/textView12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Código de ciclo"
+            android:text="Nombre "
             app:layout_constraintTop_toBottomOf="@+id/exitText_Nota"
-            app:layout_constraintStart_toStartOf="@+id/exitText_Estado" android:layout_marginTop="104dp"/>
-    <EditText
-            android:id="@+id/exitText_Estado"
-            android:layout_width="300dp"
-            android:enabled="false"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="96dp"
-            android:ems="10"
-            android:hint="Estado"
-            android:minHeight="48dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.405"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView7" android:editable="false"/>
-    <TextView
-            android:id="@+id/textView11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Estado"
-            app:layout_constraintTop_toBottomOf="@+id/exitText_Nota"
-            app:layout_constraintStart_toStartOf="@+id/exitText_Estado" android:layout_marginTop="24dp"/>
+            android:layout_marginTop="28dp" app:layout_constraintStart_toStartOf="@+id/exitText_Estado2"/>
     <TextView
             android:id="@+id/textView_accionPersona"
             style="@style/Widget.AppCompat.TextView"

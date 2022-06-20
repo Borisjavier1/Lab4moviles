@@ -115,7 +115,7 @@ class GroupTeacherFragment : FragmentUtils(){
                     var bundle = Bundle()
                     bundle.putInt("grupo", grupo.id)
 
-                    var editFragment = MatriculaFragment()
+                    var editFragment = EstudianteNotaFragment()
                     editFragment.arguments = bundle
 
                     setToolbarTitle("Editar Matricula")
@@ -137,7 +137,7 @@ class GroupTeacherFragment : FragmentUtils(){
                     var bundle = Bundle()
                     bundle.putInt("grupo", grupo.id)
 
-                    var editFragment = MatriculaFragment()
+                    var editFragment = EstudianteNotaFragment()
                     editFragment.arguments = bundle
 
                     setToolbarTitle("Editar Matricula")
