@@ -23,7 +23,7 @@
             android:id="@+id/textView16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Código ciclo"
+            android:text="Número de ciclo"
             app:layout_constraintTop_toBottomOf="@+id/exitText_Nota"
             android:layout_marginTop="116dp"
             app:layout_constraintStart_toStartOf="@+id/exitText_Estado3"/>
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="96dp"
             android:ems="10"
-            android:hint="Estado"
+            android:hint="Año"
             android:minHeight="48dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.405"
@@ -44,7 +44,7 @@
             android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Estado"
+            android:text="Año "
             app:layout_constraintTop_toBottomOf="@+id/exitText_Nota"
             app:layout_constraintStart_toStartOf="@+id/exitText_Estado" android:layout_marginTop="24dp"/>
     <TextView
@@ -81,7 +81,7 @@
             android:layout_marginTop="12dp"
             android:text="Nota"
             app:layout_constraintTop_toBottomOf="@+id/editText_est"
-            app:layout_constraintStart_toStartOf="@+id/exitText_Nota"/>
+            app:layout_constraintStart_toStartOf="@+id/exitText_Nota" android:textColor="#737272"/>
     <TextView
             android:id="@+id/textView6"
             android:layout_width="wrap_content"

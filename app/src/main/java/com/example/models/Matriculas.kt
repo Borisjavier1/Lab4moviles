@@ -154,7 +154,7 @@ class Matriculas private constructor() {
         // val etLocation = findViewById<EditText>(R.id.etLocation)
         val request = Request.Builder()
             //.url("http://10.0.2.2:28019/api/usuarios")
-            .url(url+"buscarAlumnoCedula"+ced)
+            .url(url+"buscarAlumnoCedula/"+ced)
             .build()
         var countDownLatch: CountDownLatch = CountDownLatch(1)
         client.newCall(request).enqueue(object : Callback {

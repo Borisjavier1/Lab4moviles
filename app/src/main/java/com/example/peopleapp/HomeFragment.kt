@@ -32,7 +32,7 @@ class HomeFragment : Fragment()  {
         }
         if(rol==1){
             getActivity()?.setTitle("Historial académico");
-            changeFragment(MatriculaEstudianteFragment())
+            changeFragment(HistorialEstudiantesFragments())
         }
 
         return inflater.inflate(R.layout.fragment_home, container, false)

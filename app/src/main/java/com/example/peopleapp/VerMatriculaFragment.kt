@@ -7,36 +7,41 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import com.example.models.CursoAPIItem
+import com.example.models.HistorialAlumno
 import com.example.models.Matricula
 import com.example.models.Matriculas
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.navigation_header.*
 
 class VerMatriculaFragment : FragmentUtils() {
 
     var matriculas: Matriculas = Matriculas.instance
 
-    lateinit var matricula: Matricula
+    //lateinit var historial: HistorialAlumno
     private var tipoAgregado = 0 //0 -> Agregar, 1 -> Modificar
-
+    lateinit var historial : HistorialAlumno
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        setToolbarTitle("Ver matrícula")
+        var cedula  = arguments?.getString("cedula")
+
+        setToolbarTitle("Ver historial")
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_ver_matricula, container, false)
 
-        var sentPerson  = arguments?.getSerializable("matricula")
+        var sentPerson  = arguments?.getSerializable("historial")
 
         if(sentPerson != null){
             tipoAgregado = 1//Modificar
-            matricula = sentPerson as Matricula
-            view.findViewById<TextView>(R.id.textView_accionPersona).setText("Ver Matricula")
-            view.findViewById<EditText>(R.id.editText_Group).setText(matricula.codGrupo)
-            view.findViewById<EditText>(R.id.editText_est).setText(matricula.cedEstudiante)
-            view.findViewById<EditText>(R.id.exitText_Estado).setText(matricula.estado)
-            view.findViewById<EditText>(R.id.exitText_Nota).setText(matricula.nota.toString())
-            view.findViewById<EditText>(R.id.exitText_Estado3).setText(matricula.codCiclo)
+            historial = sentPerson as HistorialAlumno
+            view.findViewById<TextView>(R.id.textView_accionPersona).setText("Ver historial")
+            view.findViewById<EditText>(R.id.editText_Group).setText(historial.numero_grupo.toString())
+            view.findViewById<EditText>(R.id.editText_est).setText(cedula)
+            view.findViewById<EditText>(R.id.exitText_Estado).setText(historial.anio_ciclo.toString())
+            view.findViewById<EditText>(R.id.exitText_Nota).setText(historial.nota.toString())
+            view.findViewById<EditText>(R.id.exitText_Estado3).setText(historial.numero_ciclo)
 
         }
 
@@ -56,17 +61,17 @@ class VerMatriculaFragment : FragmentUtils() {
         var editTextGroup = view?.findViewById<EditText>(R.id.editText_Group)
         var editTextCed = view?.findViewById<EditText>(R.id.editText_est)
         var editTextNota = view?.findViewById<EditText>(R.id.exitText_Nota)
-        var editTextEstado = view?.findViewById<EditText>(R.id.exitText_Estado)
-        var editTextCiclo = view?.findViewById<EditText>(R.id.exitText_Estado3)
+        var editTextAnio = view?.findViewById<EditText>(R.id.exitText_Estado)
+        var editTextNumero = view?.findViewById<EditText>(R.id.exitText_Estado3)
 
         var group = editTextGroup?.text.toString()
         var cedula = editTextCed?.text.toString()
         var nota = editTextNota?.text.toString()
-        var estado = editTextEstado?.text.toString()
-        var ciclo = editTextCiclo?.text.toString()
+        var anio = editTextAnio?.text.toString()
+        var numero = editTextNumero?.text.toString()
 
         var image = R.drawable.foto01
-
+/*
         if(tipoAgregado == 0){
             matricula = Matricula(group, cedula, nota.toInt(), estado, ciclo)
             matriculas.addMatricula(matricula)
@@ -102,7 +107,7 @@ class VerMatriculaFragment : FragmentUtils() {
         }
         else{
             volver()
-        }
+        }*/
     }
     private fun volver(){
         setToolbarTitle("Matricula")
