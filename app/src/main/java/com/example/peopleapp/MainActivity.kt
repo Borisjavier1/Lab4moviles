@@ -51,7 +51,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             nav_per.findItem(R.id.nav_item_cycle).setVisible(false)
             nav_per.findItem(R.id.nav_item_professors).setVisible(false)
             nav_per.findItem(R.id.nav_item_students).setVisible(false)
-
+            nav_per.findItem(R.id.nav_item_admins).setVisible(false)
+            nav_per.findItem(R.id.nav_item_matricula).setVisible(false)
 
         }/*else{
             val navAk7: NavigationView = findViewById(R.id.nav_view) as NavigationView
