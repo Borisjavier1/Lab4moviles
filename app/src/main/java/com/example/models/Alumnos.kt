@@ -12,7 +12,7 @@ import java.util.concurrent.CountDownLatch
 
 class Alumnos {
     var client = OkHttpClient()
-    var url = "http://192.168.0.9:8080/backend_moviles/api/sistema/"
+    var url = "http://192.168.0.102:8080/backend_moviles/api/sistema/"
     private var alumnos: ArrayList<Alumno> = ArrayList<Alumno>()
     private var alumnosAPI : ArrayList<AlumnoAPIItem> = ArrayList<AlumnoAPIItem>()
     init{

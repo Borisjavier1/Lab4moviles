@@ -24,7 +24,7 @@ class RecyclerView_Adapter6(private var items: ArrayList<AlumnoAPIItem>): Recycl
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val personListView = LayoutInflater.from(parent.context).inflate(R.layout.templatepersonas, parent, false)
+        val personListView = LayoutInflater.from(parent.context).inflate(R.layout.templatealumnos, parent, false)
         val sch = PersonHolder(personListView)
         mcontext = parent.context
         return sch

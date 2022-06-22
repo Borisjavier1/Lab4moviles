@@ -17,7 +17,7 @@ import com.google.android.material.snackbar.Snackbar
 import org.json.JSONObject
 
 class CreateAlumnoFragment : FragmentUtils() {
-    //var url = "http://192.168.0.9:8080/backend_moviles/api/sistema/"
+    //var url = "http://192.168.0.102:8080/backend_moviles/api/sistema/"
     var alumnos: Alumnos = Alumnos.instance
 
     lateinit var alumno: AlumnoAPIItem

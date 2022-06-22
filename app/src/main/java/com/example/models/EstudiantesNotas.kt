@@ -8,7 +8,7 @@ import java.util.concurrent.CountDownLatch
 class EstudiantesNotas private constructor() {
     var client = OkHttpClient()
     private var matriculas: ArrayList<EstudianteNota> = ArrayList<EstudianteNota>()
-    var url = "http://192.168.0.9:8080/backend_moviles/api/sistema/"
+    var url = "http://192.168.0.102:8080/backend_moviles/api/sistema/"
     private var EstudianteNotas : ArrayList<EstudianteNota> = ArrayList<EstudianteNota>()
     private var grupoConsultas : ArrayList<GrupoConsultaItem> = ArrayList<GrupoConsultaItem>()
     private var idEst : Int = 0

@@ -1,6 +1,7 @@
 package com.example.peopleapp
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,7 +43,12 @@ class RecyclerView_Adapter(private var items: ArrayList<CarreraAPIItem>): Recycl
 
         holder.itemView.findViewById<TextView>(R.id.tvNombre)?.text = "Nombre: "+item?.nombre
         holder.itemView.findViewById<Button>(R.id.vercursos).setOnClickListener{
-            println(item?.nombre)
+            //println(item?.nombre)
+
+            val i = Intent(holder.itemView.context,Paso::class.java).also {
+                it.putExtra("id",item?.id)
+            }
+            holder.itemView.context.startActivity(i)
         }
 
         //holder.itemView.findViewById<ImageView>(R.id.ivFoto).setImageResource(item?.foto!!)

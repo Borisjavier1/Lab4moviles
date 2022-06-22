@@ -25,7 +25,7 @@ class RecyclerView_Adapter8(private var items: ArrayList<AdministradorAPIItem>):
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val personListView = LayoutInflater.from(parent.context).inflate(R.layout.templatepersonas, parent, false)
+        val personListView = LayoutInflater.from(parent.context).inflate(R.layout.templateadministradores, parent, false)
         val sch = PersonHolder(personListView)
         mcontext = parent.context
         return sch
