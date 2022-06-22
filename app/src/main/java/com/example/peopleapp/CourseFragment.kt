@@ -18,13 +18,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
-import com.example.models.*
+import com.example.models.CursoAPIItem
+import com.example.models.Cursos
+import com.example.models.VolleySingleton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import org.json.JSONObject
 import java.util.*
-import kotlin.collections.ArrayList
+
 
 class CourseFragment : FragmentUtils(){
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -39,6 +41,9 @@ class CourseFragment : FragmentUtils(){
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
+
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_cycle, container, false)
 

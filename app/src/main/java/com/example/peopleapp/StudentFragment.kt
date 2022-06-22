@@ -29,7 +29,7 @@ import kotlin.collections.ArrayList
 class StudentFragment : FragmentUtils(){
     private lateinit var appBarConfiguration: AppBarConfiguration
     var alumnos: Alumnos = Alumnos.instance
-    //var url = "http://192.168.0.102:8080/backend_moviles/api/sistema/"
+    //var url = "http://192.168.0.9:8080/backend_moviles/api/sistema/"
     lateinit var recyclerViewElement: RecyclerView
     lateinit var adaptador: RecyclerView_Adapter6
     lateinit var alumno: AlumnoAPIItem

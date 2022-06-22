@@ -7,7 +7,7 @@ import java.util.concurrent.CountDownLatch
 
 class Grupos {
     var client = OkHttpClient()
-    var url = "http://192.168.0.102:8080/backend_moviles/api/sistema/"
+    var url = "http://192.168.0.9:8080/backend_moviles/api/sistema/"
     private var grupos: ArrayList<Grupo> = ArrayList<Grupo>()
     private var gruposAPI : ArrayList<GrupoAPIItem> = ArrayList<GrupoAPIItem>()
     private var GrupoConsulta: ArrayList<GrupoConsulta2Item> = ArrayList<GrupoConsulta2Item>()

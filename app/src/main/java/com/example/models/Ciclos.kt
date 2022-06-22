@@ -10,7 +10,7 @@ import java.util.concurrent.CountDownLatch
 
 class Ciclos {
     var client = OkHttpClient()
-    var url = "http://192.168.0.102:8080/backend_moviles/api/sistema/"
+    var url = "http://192.168.0.9:8080/backend_moviles/api/sistema/"
     private var ciclos: ArrayList<Ciclo> = ArrayList<Ciclo>()
     private var ciclosAPI : ArrayList<CicloAPIItem> = ArrayList<CicloAPIItem>()
     init{
