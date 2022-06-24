@@ -233,7 +233,6 @@ class CourseFragment : FragmentUtils(){
                     //etClima.setText("Exception: $e")
                     println(e)
                 }
-
             }, {
                 // Error in request
                 //  etHumedad.setText("Volley error: $it")
@@ -246,7 +245,6 @@ class CourseFragment : FragmentUtils(){
                     println("Bien")
                 }
             })
-
         // Volley request policy, only one time request to avoid duplicate transaction
         request.retryPolicy = DefaultRetryPolicy(
             DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,

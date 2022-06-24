@@ -142,7 +142,6 @@ class CreateCourseFragment : FragmentUtils() {
                     //etClima.setText("Exception: $e")
                     println(e)
                 }
-
             }, {
                 // Error in request
                 //  etHumedad.setText("Volley error: $it")
@@ -152,10 +151,8 @@ class CreateCourseFragment : FragmentUtils() {
                 }
                 if(it.message?.contains("true") == true){
                     Toast.makeText(activity, "Curso insertado.", Toast.LENGTH_LONG).show()
-
                 }
             })
-
         request.retryPolicy = DefaultRetryPolicy(
             DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
             // 0 means no retry

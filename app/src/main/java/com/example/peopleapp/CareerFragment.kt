@@ -201,7 +201,6 @@ class CareerFragment : FragmentUtils(){
     }
     @SuppressLint("SetTextI18n")
     fun delete(id: Int) {
-
         val jsonObject = JSONObject()
         jsonObject.put("carrera",21)
         jsonObject.put("cedula",705)
@@ -210,7 +209,6 @@ class CareerFragment : FragmentUtils(){
         jsonObject.put("id",88)
         jsonObject.put("nombre","karl")
         jsonObject.put("telefono","22-22-22")
-
         val request = JsonObjectRequest(
             Request.Method.DELETE,getString(R.string.url)+"eliminarCarrera/"+id,jsonObject,
             { response ->
@@ -235,7 +233,6 @@ class CareerFragment : FragmentUtils(){
                     println("Bien")
                 }
             })
-
         // Volley request policy, only one time request to avoid duplicate transaction
         request.retryPolicy = DefaultRetryPolicy(
             DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
