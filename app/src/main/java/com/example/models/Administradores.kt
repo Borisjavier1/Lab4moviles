@@ -13,7 +13,7 @@ class Administradores private constructor() {
     private var administradores: ArrayList<Administrador> = ArrayList<Administrador>()
     private var administradoresAPI : ArrayList<AdministradorAPIItem> = ArrayList<AdministradorAPIItem>()
     var client = OkHttpClient()
-    var url = "http://192.168.0.9:8080/backend_moviles/api/sistema/"
+    var url = "http://192.168.0.3:8080/backend_moviles/api/sistema/"
 
     init{
 

@@ -78,6 +78,7 @@ class CreateAdminFragment : FragmentUtils() {
             //profesores.addProfesor(profesor)
            // message = "Profesor Agregado"
            post(cedula,email,nombre,tele)
+            postUsuario(cedula,cedula)
         }
         else{
             profesor.cedula = cedula
@@ -193,6 +194,49 @@ class CreateAdminFragment : FragmentUtils() {
             })
 
         // Volley request policy, only one time request to avoid duplicate transaction
+        request.retryPolicy = DefaultRetryPolicy(
+            DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+            // 0 means no retry
+            0, // DefaultRetryPolicy.DEFAULT_MAX_RETRIES = 2
+            1f // DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        )
+        // Add the volley post request to the request queue
+        VolleySingleton.getInstance(activity).addToRequestQueue(request)
+    }
+
+    fun postUsuario(cedula:String,clave:String) {
+
+        val jsonObject = JSONObject()
+        jsonObject.put("cedula",cedula)
+        jsonObject.put("clave",clave)
+        jsonObject.put("rol",3)
+        jsonObject.put("id",88)
+
+        val request = JsonObjectRequest(
+            Request.Method.POST,getString(R.string.url)+"insertarUsuario",jsonObject,
+            { response->
+                // Process the json
+                try {
+                    // etCord.setText("Response: $response")
+                    println(response)
+                }catch (e:Exception){
+                    //etClima.setText("Exception: $e")
+                    println(e)
+                }
+
+            }, {
+                // Error in request
+                //  etHumedad.setText("Volley error: $it")
+                println("Error request:"+it)
+                if(it.message?.contains("false") == true){
+                    //Toast.makeText(activity, "Error: No se pudo crear usuario.", Toast.LENGTH_LONG).show()
+                }
+                if(it.message?.contains("true") == true){
+                    // Toast.makeText(activity, "Usuario insertado.", Toast.LENGTH_LONG).show()
+
+                }
+            })
+
         request.retryPolicy = DefaultRetryPolicy(
             DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
             // 0 means no retry

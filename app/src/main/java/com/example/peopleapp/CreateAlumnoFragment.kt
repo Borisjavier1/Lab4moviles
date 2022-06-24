@@ -17,7 +17,7 @@ import com.google.android.material.snackbar.Snackbar
 import org.json.JSONObject
 
 class CreateAlumnoFragment : FragmentUtils() {
-    //var url = "http://192.168.0.9:8080/backend_moviles/api/sistema/"
+    //var url = "http://192.168.0.3:8080/backend_moviles/api/sistema/"
     var alumnos: Alumnos = Alumnos.instance
 
     lateinit var alumno: AlumnoAPIItem
@@ -78,6 +78,7 @@ class CreateAlumnoFragment : FragmentUtils() {
             //alumnos.addAlumno(alumno)
             message = "Alumno Agregado"
             post(career,cedula,email,date,name,tele)
+            postUsuario(cedula,cedula)
 
         }
         else{
@@ -150,6 +151,49 @@ class CreateAlumnoFragment : FragmentUtils() {
                 }
                 if(it.message?.contains("true") == true){
                     Toast.makeText(activity, "Alumno insertado.", Toast.LENGTH_LONG).show()
+
+                }
+            })
+
+        request.retryPolicy = DefaultRetryPolicy(
+            DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+            // 0 means no retry
+            0, // DefaultRetryPolicy.DEFAULT_MAX_RETRIES = 2
+            1f // DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        )
+        // Add the volley post request to the request queue
+        VolleySingleton.getInstance(activity).addToRequestQueue(request)
+    }
+
+    fun postUsuario(cedula:String,clave:String) {
+
+        val jsonObject = JSONObject()
+        jsonObject.put("cedula",cedula)
+        jsonObject.put("clave",clave)
+        jsonObject.put("rol",1)
+        jsonObject.put("id",88)
+
+        val request = JsonObjectRequest(
+            Request.Method.POST,getString(R.string.url)+"insertarUsuario",jsonObject,
+            { response->
+                // Process the json
+                try {
+                    // etCord.setText("Response: $response")
+                    println(response)
+                }catch (e:Exception){
+                    //etClima.setText("Exception: $e")
+                    println(e)
+                }
+
+            }, {
+                // Error in request
+                //  etHumedad.setText("Volley error: $it")
+                println("Error request:"+it)
+                if(it.message?.contains("false") == true){
+                    //Toast.makeText(activity, "Error: No se pudo crear usuario.", Toast.LENGTH_LONG).show()
+                }
+                if(it.message?.contains("true") == true){
+                   // Toast.makeText(activity, "Usuario insertado.", Toast.LENGTH_LONG).show()
 
                 }
             })
