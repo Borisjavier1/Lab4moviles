@@ -45,7 +45,7 @@
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.273"
             app:layout_constraintVertical_bias="0.41"/>
     <TextView
-            android:text="Oferta Acádemica"
+            android:text="Oferta Académica"
             android:layout_width="174dp"
             android:layout_height="86dp" android:id="@+id/textView4"
             android:textSize="34sp" app:layout_constraintStart_toStartOf="parent"

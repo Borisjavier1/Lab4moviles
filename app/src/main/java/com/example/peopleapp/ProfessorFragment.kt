@@ -233,6 +233,7 @@ class ProfessorFragment : FragmentUtils(){
                 println("Error request:"+it)
                 if(it.message?.contains("false") == true){
                     println("Falló")
+
                 }
                 if(it.message?.contains("true") == true){
                     println("Bien")
