@@ -65,7 +65,7 @@ class RecyclerView_Adapter(private var items: ArrayList<CarreraAPIItem>): Recycl
                 } else {
                     val resultList = ArrayList<CarreraAPIItem>()
                     for (row in items) {
-                        if (row.nombre.toLowerCase().contains(charSearch.toLowerCase())) {
+                        if (row.nombre.toLowerCase().contains(charSearch.toLowerCase()) or row.codigo.toLowerCase().contains(charSearch.toLowerCase())) {
                             resultList.add(row)
                         }
                     }

@@ -56,7 +56,7 @@ class RecyclerView_Adapter5(private var items: ArrayList<ProfesorAPIItem>): Recy
                 } else {
                     val resultList = ArrayList<ProfesorAPIItem>()
                     for (row in items) {
-                        if (row.nombre.toLowerCase().contains(charSearch.toLowerCase())) {
+                        if (row.nombre.toLowerCase().contains(charSearch.toLowerCase()) or row.cedula.toLowerCase().contains(charSearch.toLowerCase())) {
                             resultList.add(row)
                         }
                     }

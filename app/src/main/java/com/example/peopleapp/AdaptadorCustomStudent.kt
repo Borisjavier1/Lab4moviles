@@ -54,7 +54,7 @@ class RecyclerView_Adapter6(private var items: ArrayList<AlumnoAPIItem>): Recycl
                 } else {
                     val resultList = ArrayList<AlumnoAPIItem>()
                     for (row in items) {
-                        if (row.nombre.toLowerCase().contains(charSearch.toLowerCase())) {
+                        if (row.nombre.toLowerCase().contains(charSearch.toLowerCase()) or row.cedula.toLowerCase().contains(charSearch.toLowerCase())) {
                             resultList.add(row)
                         }
                     }

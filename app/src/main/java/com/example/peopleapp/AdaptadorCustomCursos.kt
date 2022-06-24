@@ -56,7 +56,7 @@ class RecyclerView_Adapter3(private var items: ArrayList<CursoAPIItem>): Recycle
                 } else {
                     val resultList = ArrayList<CursoAPIItem>()
                     for (row in items) {
-                        if (row.codigo.toLowerCase().contains(charSearch.toLowerCase())) {
+                        if (row.codigo.toLowerCase().contains(charSearch.toLowerCase()) or row.nombre.toLowerCase().contains(charSearch.toLowerCase())) {
                             resultList.add(row)
                         }
                     }

@@ -55,7 +55,7 @@ class RecyclerView_Adapter2(private var items: ArrayList<CicloAPIItem>): Recycle
                 } else {
                     val resultList = ArrayList<CicloAPIItem>()
                     for (row in items) {
-                        if (row.fecha_inicio.toLowerCase().contains(charSearch.toLowerCase()) or row.fecha_fin.toLowerCase().contains(charSearch.toLowerCase())) {
+                        if (row.fecha_inicio.toLowerCase().contains(charSearch.toLowerCase()) or row.fecha_fin.toLowerCase().contains(charSearch.toLowerCase()) ) {
                             resultList.add(row)
                         }
                     }
