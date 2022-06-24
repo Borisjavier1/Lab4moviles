@@ -184,11 +184,16 @@ class Grupos {
             override fun onResponse(call: Call, responseHttp: okhttp3.Response) {
                 val gson = Gson()
                 var valor = responseHttp.body()?.string()
-                var entidadJson = gson?.fromJson<GrupoConsulta2>(valor, GrupoConsulta2::class.java)
-                GrupoConsulta = entidadJson
-                //println(valor)
-                countDownLatch.countDown();
-
+                if(valor?.contains("Error report") == false){
+                    var entidadJson = gson?.fromJson<GrupoConsulta2>(valor, GrupoConsulta2::class.java)
+                    GrupoConsulta = entidadJson
+                    //println(valor)
+                    countDownLatch.countDown();
+                }else{
+                    GrupoConsulta.clear()
+                    GrupoConsulta.add(GrupoConsulta2Item(1,1,1,"",1,"El profesor no tiene grupos a cargo",0,1,1))
+                    countDownLatch.countDown();
+                }
                 //Toast.makeText(applicationContext,valor.toString(),Toast.LENGTH_SHORT).show()
             }
         })

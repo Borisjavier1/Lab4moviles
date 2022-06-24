@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.navigation.ui.AppBarConfiguration
@@ -41,152 +42,162 @@ class GroupTeacherFragment : FragmentUtils(){
         sp = myContext.getSharedPreferences("Session Data", Context.MODE_PRIVATE)
         var ced = sp.getString("cedula", "")
 
+        if(grupos.getGruposProfesor(ced)[0].numero!=0) {
 
-        // Inflate the layout for this fragment
-        var view = inflater.inflate(R.layout.fragment_group_teacher, container, false)
+            // Inflate the layout for this fragment
+            var view = inflater.inflate(R.layout.fragment_group_teacher, container, false)
 
-        val searchIcon = view.findViewById<ImageView>(R.id.search_mag_icon)
-        searchIcon.setColorFilter(Color.BLACK)
-
-
-        val cancelIcon = view.findViewById<ImageView>(R.id.search_close_btn)
-        cancelIcon.setColorFilter(Color.BLACK)
+            val searchIcon = view.findViewById<ImageView>(R.id.search_mag_icon)
+            searchIcon.setColorFilter(Color.BLACK)
 
 
-        val textView = view.findViewById<TextView>(R.id.search_src_text)
-        textView.setTextColor(Color.BLACK)
-
-        recyclerViewElement = view.findViewById(R.id.recycleView)
-        recyclerViewElement.layoutManager = LinearLayoutManager(recyclerViewElement.context)
-        recyclerViewElement.setHasFixedSize(true)
-
-        view.findViewById<SearchView>(R.id.person_search)
-            .setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    return false
-                }
-
-                override fun onQueryTextChange(newText: String?): Boolean {
-                    adaptador.filter.filter(newText)
-
-                    return false
-                }
-            })
-
-        getListOfPersons()
-
-        val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
-            ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.START or ItemTouchHelper.END,
-            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
-        ) {
+            val cancelIcon = view.findViewById<ImageView>(R.id.search_close_btn)
+            cancelIcon.setColorFilter(Color.BLACK)
 
 
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
-                val fromPosition: Int = viewHolder.adapterPosition
-                val toPosition: Int = target.adapterPosition
+            val textView = view.findViewById<TextView>(R.id.search_src_text)
+            textView.setTextColor(Color.BLACK)
 
-                Collections.swap(grupos.getGruposProfesor(ced), fromPosition, toPosition)
+            recyclerViewElement = view.findViewById(R.id.recycleView)
+            recyclerViewElement.layoutManager = LinearLayoutManager(recyclerViewElement.context)
+            recyclerViewElement.setHasFixedSize(true)
 
-                recyclerViewElement.adapter?.notifyItemMoved(fromPosition, toPosition)
+            view.findViewById<SearchView>(R.id.person_search)
+                .setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(query: String?): Boolean {
+                        return false
+                    }
 
-                return false
-            }
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    override fun onQueryTextChange(newText: String?): Boolean {
+                        adaptador.filter.filter(newText)
 
-                position = viewHolder.adapterPosition
+                        return false
+                    }
+                })
 
-                if (direction == ItemTouchHelper.RIGHT) {//Delete
+            getListOfPersons()
 
-                    grupo = GrupoAPIItem(
-                        grupos.getGrupos()[position].ciclo,
-                        grupos.getGrupos()[position].curso,
-                        grupos.getGrupos()[position].numero,
-                        grupos.getGrupos()[position].id,
-                        grupos.getGrupos()[position].horario,
-                        grupos.getGrupos()[position].profesor
-                    )
-                    var index = getIndex(position)
-                    grupo.position = index;
-
-                    var bundle = Bundle()
-                    bundle.putInt("grupo", grupo.id)
-
-                    var editFragment = EstudianteNotaFragment()
-                    editFragment.arguments = bundle
-
-                    setToolbarTitle("Editar Matricula")
-                    changeFragment(fragmentUtils = editFragment)
-
-                }
-                else{
-                    grupo = GrupoAPIItem(
-                        grupos.getGrupos()[position].ciclo,
-                        grupos.getGrupos()[position].curso,
-                        grupos.getGrupos()[position].numero,
-                        grupos.getGrupos()[position].id,
-                        grupos.getGrupos()[position].horario,
-                        grupos.getGrupos()[position].profesor
-                    )
-                    var index = getIndex(position)
-                    grupo.position = index;
-
-                    var bundle = Bundle()
-                    bundle.putInt("grupo", grupo.id)
-
-                    var editFragment = EstudianteNotaFragment()
-                    editFragment.arguments = bundle
-
-                    setToolbarTitle("Editar Matricula")
-                    changeFragment(fragmentUtils = editFragment)
-                }
-            }
-
-            override fun onChildDraw(
-                c: Canvas,
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                dX: Float,
-                dY: Float,
-                actionState: Int,
-                isCurrentlyActive: Boolean
+            val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
+                ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.START or ItemTouchHelper.END,
+                ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
             ) {
-                RecyclerViewSwipeDecorator.Builder(
-                    this@GroupTeacherFragment.context,
-                    c,
-                    recyclerView,
-                    viewHolder,
-                    dX,
-                    dY,
-                    actionState,
-                    isCurrentlyActive
-                )
-                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(this@GroupTeacherFragment.context!!,R.color.green))
-                    .addSwipeLeftActionIcon(R.drawable.ic_baseline_edit_24)
-                    .addSwipeRightBackgroundColor(
-                        ContextCompat.getColor(
-                            this@GroupTeacherFragment.context!!,
-                            R.color.green
+
+
+                override fun onMove(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    target: RecyclerView.ViewHolder
+                ): Boolean {
+                    val fromPosition: Int = viewHolder.adapterPosition
+                    val toPosition: Int = target.adapterPosition
+
+                    Collections.swap(grupos.getGruposProfesor(ced), fromPosition, toPosition)
+
+                    recyclerViewElement.adapter?.notifyItemMoved(fromPosition, toPosition)
+
+                    return false
+                }
+
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+
+                    position = viewHolder.adapterPosition
+
+                    if (direction == ItemTouchHelper.RIGHT) {//Delete
+
+                        grupo = GrupoAPIItem(
+                            grupos.getGrupos()[position].ciclo,
+                            grupos.getGrupos()[position].curso,
+                            grupos.getGrupos()[position].numero,
+                            grupos.getGrupos()[position].id,
+                            grupos.getGrupos()[position].horario,
+                            grupos.getGrupos()[position].profesor
                         )
+                        var index = getIndex(position)
+                        grupo.position = index;
+
+                        var bundle = Bundle()
+                        bundle.putInt("grupo", grupo.id)
+
+                        var editFragment = EstudianteNotaFragment()
+                        editFragment.arguments = bundle
+
+                        setToolbarTitle("Editar Matricula")
+                        changeFragment(fragmentUtils = editFragment)
+
+                    } else {
+                        grupo = GrupoAPIItem(
+                            grupos.getGrupos()[position].ciclo,
+                            grupos.getGrupos()[position].curso,
+                            grupos.getGrupos()[position].numero,
+                            grupos.getGrupos()[position].id,
+                            grupos.getGrupos()[position].horario,
+                            grupos.getGrupos()[position].profesor
+                        )
+                        var index = getIndex(position)
+                        grupo.position = index;
+
+                        var bundle = Bundle()
+                        bundle.putInt("grupo", grupo.id)
+
+                        var editFragment = EstudianteNotaFragment()
+                        editFragment.arguments = bundle
+
+                        setToolbarTitle("Editar Matricula")
+                        changeFragment(fragmentUtils = editFragment)
+                    }
+                }
+
+                override fun onChildDraw(
+                    c: Canvas,
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    dX: Float,
+                    dY: Float,
+                    actionState: Int,
+                    isCurrentlyActive: Boolean
+                ) {
+                    RecyclerViewSwipeDecorator.Builder(
+                        this@GroupTeacherFragment.context,
+                        c,
+                        recyclerView,
+                        viewHolder,
+                        dX,
+                        dY,
+                        actionState,
+                        isCurrentlyActive
                     )
-                    .addSwipeRightActionIcon(R.drawable.ic_baseline_edit_24)
-                    .create()
-                    .decorate()
-                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                        .addSwipeLeftBackgroundColor(
+                            ContextCompat.getColor(
+                                this@GroupTeacherFragment.context!!,
+                                R.color.green
+                            )
+                        )
+                        .addSwipeLeftActionIcon(R.drawable.ic_baseline_edit_24)
+                        .addSwipeRightBackgroundColor(
+                            ContextCompat.getColor(
+                                this@GroupTeacherFragment.context!!,
+                                R.color.green
+                            )
+                        )
+                        .addSwipeRightActionIcon(R.drawable.ic_baseline_edit_24)
+                        .create()
+                        .decorate()
+                    super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                }
+
             }
+            val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+            itemTouchHelper.attachToRecyclerView(recyclerViewElement)
 
-        }
-        val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
-        itemTouchHelper.attachToRecyclerView(recyclerViewElement)
-
-        /*val add: FloatingActionButton = view.findViewById(R.id.add)
+            /*val add: FloatingActionButton = view.findViewById(R.id.add)
         add.setOnClickListener { view ->
             changeFragment(GroupTeacherFragment())
         }*/
-        return view;
+            return view
+        }else {
+            Toast.makeText(activity,"El profesor no tiene grupos asignados",Toast.LENGTH_SHORT).show()
+            return view;
+        }
     }
     private fun getListOfPersons() {
         val sp: SharedPreferences

@@ -94,9 +94,15 @@ class Historiales {
             override fun onResponse(call: Call, responseHttp: okhttp3.Response) {
                 val gson = Gson()
                 var valor = responseHttp.body()?.string()
-                var entidadJson = gson?.fromJson<HistorialAlumnos>(valor, HistorialAlumnos::class.java)
-                historiales = entidadJson
-                countDownLatch.countDown();
+                if(valor?.contains("Error report") == false){
+                    var entidadJson = gson?.fromJson<HistorialAlumnos>(valor, HistorialAlumnos::class.java)
+                    historiales = entidadJson
+                    countDownLatch.countDown();
+                }else{
+                    historiales.clear()
+                    historiales.add(HistorialAlumno(1,1,1,1,1,1,"",1,"","0"))
+                    countDownLatch.countDown();
+                }
 
                 //Toast.makeText(applicationContext,valor.toString(),Toast.LENGTH_SHORT).show()
             }

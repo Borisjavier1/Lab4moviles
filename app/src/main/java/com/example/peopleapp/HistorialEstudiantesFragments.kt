@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.navigation.ui.AppBarConfiguration
@@ -40,7 +41,7 @@ class HistorialEstudiantesFragments : FragmentUtils(){
         sp = myContext.getSharedPreferences("Session Data", Context.MODE_PRIVATE)
         var ced = sp.getString("cedula", "")
 
-
+        if(historiales.getHistoriales(ced)[0].numero_grupo!="0") {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_matricula_estudiante, container, false)
 
@@ -197,6 +198,10 @@ class HistorialEstudiantesFragments : FragmentUtils(){
             changeFragment(CreateCycleFragment())
         }*/
         return view;
+        }else {
+            Toast.makeText(activity,"El alumno no ha matriculado cursos", Toast.LENGTH_SHORT).show()
+            return view;
+        }
     }
     private fun getListOfPersons() {
         val sp: SharedPreferences
