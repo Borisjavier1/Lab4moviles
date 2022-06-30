@@ -43,8 +43,11 @@ class ListaMatriculaFragment : FragmentUtils(){
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         var estudiante  = arguments?.getInt("estudiante")
         var ciclo = arguments?.getInt("ciclo")
+
+        if(matriculas.getMatriculasStudentCiclo(estudiante,ciclo)[0].id_grupo!=0) {
 
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_matricula_lista, container, false)
@@ -182,6 +185,21 @@ class ListaMatriculaFragment : FragmentUtils(){
             changeFragment(fragment)
         }
         return view;
+        }else {
+            var view = inflater.inflate(R.layout.fragment_matricula_lista, container, false)
+            Toast.makeText(activity,"El estudiante no tiene matriculas",Toast.LENGTH_SHORT).show()
+            val add: FloatingActionButton = view.findViewById(R.id.add)
+            add.setOnClickListener { view ->
+                var bundle = Bundle()
+                bundle.putSerializable("estudiante", estudiante)
+                bundle.putSerializable("ciclo", ciclo)
+                var fragment = MatricularEstudianteFragment()
+                fragment.arguments = bundle
+                changeFragment(fragment)
+            }
+            return view;
+        }
+
     }
     private fun getListOfPersons() {
         var estudiante  = arguments?.getInt("estudiante")

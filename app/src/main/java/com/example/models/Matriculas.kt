@@ -79,9 +79,9 @@ class Matriculas private constructor() {
         getGrupos(estudiante,ciclo)
         var grupos2: ArrayList<MatriculaAPIItem> = ArrayList<MatriculaAPIItem>()
         for (item in this.grupoConsultas) {
-            println(item.id)
             grupos2.add(MatriculaAPIItem(item.id_matricula, item.estudiante_id, item.curso, item.id, item.ciclo))
         }
+        println(grupos2[0].id)
         return grupos2
     }
 
@@ -128,7 +128,7 @@ class Matriculas private constructor() {
         // val etLocation = findViewById<EditText>(R.id.etLocation)
         val request = Request.Builder()
             //.url("http://10.0.2.2:28019/api/usuarios")
-            .url(url+"buscarGrupoCicloAlumno/"+estudiante+"/"+ciclo)
+            .url(url+"buscarGrupoCicloAlumno/"+ciclo+"/"+estudiante)
             .build()
         var countDownLatch: CountDownLatch = CountDownLatch(1)
         client.newCall(request).enqueue(object : Callback {
@@ -140,9 +140,15 @@ class Matriculas private constructor() {
             override fun onResponse(call: Call, responseHttp: okhttp3.Response) {
                 val gson = Gson()
                 var valor = responseHttp.body()?.string()
-                var entidadJson = gson?.fromJson<GrupoConsulta>(valor, GrupoConsulta::class.java)
-                grupoConsultas = entidadJson
-                countDownLatch.countDown();
+                if(valor?.contains("Error report") == false){
+                    var entidadJson = gson?.fromJson<GrupoConsulta>(valor, GrupoConsulta::class.java)
+                    grupoConsultas = entidadJson
+                    countDownLatch.countDown();
+                }else{
+                    grupoConsultas.clear()
+                    grupoConsultas.add(GrupoConsultaItem(1,"",1,1,1,"",0,1,"","",0,1,1))
+                    countDownLatch.countDown();
+                }
 
                 //Toast.makeText(applicationContext,valor.toString(),Toast.LENGTH_SHORT).show()
             }

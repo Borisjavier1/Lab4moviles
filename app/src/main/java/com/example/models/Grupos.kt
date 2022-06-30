@@ -169,6 +169,8 @@ class Grupos {
     }
 
     fun getGruposProf(prof: Int?,ciclo: Int?) {
+        println(prof)
+        println(ciclo)
         // val etLocation = findViewById<EditText>(R.id.etLocation)
         val request = Request.Builder()
             //.url("http://10.0.2.2:28019/api/usuarios")

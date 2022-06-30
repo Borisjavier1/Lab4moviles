@@ -31,12 +31,13 @@ class MatricularseFragment : Fragment()  {
             datosAEnviar.putInt("estudiante",editTextEst.text.toString().toInt())
             datosAEnviar.putInt("ciclo",editTextCiclo.text.toString().toInt())
             var ciclo = ciclos.getCiclo(editTextCiclo.text.toString().toInt())
+
             if(ciclo?.actual == 1) {
                 val fragmento: Fragment = ListaMatriculaFragment()
                 fragmento.setArguments(datosAEnviar);
                 changeFragment(fragmento)
             }else{
-                val fragmento: Fragment = ListaMatriculaFragment2()
+                val fragmento: Fragment = ListaMatriculaFragment()
                 fragmento.setArguments(datosAEnviar);
                 changeFragment(fragmento)
             }
